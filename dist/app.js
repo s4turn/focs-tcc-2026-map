@@ -115,9 +115,9 @@ function applyStyle(style){
 }
 function baseRooms(floor,day=currentDay()){
  if(floor===1)return [{id:'entry',title:'Entrance',short:'Entrance',subtitle:'60 Washington Square South',description:'Enter from Washington Square South, facing Washington Square Park. Bring a valid government ID. The elevators serve the conference floors.',color:COLORS.entry}];
- if(floor===4){const a=[];if(day.focs){a.push({id:'A',title:'Track A',short:'Track A',subtitle:'Eisner & Lubin Auditorium',description:'Fourth floor · Eisner & Lubin Auditorium. The stage is at the south end, away from the park.',color:COLORS.A},{id:'B',title:'Track B',short:'Track B',subtitle:'Rooms 405/406',description:'Fourth floor · Rooms 405/406, along the Washington Square South side. A hallway separates these rooms from the auditorium.',color:COLORS.B});a.push({id:'solarium',service:'coffee',title:'Solarium 409',short:'Coffee · 409',subtitle:'Coffee / refreshments',description:`Fourth floor · Solarium 409. Room reserved ${day.solarium}. Coffee service follows the daily signs and service windows.`,color:COLORS.coffee});}return a;}
+ if(floor===4){const a=[];if(day.focs){a.push({id:'A',title:'Track A',short:'Track A',subtitle:'Eisner & Lubin Auditorium',description:'Fourth floor · Eisner & Lubin Auditorium. The stage is at the south end, away from the park.',color:COLORS.A},{id:'B',title:'Track B',short:'Track B',subtitle:'Rooms 405/406',description:'Fourth floor · Rooms 405/406, along the Washington Square South side. A hallway separates these rooms from the auditorium.',color:COLORS.B});a.push({id:'solarium',service:'coffee',title:'Solarium 409',short:'Coffee · 409',subtitle:'Coffee / refreshments',description:'Fourth floor · Solarium 409. Coffee / refreshments.',color:COLORS.coffee});}return a;}
  if(floor===9){if(!day.focs&&!day.tcc)return [];const a=[];if(day.focs)a.push({id:'C',title:'Track C',short:'Track C',subtitle:'Rooms 905/907',description:'Ninth floor · Combined Rooms 905/907, on the LaGuardia Place side.',color:COLORS.C});a.push({id:day.tcc?'TCC':'D',title:day.tcc?'TCC':'Track D',short:day.tcc?'TCC':'Track D',subtitle:'Room 914',description:day.tcc?'Ninth floor · TCC sessions in Room 914, at the south end of the floor.':'Monday only · Track D in Room 914, at the south end of the ninth floor.',color:COLORS.D});return a;}
- if(floor===10&&day.rosenthal)return [{id:'rosenthal',service:'food',title:'Rosenthal Pavilion',short:'Rosenthal',subtitle:'Meals / gathering',description:`Tenth floor · Meals / gathering. Available ${day.rosenthal}.`,color:COLORS.coffee}];
+ if(floor===10&&day.rosenthal)return [{id:'rosenthal',service:'food',title:'Rosenthal Pavilion',short:'Rosenthal',subtitle:'Meals / gathering',description:'Tenth floor · Meals / gathering.',color:COLORS.coffee}];
  return [];
 }
 function geometryRoom(room){
@@ -138,11 +138,10 @@ function rooms(floor,day=currentDay()){
  if(day.id==='sunday-late'&&floor===8)list.push({id:'shorin',title:'Shorin 802',short:'Estimathon · 802',subtitle:'Jane Street Estimathon',description:'Sunday · 6–7:30 p.m. · Jane Street Estimathon, Shorin Performance Studio 802.',color:COLORS.D});
  for(const hold of ROOM_DATA.rooms.filter(r=>r.venueId===venue&&r.date===date&&r.floor===floor)){
   const key=hold.roomId,alias=venue==='wwh'?key:key==='eisner-lubin'?'A':key==='405-406'?'B':key==='905-907'?'C':key.startsWith('914')?(day.tcc?'TCC':'D'):key==='409-solarium'?'solarium':key==='802-shorin'?'shorin':key;
-  const window=`Held ${holdTime(hold.start)}–${holdTime(hold.end)}`,pending=hold.allocationPending?' Allocation / setup pending.':'';
   const existing=list.find(r=>r.id===alias);
-  if(existing){existing.description=existing.service==='coffee'?`Fourth floor · Solarium 409. ${window}. Coffee service follows the daily signs and service windows.${pending}`:existing.service==='food'?`Tenth floor · Meals / gathering. ${window}.${pending}`:`${existing.description} ${window}${pending}`;existing.hold=hold;continue;}
+  if(existing){existing.hold=hold;continue;}
   const workshop=venue==='wwh'&&['101','102','109'].includes(key),role=workshop?'Workshop':hold.role==='reserve'?'Reserve / auxiliary':hold.role==='breakout'?'Auxiliary / quiet space':hold.role==='meal-gathering'?'Meals / gathering':'Auxiliary space';
-  list.push({id:alias,title:hold.room,short:`${hold.room} · ${workshop?'Workshops':'Auxiliary'}`,subtitle:role,description:`${venue==='wwh'?'WWH':'Kimmel'} · Floor ${floor}. ${window} ${hold.purpose}.${pending} ${hold.reservationStatus}.`,color:workshop?(['109','101','102'].indexOf(key)===0?COLORS.A:key==='101'?COLORS.B:COLORS.C):COLORS.entry,hold});
+  list.push({id:alias,title:hold.room,short:`${hold.room} · ${workshop?'Workshops':'Auxiliary'}`,subtitle:role,description:`${venue==='wwh'?'WWH':'Kimmel'} · Floor ${floor}. ${role}.`,color:workshop?(['109','101','102'].indexOf(key)===0?COLORS.A:key==='101'?COLORS.B:COLORS.C):COLORS.entry,hold});
  }
  const programDay=PROGRAM_DATA?.days.find(item=>item.id===day.id);
  if(programDay&&venue==='wwh'){
@@ -162,7 +161,7 @@ function rooms(floor,day=currentDay()){
   }
   for(const[id,group]of groups){
    let room=list.find(room=>room.id===id);
-   if(!room){room={id,title:group[0].room,short:group[0].room,subtitle:'Program room',description:'Listed in the current program; no room-hold window is available in the current room sheet.',color:COLORS.entry};list.push(room);}
+   if(!room){room={id,title:group[0].room,short:group[0].room,subtitle:'Program room',description:'Listed in the current program.',color:COLORS.entry};list.push(room);}
    const tracks=[...new Set(group.map(session=>session.track).filter(track=>['A','B','C','D','TCC'].includes(track)))];
    room.programTracks=tracks;
    if(tracks.length){room.planLabel=tracks.map(track=>track==='TCC'?'TCC':`Track ${track}`).join(' / ');room.title=room.planLabel;room.short=room.planLabel;room.subtitle=group[0].room;room.color=COLORS[tracks[0]]||COLORS.entry;}
@@ -170,7 +169,7 @@ function rooms(floor,day=currentDay()){
   }
   for(const room of list){
    if(['A','B','C','D','TCC'].includes(room.id)&&!groups.has(room.id)){
-    if(room.hold){room.programTracks=[];room.planLabel='Auxiliary';room.title=room.hold.room;room.short=`${room.hold.room} · Auxiliary`;room.subtitle='Reserved auxiliary room';}
+    if(room.hold){room.programTracks=[];room.planLabel='Auxiliary';room.title=room.hold.room;room.short=`${room.hold.room} · Auxiliary`;room.subtitle='Auxiliary room';}
     else room.obsolete=true;
    }
   }
@@ -263,9 +262,9 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
  if(floor===4){
   markup+=selectable('B',rect(0,0,260,55,has('B')?roomColor('B','B'):'neutral')+(labels?`${text(63,22,'406',13)}${text(195,22,'405',13)}${text(130,44,has('B')?roomLabel('B','Track B'):'405 / 406',15,'font-weight="700"')}`:''));
   markup+=`<path d="M130 0 V55" stroke="#ad9292" stroke-dasharray="5 4"/>`;
-  markup+=selectable('A',rect(40,80,200,280,has('A')?roomColor('A','A'):'neutral'));
-  markup+=rect(47,304,186,49,has('A')?'#b9a4cc':'#ddd5df');
-  if(labels){markup+=labelLines(140,172,has('A')?[roomLabel('A',day.id==='sunday-late'?'AI & TCS':'Track A'),'Eisner & Lubin','Auditorium']:['Eisner & Lubin','Auditorium'],14)+text(140,334,'Stage · south',12);markup+=text(130,72,'Hallway',11);}
+  markup+=selectable('A',rect(60,80,180,280,has('A')?roomColor('A','A'):'neutral'));
+  markup+=rect(67,304,166,49,has('A')?'#b9a4cc':'#ddd5df');
+  if(labels){markup+=labelLines(150,172,has('A')?[roomLabel('A',day.id==='sunday-late'?'AI & TCS':'Track A'),'Eisner & Lubin','Auditorium']:['Eisner & Lubin','Auditorium'],14)+text(150,334,'Stage · south',12);markup+=text(130,72,'Hallway',11);}
   for(let row=0;row<5;row++)for(let col=0;col<6;col++)markup+=`<rect x="${71+col*27}" y="${220+row*13}" width="16" height="6" rx="3" fill="#9e85b8" opacity=".6"/>`;
   markup+=elevator(labels)+rect(0,215,25,80);
   markup+=selectable('solarium',`<path class="room-fill" d="M240 250 H260 V400 H35 V375 H240 Z" fill="${active.some(room=>room.service==='coffee')?COLORS.coffee:has('solarium')?COLORS.entry:COLORS.neutral}"/>`+(labels?text(125,393,'Solarium 409',13,'font-weight="700"')+(active.some(room=>room.service==='coffee')?foodFriend('coffee','x="215" y="366" width="30" height="30"'):''):''));
@@ -496,7 +495,7 @@ function renderSelection(){
  const available=rooms(state.floor);const chosen=available.find(r=>r.id===state.room)||available[0];
  $('room-list').innerHTML=available.map(r=>`<button type="button" class="room-button" data-choose-room="${r.id}" style="--room-color:${esc(r.color||P.floor)}" aria-pressed="${r.id===chosen?.id}">${r.service||r.amenities?foodFriend(r.service||'coffee'):''}<span>${esc(r.short)}</span></button>`).join('')+(restroomInfo()?`<button type="button" class="room-button restroom-shortcut" data-show-restrooms><span class="restroom-key">WC</span><span>${venueId()==='wwh'?'All-gender restrooms':'Restrooms'}</span></button>`:'');
  $('selection-title').textContent=chosen?`${chosen.title} · ${chosen.subtitle}`:'No conference space today';
- $('selection-description').textContent=chosen?chosen.description:'No conference room hold is listed for this floor today.';
+ $('selection-description').textContent=chosen?chosen.description:'No conference space is listed on this floor today.';
  $('selection-dot').style.background=chosen?.color||'#d0c5d7';
 }
 function renderRestroomGuide(){
@@ -513,8 +512,8 @@ function render(){
  document.title=`${venueId()==='wwh'?'WWH':'Kimmel'} · Find your ${document.body.dataset.view==='program'?'session':'floor'}`;
  document.querySelector('.address').textContent=venueId()==='wwh'?'Warren Weaver Hall · 251 Mercer Street':'Kimmel Center · 60 Washington Square South';
  $('map-footer-note').textContent='Schematic illustration · Not to scale';
- const sourceDate=ROOM_DATA.source?.holdSourceDate,holdDate=sourceDate?new Date(`${sourceDate}T12:00:00`).toLocaleDateString('en-US',{month:'long',day:'numeric'}):null;
- $('venue-source-note').textContent=venueId()==='wwh'?'Enter from Mercer Street.':`${state.floor===8?'Floor 8 layout based on a historical 2012 plan. ':''}${holdDate?`Room holds from ${holdDate}. `:''}${ROOM_DATA.source?.revisionStatus||'Room confirmation pending.'}`;
+ const updated=document.querySelector('meta[name="map-updated"]')?.content;
+ $('venue-source-note').textContent=updated?`Last updated on ${new Date(`${updated}T12:00:00`).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}.`:'';
  $('building-title').textContent=venueId()==='wwh'?'WWH · first floor':'Open a floor';
  $('days').innerHTML=DAYS.map((d,i)=>`<button type="button" class="day-button" data-day="${i}" aria-label="${esc(d.title)}" aria-pressed="${i===state.day}"><span>${d.short}${d.period?` <small>${esc(d.period)}</small>`:''}</span><b>${d.date}</b></button>`).join('');
  $('day-title').textContent=day.title;$('conference-tag').textContent=day.conference;$('day-note').textContent=day.note;renderConferenceClock();

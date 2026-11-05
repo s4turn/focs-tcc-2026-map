@@ -97,3 +97,7 @@ body:is([data-style=pixel],[data-style=hacker],[data-style=apocalypse]) .program
 .program-lane[data-track="1"],.program-lane-heading[data-track="1"]{--lane-color:var(--mint)}
 .program-lane[data-track="2"],.program-lane-heading[data-track="2"]{--lane-color:var(--peach)}
 .program-lane[data-track="3"],.program-lane-heading[data-track="3"]{--lane-color:var(--babyblue,var(--mint))}
+
+.program-paper-abstract{margin:22px 0 20px;padding-top:20px;border-top:1px solid var(--line)}
+.program-paper-abstract h4{font-size:14px;color:var(--muted);margin:0 0 10px}
+.program-paper-abstract p{font-size:15px;line-height:1.7;white-space:pre-line;overflow-wrap:anywhere;margin:0}
