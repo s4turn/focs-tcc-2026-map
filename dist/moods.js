@@ -6,7 +6,7 @@ const SPEECH_MAX_MS=6000;
 const SPEECH_DURATION_MIN_MS=1400;
 const SPEECH_DURATION_MAX_MS=1900;
 const PHRASES=['data','lemma'];
-const GAME_URL='https://lemma-debt-private.s4tvrnssilence.chatgpt.site';
+const GAME_URL='https://s4turn.github.io/lemma-debt/';
 const MAX_WALKERS=12,GUTS_MS=5000;
 const app=document.querySelector('.app');
 let ambient=null,speechTimer=null,bubbleTimer=null,layoutFrame=null,followUntil=0,spawnSerial=0;
