@@ -2,7 +2,7 @@
 
 A phone-friendly guide to Kimmel Center and Warren Weaver Hall at NYU: expandable isometric floors, room and track locations, food and coffee stops, and an interactive program.
 
-[Open the map](https://cs.nyu.edu/~mmb586/focs-tcc-2026-map/)
+[Open on GitHub Pages](https://s4turn.github.io/focs-tcc-2026-map/) · [Open on the Courant website](https://cs.nyu.edu/~mmb586/focs-tcc-2026-map/)
 
 ## Run locally
 
@@ -25,6 +25,6 @@ The schedule is a reviewed snapshot. Its source-check dates, timing status and u
 
 ## Publish
 
-Copy the contents of `dist/` to the website directory. Keep all files together; paths are relative, so the app works in a subdirectory. No server-side code is required.
+GitHub Pages publishes `dist/` automatically after a push to `main`. To publish elsewhere, copy the contents of `dist/` to the website directory. Keep all files together; paths are relative, so the app works in a subdirectory. No server-side code is required.
 
 This repository contains the public application source and sanitized data snapshots. Internal planning material, authenticated source caches and working notes are excluded.
