@@ -31,6 +31,7 @@ body:is([data-style=pixel],[data-style=apocalypse],[data-style=hacker]) .map-pla
 body[data-style=kawaii] .map-place{border-radius:18px;border-color:#EAD7DF;box-shadow:0 2px 0 #EBDDE5}
 body[data-style=kawaii] .floor-slab,body[data-style=kawaii] .room-fill{stroke-linejoin:round;stroke-linecap:round}
 body[data-style=kawaii] .room-fill{rx:7px}
+body[data-style=kawaii] .room-outline{rx:7px}
 .diagram-amenity{position:absolute;transform:translate(-50%,-80%);width:34px;height:34px;pointer-events:none;filter:drop-shadow(0 2px 0 color-mix(in srgb,var(--ink) 12%,transparent))}
 .diagram-amenity[hidden]{display:none}
 .food-friend{display:inline-block;width:30px;height:30px;vertical-align:middle;flex:0 0 auto;overflow:visible}
@@ -46,6 +47,8 @@ body[data-style=kawaii] .room-fill{rx:7px}
 .day-button small{display:block;font-size:11px;line-height:1.1;font-weight:650}
 .floor-selector{grid-template-columns:repeat(var(--floor-count,4),minmax(0,1fr))}
 .venue-source-note{font-size:12px;color:var(--quiet);line-height:1.5;margin-top:16px;max-width:360px}
+.conference-clock{flex-basis:100%;font-size:13px;line-height:1.4;color:var(--quiet);font-variant-numeric:tabular-nums}
+body[data-view=program] .conference-clock{display:none}
 body[data-venue=wwh] .diagram-amenity:not([hidden]){display:flex;width:44px;height:22px;transform:translate(-50%,-50%);filter:none}
 body[data-venue=wwh] .diagram-amenity .food-friend{width:22px;height:22px}
 body[data-venue=wwh] .map-place{top:auto;bottom:0;width:calc((100% - 12px)/3);max-width:none;padding:5px 4px}

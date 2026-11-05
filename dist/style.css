@@ -84,7 +84,8 @@ footer { margin-top: 27px; font-size: 12px; display: flex; justify-content: spac
 .floor-hit, .svg-room { cursor: pointer; }
 .floor-hit:focus { outline: none; }
 .floor-hit:hover .floor-slab { stroke: #719b8d; stroke-width: 2; }
-.svg-room.selected .room-fill { stroke: var(--teal) !important; stroke-width: 3 !important; }
+.room-outline { fill: none; stroke: var(--line); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; pointer-events: none; }
+.room-outline.is-selected { stroke: var(--teal); stroke-width: 3; }
 .floor-layer { transition: transform .65s cubic-bezier(.22,.68,.18,1); }
 .inactive-layer { opacity: .42; }
 .floor-layer.selected-floor .floor-slab { stroke: #8eb6a7; stroke-width: 2; }

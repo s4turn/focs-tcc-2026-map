@@ -20,7 +20,8 @@ let P=PALETTES.pixel;
 let COLORS=P.rooms;
 const FLOORS=[10,9,4,1];
 let ROOM_DATA={rooms:[]},PROGRAM_DATA=null;
-const state={day:2,floor:4,room:'A',style:'pixel'};
+const query=new URLSearchParams(location.search);
+const state={day:0,floor:1,room:null,style:'pixel',automaticDay:true,automaticLocation:true};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const currentDay=()=>DAYS[state.day];
@@ -28,6 +29,67 @@ const venueId=()=>currentDay().venue||'kimmel';
 const currentDate=()=>`2026-11-${String(currentDay().date).padStart(2,'0')}`;
 const activeFloors=()=>venueId()==='wwh'?[1]:currentDay().id==='sunday-late'?[10,9,8,4,1]:FLOORS;
 const venueName=()=>venueId()==='wwh'?'Warren Weaver Hall':'Kimmel Center';
+// Conference defaults use New York dates, independent of the visitor's timezone.
+function nowInNewYork(){
+ const now=new Date(),parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(now).map(part=>[part.type,part.value]));
+ return {date:`${parts.year}-${parts.month}-${parts.day}`,minutes:Number(parts.hour)*60+Number(parts.minute),label:new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'}).format(now)};
+}
+function automaticDayIndex(now=nowInNewYork()){
+ if(now.date<'2026-11-08')return 0;
+ if(now.date>'2026-11-13')return DAYS.length-1;
+ if(now.date==='2026-11-08')return now.minutes<15*60?0:1;
+ return DAYS.findIndex(day=>day.date===Number(now.date.slice(-2)));
+}
+function defaultFloor(now=nowInNewYork()){
+ if(venueId()==='wwh')return 1;
+ if(currentDay().id==='sunday-late'&&now.date===currentDate()&&now.minutes>=18*60)return 8;
+ return currentDay().tcc&&!currentDay().focs?9:4;
+}
+function resolveMapRoom(room){
+ const id=venueId()==='wwh'?String(room||''):geometryRoom(room);
+ return id==='914'?(currentDay().tcc?'TCC':'D'):id;
+}
+function initializeConferenceLocation(){
+ const requestedDay=DAYS.findIndex(day=>day.id===(query.get('day')==='sunday'?'sunday-early':query.get('day'))),now=nowInNewYork();
+ state.automaticDay=requestedDay<0;
+ state.day=state.automaticDay?automaticDayIndex(now):requestedDay;
+ const requestedFloor=Number(query.get('floor'));
+ state.automaticLocation=!activeFloors().includes(requestedFloor);
+ state.floor=state.automaticLocation?defaultFloor(now):requestedFloor;
+ state.room=rooms(state.floor)[0]?.id||null;
+}
+function applyCurrentLocation(now=nowInNewYork()){
+ if(!state.automaticLocation||now.date!==currentDate())return false;
+ const day=PROGRAM_DATA?.days.find(item=>item.id===currentDay().id);if(!day)return false;
+ const minute=value=>{const[h,m]=String(value).split(':').map(Number);return h*60+m;};
+ const located=day.sessions.filter(session=>(session.venueId||'kimmel')===venueId()&&activeFloors().includes(session.floor)&&session.room);
+ const priority=session=>(['plenary','reception','meal'].includes(session.kind)?0:10)+(session.conference==='FOCS'?0:2)+Math.max(0,['A','B','C','D','TCC'].indexOf(session.track));
+ const active=located.filter(session=>minute(session.start)<=now.minutes&&now.minutes<minute(session.end)).sort((a,b)=>priority(a)-priority(b)||minute(a.start)-minute(b.start));
+ const upcoming=located.filter(session=>minute(session.start)>=now.minutes).sort((a,b)=>minute(a.start)-minute(b.start)||priority(a)-priority(b));
+ const last=[...located].sort((a,b)=>minute(b.end)-minute(a.end)||priority(a)-priority(b));
+ const session=active[0]||upcoming[0]||last[0];if(!session)return false;
+ const room=rooms(session.floor).find(item=>item.id===resolveMapRoom(session.room)||item.hold?.room===session.room);if(!room)return false;
+ const changed=state.floor!==session.floor||state.room!==room.id;state.floor=session.floor;state.room=room.id;return changed;
+}
+function updateMapUrl(){
+ const url=new URL(location.href);
+ if(state.automaticDay)url.searchParams.delete('day');else url.searchParams.set('day',currentDay().id);
+ if(state.automaticLocation)url.searchParams.delete('floor');else url.searchParams.set('floor',state.floor);
+ url.searchParams.set('mood',state.style);url.searchParams.delete('style');try{history.replaceState(null,'',url);}catch{}
+}
+function renderConferenceClock(now=nowInNewYork()){
+ const clock=$('conference-clock');if(!clock)return;
+ clock.textContent=`${now.date===currentDate()?'Today':'New York now'} · ${now.label} ET`;
+}
+function syncConferenceTime(){
+ const now=nowInNewYork();let changed=false;
+ if(state.automaticDay){
+  const next=automaticDayIndex(now);
+  if(next!==state.day){const before=venueId();state.day=next;state.automaticLocation=true;state.floor=defaultFloor(now);state.room=rooms(state.floor)[0]?.id||null;if(before!==venueId())$('building').innerHTML='';changed=true;}
+ }
+ if(applyCurrentLocation(now))changed=true;
+ if(changed)render();else renderConferenceClock(now);
+}
 const holdTime=value=>{const[h,m]=value.split(':').map(Number);return `${h%12||12}${m?':'+String(m).padStart(2,'0'):''} ${h>=12?'p.m.':'a.m.'}`;};
 const usesPixels=()=>state.style==='pixel'||state.style==='apocalypse';
 const RESTROOMS={
@@ -115,7 +177,7 @@ function rooms(floor,day=currentDay()){
  }
  return list.filter(room=>!room.obsolete&&!(ROOM_DATA.source&&room.service&&!room.hold));
 }
-function wwhPlan(floor,{labels=true}={}){
+function wwhPlan(floor,{labels=true,outlines=true}={}){
  // User-corrected adjacency; proportions are adjusted for readable wayfinding.
  const available=rooms(1),color=id=>available.find(room=>room.id===id)?.color||COLORS.neutral;
  const room=(id,path,x,y,track)=>selectable(id,`<path class="room-fill" d="${path}" fill="${color(id)}"/>`+(labels?labelLines(x,y,[`Track ${track}`,id],18):''));
@@ -140,7 +202,7 @@ function wwhPlan(floor,{labels=true}={}){
  s+=`<path d="M42 300 H218" stroke="${P.wood}" stroke-width="7"/>`;
  for(const x of [10,219])s+=`<path d="M${x} 300 h32" stroke="${P.floor}" stroke-width="8"/><path class="wwh-109-doors" d="M${x} 300 v16 h16 v-16 m0 16 h16 v-16" fill="none" stroke="${P.primary}" stroke-width="1.5"/>`;
  if(labels)s+=text(124,187,'Lobby',14)+restroomMarker(39,221,'All-gender restrooms')+text(130,260,'Crosshall',12)+text(130,282,'Food & coffee',14)+foodFriend('food','x="45" y="256" width="26" height="26"')+foodFriend('coffee','x="185" y="256" width="26" height="26"');
- return themed(s);
+ return themed(s+(outlines?roomOutlines(s):''));
 }
 function wwhUpperStack(){
  // Twelve compressed upper floors share the first floor's isometric projection.
@@ -181,9 +243,21 @@ function rect(x,y,w,h,fill='neutral',extra=''){return `<rect x="${x}" y="${y}" w
 function text(x,y,label,size=14,extra=''){return `<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="#493a55" ${extra}>${esc(label)}</text>`;}
 function labelLines(x,y,lines,size=14){return `<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="#493a55" font-weight="650">${lines.map((line,i)=>`<tspan x="${x}" dy="${i?Math.round(size*1.35):0}">${esc(line)}</tspan>`).join('')}</text>`;}
 function elevator(topdown=true){return `<g>${rect(-37,82,65,83,'#e9e1ed')}${[[-29,91],[3,91],[-29,133],[3,133]].map(([x,y])=>rect(x,y,23,31,'#fffaf4')).join('')}${topdown?labelLines(-4,194,['Elevators'],12):''}</g>`;}
-function selectable(id,body){return `<g class="svg-room ${state.room===id?'selected':''}" data-room="${id}">${body}</g>`;}
-function plan(floor,{labels=true,day=currentDay()}={}){
- if((day.venue||'kimmel')==='wwh')return wwhPlan(floor,{labels});
+function selectable(id,body){
+ // The first fill is the room footprint; later fills may be furniture or a stage.
+ const marked=body.replace(/<(?:path|rect)\b[^>]*class="[^"]*\broom-fill\b[^"]*"[^>]*\/>/,shape=>shape.replace(/\/>$/,` data-room-boundary="${esc(id)}"/>`));
+ return `<g class="svg-room ${state.room===id?'selected':''}" data-room="${id}">${marked}</g>`;
+}
+function roomOutlines(markup){
+ const contours=(markup.match(/<(?:path|rect)\b[^>]*data-room-boundary="[^"]*"[^>]*\/>/g)||[]).map(shape=>{
+  const id=shape.match(/data-room-boundary="([^"]*)"/)[1],selected=state.room===id;
+  return {selected,shape:shape.replace(/class="[^"]*"/,`class="room-outline${selected?' is-selected':''}"`).replace(/fill="[^"]*"/,'fill="none"').replace('data-room-boundary=','data-outline-room=')};
+ });
+ // Selected contours paint last so neighboring rooms cannot cover a shared edge.
+ return `<g class="room-outlines" aria-hidden="true" pointer-events="none">${contours.sort((a,b)=>Number(a.selected)-Number(b.selected)).map(item=>item.shape).join('')}</g>`;
+}
+function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
+ if((day.venue||'kimmel')==='wwh')return wwhPlan(floor,{labels,outlines});
  const active=rooms(floor,day);const has=id=>active.some(r=>r.id===id);const roomLabel=(id,fallback)=>active.find(r=>r.id===id)?.planLabel||fallback;const roomColor=(id,fallback)=>active.find(r=>r.id===id)?.color||fallback;
  let markup=`<path class="floor-slab" d="M0 0 H260 V400 H0 V270 H-45 V65 H0 Z" fill="#fffaf3" stroke="#c7bacd" stroke-width="2"/>`;
  if(floor===4){
@@ -231,7 +305,7 @@ function plan(floor,{labels=true,day=currentDay()}={}){
   if(labels)markup+=text(108,44,'Entrance',13,'font-weight="700"');
  }
  if(labels)markup+=(RESTROOMS[floor]?.points||[]).map(([x,y])=>restroomMarker(x,y)).join('');
- return themed(markup);
+ return themed(markup+(outlines?roomOutlines(markup):''));
 }
 function p(x,y,base){return [488-.70*x-.70*y,base+.35*x-.35*y];}
 function poly(points,base,fill,stroke='none'){return `<polygon points="${points.map(([x,y])=>p(x,y,base).join(',')).join(' ')}" fill="${fill}" stroke="${stroke}"/>`;}
@@ -266,6 +340,7 @@ function lobbyObjects(base){
 }
 function floorContents(floor){
  const b=baseFor(floor),open=floor===state.floor;
+ const floorPlan=open?plan(floor,{labels:false,outlines:false}):'';
  let s=side([[0,0],[260,0]],b,'#d7c6c0')+side([[260,0],[260,400]],b,'#cbbdcf');
  if(!open){
   // Small warm window tiles make the compressed blocks read as a building.
@@ -276,7 +351,7 @@ function floorContents(floor){
    }
   }
  }
- s+=`<g class="projection" transform="${projection(b)}">${open?plan(floor,{labels:false}):`<path class="floor-slab" d="${OUTLINE}" fill="${floor===10?'#eee5f0':'#e9e1dc'}" stroke="#c7bacd" stroke-width="1.5"/>`}</g>`;
+ s+=`<g class="projection" transform="${projection(b)}">${open?floorPlan:`<path class="floor-slab" d="${OUTLINE}" fill="${floor===10?'#eee5f0':'#e9e1dc'}" stroke="#c7bacd" stroke-width="1.5"/>`}</g>`;
  if(!open&&floor===10&&state.style==='kawaii'){
   const[cx,cy]=p(130,190,b);s+=buildingSmile(cx,cy);
  }
@@ -287,6 +362,7 @@ function floorContents(floor){
    const[a,c]=edge.map(([x,y])=>p(x,y,b));
    s+=`<path d="M${a[0]} ${a[1]} v-8 L${c[0]} ${c[1]-8} v8" stroke="#c7b9c8" stroke-width="2" fill="#fff9ef"/>`;
   }
+  s+=`<g class="room-outline-plane" transform="${projection(b)}" pointer-events="none">${roomOutlines(floorPlan)}</g>`;
  }
  return themed(s);
 }
@@ -395,7 +471,8 @@ function drawPixelFrame(){
  const liveLayers=source.querySelectorAll('[data-level]');
  copy.querySelectorAll('[data-level]').forEach((layer,index)=>{layer.style.transform=getComputedStyle(liveLayers[index]).transform;layer.style.transition='none';});
  const css=document.createElementNS('http://www.w3.org/2000/svg','style');
- css.textContent=`text{font-family:monospace}.room-fill{stroke:${P.line};stroke-width:1.5}.svg-room.selected .room-fill{stroke:${P.primary};stroke-width:3}.route{fill:none;stroke:${P.primary};stroke-width:3;stroke-dasharray:5 5}`;copy.prepend(css);
+ // Outer contours retain at least one output pixel in the small raster version.
+ css.textContent=`text{font-family:monospace}.room-fill{stroke:${P.line};stroke-width:1.5}.room-outline{fill:none;stroke:${P.line};stroke-width:${Math.max(1.5,750/width)};stroke-linejoin:round;stroke-linecap:round;pointer-events:none}.room-outline.is-selected{stroke:${P.primary};stroke-width:${Math.max(3,1125/width)}}.route{fill:none;stroke:${P.primary};stroke-width:3;stroke-dasharray:5 5}`;copy.prepend(css);
  const url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(copy)],{type:'image/svg+xml'}));
  const picture=new Image(),sequence=++pixelSequence;
  picture.onload=()=>{if(sequence===pixelSequence&&canvas.isConnected&&usesPixels()){const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,width,height);ctx.drawImage(picture,0,0,width,height);$('building').dataset.pixelsReady='true';}URL.revokeObjectURL(url);};
@@ -413,8 +490,8 @@ function detail(){
  if(venueId()==='wwh')return themed(`<svg viewBox="-55 -45 370 475" role="img" aria-label="WWH first-floor schematic, not to scale. Track A: room 109, Track B: 101, Track C: 102. Enter from Mercer Street, east; Gould Plaza is west.">${text(130,-20,'North · West 4th Street',12)}${wwhPlan(1)}<text x="-29" y="170" text-anchor="middle" font-size="12" fill="${P.ink}" transform="rotate(-90 -29 170)">Gould Plaza · west</text><text x="289" y="170" text-anchor="middle" font-size="12" fill="${P.ink}" transform="rotate(90 289 170)">Mercer Street · east</text></svg>`);
  return themed(`<svg viewBox="-70 -65 360 510" role="img" aria-label="North-up schematic of Kimmel floor ${floor}. Washington Square South is at the top and LaGuardia Place is at the right."><rect x="-64" y="-60" width="350" height="24" rx="9" fill="#dce9d7"/>${text(110,-44,'Washington Square Park',12)}${text(110,-14,'Washington Square South · north',12)}${plan(floor)}<text x="281" y="205" text-anchor="middle" font-size="12" fill="#776b80" transform="rotate(90 281 205)">LaGuardia Place · east</text>${floor!==1?text(120,428,'South · away from the park',11):''}</svg>`);
 }
-function chooseRoom(id){const found=rooms(state.floor).find(r=>r.id===id);if(found){state.room=id;renderSelection();$('floor-plan').innerHTML=detail();renderBuilding();}}
-function chooseFloor(floor){if(!activeFloors().includes(Number(floor)))return;state.floor=Number(floor);state.room=rooms(state.floor)[0]?.id||null;render();}
+function chooseRoom(id){const found=rooms(state.floor).find(r=>r.id===id);if(found){state.automaticLocation=false;state.room=id;renderSelection();$('floor-plan').innerHTML=detail();renderBuilding();updateMapUrl();}}
+function chooseFloor(floor){if(!activeFloors().includes(Number(floor)))return;state.automaticLocation=false;state.floor=Number(floor);state.room=rooms(state.floor)[0]?.id||null;render();}
 function renderSelection(){
  const available=rooms(state.floor);const chosen=available.find(r=>r.id===state.room)||available[0];
  $('room-list').innerHTML=available.map(r=>`<button type="button" class="room-button" data-choose-room="${r.id}" style="--room-color:${esc(r.color||P.floor)}" aria-pressed="${r.id===chosen?.id}">${r.service||r.amenities?foodFriend(r.service||'coffee'):''}<span>${esc(r.short)}</span></button>`).join('')+(restroomInfo()?`<button type="button" class="room-button restroom-shortcut" data-show-restrooms><span class="restroom-key">WC</span><span>${venueId()==='wwh'?'All-gender restrooms':'Restrooms'}</span></button>`:'');
@@ -431,6 +508,7 @@ function renderRestroomGuide(){
 function render(){
  const day=currentDay();
  document.body.dataset.venue=venueId();
+ document.body.dataset.dayIsAutomatic=String(state.automaticDay);
  document.querySelector('.brand-mark').textContent=venueId()==='wwh'?'w.':'k.';
  document.title=`${venueId()==='wwh'?'WWH':'Kimmel'} · Find your ${document.body.dataset.view==='program'?'session':'floor'}`;
  document.querySelector('.address').textContent=venueId()==='wwh'?'Warren Weaver Hall · 251 Mercer Street':'Kimmel Center · 60 Washington Square South';
@@ -439,7 +517,7 @@ function render(){
  $('venue-source-note').textContent=venueId()==='wwh'?'Enter from Mercer Street.':`${state.floor===8?'Floor 8 layout based on a historical 2012 plan. ':''}${holdDate?`Room holds from ${holdDate}. `:''}${ROOM_DATA.source?.revisionStatus||'Room confirmation pending.'}`;
  $('building-title').textContent=venueId()==='wwh'?'WWH · first floor':'Open a floor';
  $('days').innerHTML=DAYS.map((d,i)=>`<button type="button" class="day-button" data-day="${i}" aria-label="${esc(d.title)}" aria-pressed="${i===state.day}"><span>${d.short}${d.period?` <small>${esc(d.period)}</small>`:''}</span><b>${d.date}</b></button>`).join('');
- $('day-title').textContent=day.title;$('conference-tag').textContent=day.conference;$('day-note').textContent=day.note;
+ $('day-title').textContent=day.title;$('conference-tag').textContent=day.conference;$('day-note').textContent=day.note;renderConferenceClock();
  renderBuilding();
  $('floor-selector').style.setProperty('--floor-count',activeFloors().length);
  $('floor-selector').innerHTML=[...activeFloors()].reverse().map(f=>{const contents=floorSummary(f);return `<button type="button" class="floor-button" data-choose-floor="${f}" aria-label="${f===1?'Entrance level':`Floor ${f}`}${contents.length?` · ${esc(contents.join(', '))}`:''}" aria-pressed="${state.floor===f}"><b>${f}</b>${contents.length?`<span class="floor-contents">${contents.map(esc).join('<br>')}</span>`:''}</button>`;}).join('');
@@ -448,13 +526,13 @@ function render(){
  $('floor-plan').innerHTML=detail();renderSelection();renderRestroomGuide();
  document.body.dataset.day=day.id;
  document.dispatchEvent(new CustomEvent('kimmel:day',{detail:{day:day.id,venueId:venueId(),date:`2026-11-${String(day.date).padStart(2,'0')}`}}));
- const url=new URL(location.href);url.searchParams.set('day',day.id);url.searchParams.set('floor',state.floor);url.searchParams.set('mood',state.style);url.searchParams.delete('style');try{history.replaceState(null,'',url);}catch{}
+ updateMapUrl();
 }
 document.addEventListener('change',event=>{if(event.target.id==='mood-selector'){applyStyle(event.target.value);render();}});
 document.addEventListener('click',event=>{
  if(event.target.closest('[data-show-restrooms]')){const guide=$('restroom-guide');if(guide){guide.focus({preventScroll:true});guide.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'nearest'});}return;}
  const day=event.target.closest('#days button[data-day]');if(day){
-  const before=venueId();state.day=Number(day.dataset.day);const after=venueId();
+  const before=venueId();state.automaticDay=false;state.automaticLocation=false;state.day=Number(day.dataset.day);const after=venueId();
   if(before!==after){state.floor=after==='wwh'?1:4;$('building').innerHTML='';}
   if(!activeFloors().includes(state.floor)||!rooms(state.floor).length)state.floor=after==='wwh'?1:currentDay().tcc&&!currentDay().focs?9:4;
   state.room=rooms(state.floor).find(room=>room.id==='109')?.id||rooms(state.floor)[0]?.id||null;render();
@@ -464,23 +542,24 @@ document.addEventListener('click',event=>{
  const room=event.target.closest('[data-choose-room],[data-room]');if(room){chooseRoom(room.dataset.chooseRoom||room.dataset.room);return;}
  const floor=event.target.closest('[data-choose-floor],[data-floor]');if(floor){chooseFloor(floor.dataset.chooseFloor||floor.dataset.floor);return;}
 });
-const query=new URLSearchParams(location.search);const requestedDay=DAYS.findIndex(d=>d.id===(query.get('day')==='sunday'?'sunday-early':query.get('day')));if(requestedDay>=0)state.day=requestedDay;const requestedFloor=Number(query.get('floor'));if(activeFloors().includes(requestedFloor))state.floor=requestedFloor;else state.floor=venueId()==='wwh'?1:!currentDay().focs&&currentDay().tcc?9:4;state.room=rooms(state.floor)[0]?.id||null;
+initializeConferenceLocation();
 applyStyle(query.get('mood')||query.get('style')||'pixel');
 state.room=rooms(state.floor)[0]?.id||null;
-document.addEventListener('conference:program',event=>{PROGRAM_DATA=event.detail?.data||PROGRAM_DATA;render();});
+document.addEventListener('conference:program',event=>{PROGRAM_DATA=event.detail?.data||PROGRAM_DATA;applyCurrentLocation();render();});
 document.addEventListener('conference:locate',event=>{
  const target=event.detail||{},before=venueId();
+ state.automaticDay=false;state.automaticLocation=false;
  const dayIndex=DAYS.findIndex(day=>day.id===target.day);if(dayIndex>=0)state.day=dayIndex;
  if(target.venueId&&target.venueId!==venueId())state.day=DAYS.findIndex(day=>day.id===(target.venueId==='wwh'?'sunday-early':'sunday-late'));
  state.floor=activeFloors().includes(Number(target.floor))?Number(target.floor):venueId()==='wwh'?1:4;
- state.room=rooms(state.floor).find(room=>room.id===target.room||room.hold?.room===target.room)?.id||rooms(state.floor)[0]?.id||null;
+ state.room=rooms(state.floor).find(room=>room.id===target.room||room.id===resolveMapRoom(target.room)||room.hold?.room===target.room)?.id||rooms(state.floor)[0]?.id||null;
  if(before!==venueId()){ $('building').innerHTML='';document.dispatchEvent(new CustomEvent('conference:venue',{detail:{from:before,to:venueId()}})); }
  render();
 });
 async function refreshRooms(){
  try{const response=await fetch('room-data.json',{cache:'no-cache'});if(!response.ok)return;const data=await response.json();if(!Array.isArray(data.rooms))return;const changed=JSON.stringify(data)!==JSON.stringify(ROOM_DATA);ROOM_DATA=data;if(changed){if(!rooms(state.floor).some(room=>room.id===state.room))state.room=rooms(state.floor).find(room=>room.id==='109')?.id||rooms(state.floor)[0]?.id||null;render();}}catch{}
 }
-refreshRooms();setInterval(refreshRooms,300000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshRooms();});
+refreshRooms();setInterval(refreshRooms,300000);setInterval(syncConferenceTime,15000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){syncConferenceTime();refreshRooms();}});
 new ResizeObserver(()=>requestPixelRender(80)).observe($('building'));
 render();
 })();

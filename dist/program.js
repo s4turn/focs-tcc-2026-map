@@ -4,7 +4,8 @@ const ZONE='America/New_York';
 const PIXELS_PER_MINUTE=2.2;
 const DATES={'sunday-early':'2026-11-08','sunday-late':'2026-11-08',monday:'2026-11-09',tuesday:'2026-11-10',wednesday:'2026-11-11',thursday:'2026-11-12',friday:'2026-11-13'};
 const query=new URLSearchParams(location.search);
-const state={data:null,day:document.body.dataset.day||query.get('day')||'monday',view:query.get('view')==='program'?'program':'map',zoom:'themes',session:null,paper:null,expanded:null,preview:false,previewBase:570,previewAt:performance.now()};
+const state={data:null,day:document.body.dataset.day||query.get('day')||'monday',view:query.get('view')==='program'?'program':'map',zoom:'themes',session:null,paper:null,expanded:null};
+const focusedTimes=new Set();
 const $=id=>document.getElementById(id);
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const minutes=value=>{if(!value)return null;const parts=String(value).split(':').map(Number);return parts[0]*60+parts[1]+(parts[2]||0)/60;};
@@ -14,7 +15,7 @@ const range=(start,end)=>`${time(start)}–${time(end)}`;
 const authors=paper=>Array.isArray(paper.authors)?paper.authors.join('; '):paper.authors||'See the published program for speaker details.';
 const getDay=()=>state.data?.days.find(day=>day.id===state.day)||state.data?.days[0];
 const sessions=()=>getDay()?.sessions||[];
-const selectedSession=()=>sessions().find(session=>session.id===state.session)||sessions().find(session=>session.papers?.length)||sessions()[0];
+const selectedSession=()=>sessions().find(session=>session.id===state.session)||defaultSession();
 // Sunday workshop letters are presentation labels; reviewed source track numbers stay intact.
 const WWH_TRACKS=Object.freeze({'109':'A','101':'B','102':'C'});
 const displayTrack=session=>state.day==='sunday-early'?(WWH_TRACKS[String(session.room)]||({'1':'A','2':'B','3':'C'})[String(session.track)]||session.track):session.track;
@@ -28,10 +29,20 @@ function bounds(){
  return {start:starts.length?Math.floor(Math.min(...starts)/30)*30:540,end:ends.length?Math.ceil(Math.max(...ends)/30)*30:1080};
 }
 function activeTime(){
- const now=etNow(),day=getDay(),b=bounds();
- if(state.preview)return {mode:'preview',minutes:Math.min(b.end,Math.max(b.start,state.previewBase+(performance.now()-state.previewAt)/60000)),now};
+ const now=etNow(),day=getDay();
  if(now.date===(day?.date||DATES[state.day]))return {mode:'live',minutes:now.minutes,now};
  return {mode:'off',minutes:null,now};
+}
+function defaultSession(){
+ const list=sessions(),current=activeTime();
+ if(current.mode==='live'){
+  const active=list.filter(session=>minutes(session.start)<=current.minutes&&current.minutes<minutes(session.end));
+  if(active.length)return active.find(session=>session.papers?.length)||active.find(session=>session.floor)||active[0];
+  const upcoming=list.filter(session=>minutes(session.start)>=current.minutes).sort((a,b)=>minutes(a.start)-minutes(b.start));
+  if(upcoming.length)return upcoming[0];
+  return [...list].sort((a,b)=>minutes(b.end)-minutes(a.end))[0];
+ }
+ return list.find(session=>session.papers?.length)||list[0];
 }
 function laneFor(session){
  if(state.day==='sunday-early')return `WWH-${session.room||'109'}`;
@@ -146,14 +157,14 @@ function paperDetail(paper,session){
 function detail(){
  const session=selectedSession();if(!session)return '<p>No sessions are listed for this day.</p>';
  state.session=session.id;
- const papers=session.papers||[];let paper=papers.find(p=>p.id===state.paper)||papers[0];state.paper=paper?.id||null;
+ const papers=session.papers||[],current=activeTime();let paper=papers.find(p=>p.id===state.paper)||(current.mode==='live'?papers.find(p=>p.start&&minutes(p.start)<=current.minutes&&current.minutes<minutes(p.end||session.end)):null)||papers[0];state.paper=paper?.id||null;
  const options=sessions().map(s=>`<option value="${esc(s.id)}" ${s.id===session.id?'selected':''}>${esc(time(s.start))} · ${esc(s.conference)}${displayTrack(s)&&!['TCC','Plenary','Joint'].includes(displayTrack(s))?` ${esc(displayTrack(s))}`:''} · ${esc(s.theme||s.title)}</option>`).join('');
  const conflict=session.timingConflict?.note?`<p class="program-conflict">${esc(session.timingConflict.note)}</p>`:'';
  const header=`<label class="program-session-select-label" for="program-session-selector">Theme / event</label><select id="program-session-selector" class="program-session-select">${options}</select><div class="program-theme-header"><h3>${esc(session.theme||session.title)}</h3><div class="program-theme-meta"><strong>${esc(range(session.start,session.end))} ET</strong><span>${esc(session.conference)}${displayTrack(session)&&!['TCC','Plenary','Joint'].includes(displayTrack(session))?` · Track ${esc(displayTrack(session))}`:''}</span>${session.room?`<span>${esc(sessionLocation(session))}</span>`:''}${session.chair?`<span>Chair: ${esc(session.chair)}</span>`:''}</div><p id="program-session-status" class="program-session-status" hidden></p>${conflict}</div>`;
  if(!papers.length)return header+`<div class="program-event-only"><p>${esc(session.title)}</p>${session.room?`<p class="program-paper-note">${esc(session.room)}</p>`:''}${safeUrl(session.url)?`<a class="program-paper-link" href="${esc(safeUrl(session.url))}" target="_blank" rel="noopener">Published program ↗</a>`:''}${session.floor?`<div>${floorLink(session)}</div>`:''}</div>`;
  return header+`<div class="program-paper-grid"><article id="program-paper-detail" class="program-paper-detail" aria-label="Selected talk">${paperDetail(paper,session)}</article><div id="program-paper-list" class="program-paper-list" aria-label="Papers in program order">${papers.map((p,i)=>`<button type="button" class="program-paper-button" data-paper="${esc(p.id)}" ${p.start?`data-start="${minutes(p.start)}" data-end="${minutes(p.end||session.end)}"`:''} aria-pressed="${p.id===paper.id}"><span>${p.start?`<b>${esc(time(p.start))}</b>`:`Talk ${p.order||i+1} · Session ${esc(range(session.start,session.end))}`}</span><strong>${esc(p.title)}</strong></button>`).join('')}<div id="program-paper-now-line" class="program-paper-now-line" hidden><span class="program-now-label" id="program-paper-now-label"></span></div></div></div>`;
 }
-function clockMarkup(){return `<div class="program-clock"><div class="program-clock-line"><div class="program-time-status"><span id="program-time-badge" class="program-time-badge"></span><span id="program-clock-value" class="program-clock-value"></span></div><button type="button" id="program-preview-button" class="program-button" aria-pressed="${state.preview}">${state.preview?'Stop preview':'Preview time'}</button></div><p id="program-actual-clock" class="program-actual-clock"></p><div id="program-preview-controls" class="program-preview-controls" ${state.preview?'':'hidden'}><label for="program-preview-slider">Preview time · <output id="program-preview-output"></output></label><input type="range" id="program-preview-slider" aria-label="Preview time on this day" min="${bounds().start}" max="${bounds().end}" step="1" value="${Math.floor(activeTime().minutes||570)}"></div></div>`;}
+function clockMarkup(){return '<div class="program-clock"><div class="program-time-status"><span id="program-time-badge" class="program-time-badge"></span><span id="program-clock-value" class="program-clock-value"></span></div><p id="program-actual-clock" class="program-actual-clock"></p></div>';}
 function sourcesMarkup(){
  const sources=(state.data.sources||[]).filter(s=>s.url&&['focs-public','tcc-public'].includes(s.id));
  const checked=(state.data.publicProgramsCheckedAt||state.data.checkedAt)?new Intl.DateTimeFormat('en-US',{timeZone:ZONE,month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(state.data.publicProgramsCheckedAt||state.data.checkedAt)):'';
@@ -163,7 +174,18 @@ function render(){
  if(!state.data)return;
  const title=state.zoom==='themes'?'Themes at a glance':'Papers & speakers';
  $('program-app').innerHTML=`<div class="program-topline"><h2>${title}</h2><div class="program-zoom" aria-label="Program detail"><button type="button" class="program-button" data-zoom="themes" aria-pressed="${state.zoom==='themes'}">Themes</button><button type="button" class="program-button" data-zoom="papers" aria-pressed="${state.zoom==='papers'}">Papers · zoom in</button></div></div>${clockMarkup()}<div id="program-content">${state.zoom==='themes'?timeline():detail()}</div>${sourcesMarkup()}`;
- expansion=null;layoutTimeline();observeTimeline();tick();
+ expansion=null;layoutTimeline();observeTimeline();tick();focusCurrentTime();
+}
+function focusCurrentTime(){
+ const current=activeTime(),key=`${state.day}/${state.zoom}`;
+ if(state.view!=='program'||current.mode!=='live'||focusedTimes.has(key))return;
+ const line=$(state.zoom==='themes'?'program-now-line':'program-paper-now-line');
+ const session=selectedSession(),inSession=session&&minutes(session.start)<=current.minutes&&current.minutes<minutes(session.end);
+ const target=line&&!line.hidden?line:state.zoom==='papers'&&inSession?$('program-paper-detail'):null;
+ if(!target||typeof target.scrollIntoView!=='function')return;
+ focusedTimes.add(key);
+ const focus=()=>{if(state.view==='program'&&getDay()?.date===etNow().date)target.scrollIntoView({block:'center',inline:'nearest',behavior:'auto'});};
+ if(typeof requestAnimationFrame==='function')requestAnimationFrame(focus);else focus();
 }
 function tickPaperLine(current){
  const line=$('program-paper-now-line'),status=$('program-session-status'),session=selectedSession();
@@ -172,7 +194,7 @@ function tickPaperLine(current){
  if(status){
   status.hidden=current.mode==='off'&&Boolean(timed);
   const progress=at===null?'':at<start?'Before this session':at>=end?'After this session':'Session in progress';
-  status.textContent=`${current.mode==='off'?'':`${current.mode==='preview'?'Preview':'Live now'} · ${progress}. `}${!timed&&session.papers?.length?'Individual talk times are not published.':''}`.trim();
+  status.textContent=`${current.mode==='off'?'':`Live now · ${progress}. `}${!timed&&session.papers?.length?'Individual talk times are not published.':''}`.trim();
   if(!status.textContent)status.hidden=true;
  }
  if(!line)return;
@@ -188,16 +210,15 @@ function tickPaperLine(current){
  const origin=list.getBoundingClientRect(),top=first.getBoundingClientRect(),bottom=last.getBoundingClientRect();
  const fraction=Math.min(1,Math.max(0,(at-slotStart)/(slotEnd-slotStart)));
  line.style.top=`${top.top-origin.top+(bottom.bottom-top.top)*fraction}px`;line.dataset.mode=current.mode;line.hidden=false;
- $('program-paper-now-label').textContent=`${current.mode==='preview'?'Preview':'Now'} ${time(at).replace(' a.m.','a').replace(' p.m.','p')}`;
+ $('program-paper-now-label').textContent=`Now ${time(at).replace(' a.m.','a').replace(' p.m.','p')}`;
 }
 function tick(){
  if(!state.data||!$('program-time-badge'))return;
  const current=activeTime(),b=bounds(),date=getDay()?.date||DATES[state.day],badge=$('program-time-badge'),line=$('program-now-line');
- badge.dataset.mode=current.mode;badge.textContent=current.mode==='preview'?'Preview':current.mode==='live'?'Live now':'New York now';
- $('program-clock-value').textContent=current.mode==='preview'?`${clockTime(current.minutes)} ET`: `${clockTime(current.now.minutes)} ET`;
- $('program-actual-clock').textContent=current.mode==='preview'?`Previewing ${date}. Actual New York time: ${current.now.label} ET.`:current.mode==='live'?`Today’s program · ${current.now.label} ET.`:`${current.now.label} ET · Program: ${date}.`;
- if(line){const inside=current.minutes!==null&&current.minutes>=b.start&&current.minutes<=b.end;line.hidden=!inside;if(inside){line.dataset.mode=current.mode;line.style.top=`${timelinePosition(current.minutes,true)}px`;$('program-now-label').textContent=`${current.mode==='preview'?'Preview ':'Now '}${time(current.minutes).replace(' a.m.','a').replace(' p.m.','p')}`;}}
- if(state.preview&&$('program-preview-slider')){$('program-preview-slider').value=Math.floor(current.minutes);$('program-preview-output').textContent=`${clockTime(current.minutes)} ET`;$('program-preview-slider').setAttribute('aria-valuetext',`${clockTime(current.minutes)} Eastern, preview`);}
+ badge.dataset.mode=current.mode;badge.textContent=current.mode==='live'?'Live now':'New York now';
+ $('program-clock-value').textContent=`${clockTime(current.now.minutes)} ET`;
+ $('program-actual-clock').textContent=current.mode==='live'?`Today’s program · ${current.now.label} ET.`:`${current.now.label} ET · Program: ${date}.`;
+ if(line){const inside=current.minutes!==null&&current.minutes>=b.start&&current.minutes<=b.end;line.hidden=!inside;if(inside){line.dataset.mode=current.mode;line.style.top=`${timelinePosition(current.minutes,true)}px`;$('program-now-label').textContent=`Now ${time(current.minutes).replace(' a.m.','a').replace(' p.m.','p')}`;}}
  document.querySelectorAll('.program-inline-paper[data-talk-start]').forEach(row=>{
   const active=current.minutes!==null&&current.minutes>=Number(row.dataset.talkStart)&&current.minutes<Number(row.dataset.talkEnd);
   row.classList.toggle('program-inline-paper--now',active);
@@ -230,7 +251,6 @@ document.addEventListener('click',event=>{
   return;
  }
  const floor=event.target.closest('[data-show-floor]');if(floor){document.dispatchEvent(new CustomEvent('conference:locate',{detail:{day:floor.dataset.showDay||state.day,venueId:floor.dataset.showVenue||'kimmel',floor:Number(floor.dataset.showFloor),room:floor.dataset.showRoom}}));setView('map');return;}
- if(event.target.closest('#program-preview-button')){state.preview=!state.preview;state.previewBase=Math.max(bounds().start,Math.min(bounds().end,570));state.previewAt=performance.now();render();return;}
  if(event.target.closest('#program-retry'))load();
 });
 document.addEventListener('toggle',event=>{
@@ -242,11 +262,10 @@ document.addEventListener('toggle',event=>{
  layoutTimeline();
 },true);
 document.addEventListener('change',event=>{if(event.target.id==='program-session-selector')chooseSession(event.target.value);});
-document.addEventListener('input',event=>{if(event.target.id==='program-preview-slider'){state.previewBase=Number(event.target.value);state.previewAt=performance.now();tick();}});
 document.querySelector('.app-tabs').addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();const next=state.view==='map'?'program':'map';setView(next);$(next==='map'?'map-tab':'session-tab').focus();});
 document.addEventListener('kimmel:day',event=>{
  const next=event.detail?.day||document.body.dataset.day;if(!DATES[next]||next===state.day)return;
- state.day=next;state.session=null;state.paper=null;state.expanded=null;state.previewBase=570;state.previewAt=performance.now();if(state.data)render();
+ state.day=next;state.session=null;state.paper=null;state.expanded=null;if(state.data)render();
 });
 async function load(){
  try{
