@@ -1,0 +1,365 @@
+{
+  "source": {},
+  "rooms": [
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-08",
+      "floor": 4,
+      "roomId": "409-solarium",
+      "room": "409 Solarium",
+      "role": "support"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-08",
+      "floor": 8,
+      "roomId": "802-shorin",
+      "room": "802 Shorin",
+      "role": "sponsor-event"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-08",
+      "floor": 4,
+      "roomId": "eisner-lubin",
+      "room": "Eisner & Lubin",
+      "role": "session"
+    },
+    {
+      "venueId": "wwh",
+      "date": "2026-11-08",
+      "floor": 1,
+      "roomId": "101",
+      "room": "101",
+      "role": "session"
+    },
+    {
+      "venueId": "wwh",
+      "date": "2026-11-08",
+      "floor": 1,
+      "roomId": "102",
+      "room": "102",
+      "role": "session"
+    },
+    {
+      "venueId": "wwh",
+      "date": "2026-11-08",
+      "floor": 1,
+      "roomId": "109",
+      "room": "109",
+      "role": "session"
+    },
+    {
+      "venueId": "wwh",
+      "date": "2026-11-08",
+      "floor": 2,
+      "roomId": "201",
+      "room": "201",
+      "role": "reserve"
+    },
+    {
+      "venueId": "wwh",
+      "date": "2026-11-08",
+      "floor": 2,
+      "roomId": "202",
+      "room": "202",
+      "role": "reserve"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 4,
+      "roomId": "405-406",
+      "room": "405/406",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 4,
+      "roomId": "409-solarium",
+      "room": "409 Solarium",
+      "role": "support"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 9,
+      "roomId": "901",
+      "room": "901",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 9,
+      "roomId": "903",
+      "room": "903",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 9,
+      "roomId": "904",
+      "room": "904",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 9,
+      "roomId": "905-907",
+      "room": "905/907",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 9,
+      "roomId": "906",
+      "room": "906",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 9,
+      "roomId": "908",
+      "room": "908",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 9,
+      "roomId": "909",
+      "room": "909",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 9,
+      "roomId": "910",
+      "room": "910",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 9,
+      "roomId": "914-combo",
+      "room": "914",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 4,
+      "roomId": "eisner-lubin",
+      "room": "Eisner & Lubin",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-09",
+      "floor": 10,
+      "roomId": "rosenthal",
+      "room": "Rosenthal",
+      "role": "meal-gathering"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-10",
+      "floor": 4,
+      "roomId": "405-406",
+      "room": "405/406",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-10",
+      "floor": 4,
+      "roomId": "409-solarium",
+      "room": "409 Solarium",
+      "role": "support"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-10",
+      "floor": 9,
+      "roomId": "904",
+      "room": "904",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-10",
+      "floor": 9,
+      "roomId": "905-907",
+      "room": "905/907",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-10",
+      "floor": 9,
+      "roomId": "906",
+      "room": "906",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-10",
+      "floor": 9,
+      "roomId": "908",
+      "room": "908",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-10",
+      "floor": 9,
+      "roomId": "910",
+      "room": "910",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-10",
+      "floor": 9,
+      "roomId": "914",
+      "room": "914",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-10",
+      "floor": 4,
+      "roomId": "eisner-lubin",
+      "room": "Eisner & Lubin",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 4,
+      "roomId": "405-406",
+      "room": "405/406",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 4,
+      "roomId": "409-solarium",
+      "room": "409 Solarium",
+      "role": "support"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 9,
+      "roomId": "903",
+      "room": "903",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 9,
+      "roomId": "904",
+      "room": "904",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 9,
+      "roomId": "905-907",
+      "room": "905/907",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 9,
+      "roomId": "906",
+      "room": "906",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 9,
+      "roomId": "908",
+      "room": "908",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 9,
+      "roomId": "909",
+      "room": "909",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 9,
+      "roomId": "910",
+      "room": "910",
+      "role": "breakout"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 9,
+      "roomId": "914-combo",
+      "room": "914",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 4,
+      "roomId": "eisner-lubin",
+      "room": "Eisner & Lubin",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-11",
+      "floor": 10,
+      "roomId": "rosenthal",
+      "room": "Rosenthal",
+      "role": "meal-gathering"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-12",
+      "floor": 9,
+      "roomId": "914-combo",
+      "room": "914",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-13",
+      "floor": 9,
+      "roomId": "914-combo",
+      "room": "914",
+      "role": "session"
+    },
+    {
+      "venueId": "kimmel",
+      "date": "2026-11-13",
+      "floor": 10,
+      "roomId": "rosenthal",
+      "room": "Rosenthal",
+      "role": "meal-gathering"
+    }
+  ]
+}

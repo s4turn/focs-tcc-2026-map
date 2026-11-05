@@ -1,0 +1,3862 @@
+{
+  "schemaVersion": 2,
+  "timezone": "America/New_York",
+  "generatedAt": "2026-11-05T11:08:30-05:00",
+  "sources": [
+    {
+      "id": "focs-public",
+      "url": "https://focs.computer.org/2026/main-program/"
+    },
+    {
+      "id": "tcc-public",
+      "url": "https://tcc.iacr.org/2026/program.php"
+    }
+  ],
+  "days": [
+    {
+      "id": "sunday-early",
+      "date": "2026-11-08",
+      "title": "Sunday, November 8 · WWH",
+      "venueId": "wwh",
+      "sessions": [
+        {
+          "id": "sunday-breakfast",
+          "conference": "FOCS",
+          "kind": "meal",
+          "track": null,
+          "title": "Breakfast",
+          "theme": "Breakfast",
+          "start": "08:30",
+          "end": "09:00",
+          "room": null,
+          "floor": 1,
+          "venueId": "wwh",
+          "url": "https://focs.computer.org/2026/workshop-program/",
+          "papers": []
+        },
+        {
+          "id": "sunday-subspace-1",
+          "conference": "FOCS",
+          "kind": "workshop",
+          "track": "1",
+          "title": "Subspace Designs: A Universal Tool for Derandomization, Part 1",
+          "theme": "Subspace Designs: A Universal Tool for Derandomization, Part 1",
+          "start": "09:00",
+          "end": "11:30",
+          "room": "109",
+          "floor": 1,
+          "venueId": "wwh",
+          "url": "https://goyal-rohan.github.io/subspace-designs-focs/",
+          "papers": [
+            {
+              "id": "sunday-subspace-1-talk-1",
+              "title": "Subspace Designs and Local Linear Properties: A Tutorial",
+              "authors": "Venkat Guruswami",
+              "order": 1,
+              "start": "09:00",
+              "end": "10:00",
+              "url": "https://goyal-rohan.github.io/subspace-designs-focs/"
+            },
+            {
+              "id": "sunday-subspace-1-talk-2",
+              "title": "Explicit Constructions of Subspace Designs",
+              "authors": "Jun-Ting (Tim) Hsieh",
+              "order": 2,
+              "start": "10:00",
+              "end": "10:30",
+              "url": "https://goyal-rohan.github.io/subspace-designs-focs/"
+            },
+            {
+              "id": "sunday-subspace-1-talk-3",
+              "title": "The LMS Framework: Equivalences Between Subspace Designs and Random Codes",
+              "authors": "Jonathan Mosheiff",
+              "order": 3,
+              "start": "10:30",
+              "end": "11:00",
+              "url": "https://goyal-rohan.github.io/subspace-designs-focs/"
+            },
+            {
+              "id": "sunday-subspace-1-talk-4",
+              "title": "Bipartite Matching in NC via Subspace Designs",
+              "authors": "Roshan Raj",
+              "order": 4,
+              "start": "11:00",
+              "end": "11:30",
+              "url": "https://goyal-rohan.github.io/subspace-designs-focs/"
+            }
+          ]
+        },
+        {
+          "id": "sunday-validation",
+          "conference": "FOCS",
+          "kind": "workshop",
+          "track": "2",
+          "title": "Validating Quantum Devices: From Practice to Theory",
+          "theme": "Validating Quantum Devices: From Practice to Theory",
+          "start": "09:00",
+          "end": "11:30",
+          "room": "101",
+          "floor": 1,
+          "venueId": "wwh",
+          "url": "https://andreacoladangelo.com/focs26-workshop/",
+          "papers": [
+            {
+              "id": "sunday-validation-talk-1",
+              "title": "Bridging math and practice from both ends",
+              "authors": "Robin Blume-Kohout",
+              "order": 1,
+              "start": "09:00",
+              "end": "09:30",
+              "url": "https://andreacoladangelo.com/focs26-workshop/"
+            },
+            {
+              "id": "sunday-validation-talk-2",
+              "title": "State certification with simple measurements",
+              "authors": "Joseph Slote",
+              "order": 2,
+              "start": "09:35",
+              "end": "10:05",
+              "url": "https://andreacoladangelo.com/focs26-workshop/"
+            },
+            {
+              "id": "sunday-validation-talk-3",
+              "title": "Learning Hamiltonians under realistic constraints",
+              "authors": "Sitan Chen",
+              "order": 3,
+              "start": "10:25",
+              "end": "10:55",
+              "url": "https://andreacoladangelo.com/focs26-workshop/"
+            },
+            {
+              "id": "sunday-validation-talk-4",
+              "title": "What Quantum Certification Enables",
+              "authors": "Robert Huang",
+              "order": 4,
+              "start": "11:00",
+              "end": "11:30",
+              "url": "https://andreacoladangelo.com/focs26-workshop/"
+            }
+          ]
+        },
+        {
+          "id": "sunday-performative",
+          "conference": "FOCS",
+          "kind": "workshop",
+          "track": "3",
+          "title": "Performative Prediction",
+          "theme": "Performative Prediction",
+          "start": "09:00",
+          "end": "11:30",
+          "room": "102",
+          "floor": 1,
+          "venueId": "wwh",
+          "url": "https://jcperdomo.org/workshops/focs2026/",
+          "papers": [
+            {
+              "id": "sunday-performative-talk-1",
+              "title": "Tutorial: An Introduction to Performative Prediction",
+              "authors": "Juan Carlos Perdomo",
+              "order": 1,
+              "start": "09:00",
+              "end": "10:00",
+              "url": "https://jcperdomo.org/workshops/focs2026/"
+            },
+            {
+              "id": "sunday-performative-talk-2",
+              "title": "The Computational Complexity of Performative Stability",
+              "authors": "Ioannis Anagnostides",
+              "order": 2,
+              "start": "10:00",
+              "end": "10:30",
+              "url": "https://jcperdomo.org/workshops/focs2026/"
+            },
+            {
+              "id": "sunday-performative-talk-3",
+              "title": "Performativity through the Lens of the Minimax Theorem",
+              "authors": "Gabriele Farina",
+              "order": 3,
+              "start": "10:30",
+              "end": "11:00",
+              "url": "https://jcperdomo.org/workshops/focs2026/"
+            },
+            {
+              "id": "sunday-performative-talk-4",
+              "title": "Performativity and Economics",
+              "authors": "Celestine Mendler-Dünner",
+              "order": 4,
+              "start": "11:00",
+              "end": "11:30",
+              "url": "https://jcperdomo.org/workshops/focs2026/"
+            }
+          ]
+        },
+        {
+          "id": "sunday-lunch",
+          "conference": "FOCS",
+          "kind": "meal",
+          "track": null,
+          "title": "Lunch",
+          "theme": "Lunch",
+          "start": "11:30",
+          "end": "12:30",
+          "room": null,
+          "floor": 1,
+          "venueId": "wwh",
+          "url": "https://focs.computer.org/2026/workshop-program/",
+          "papers": []
+        },
+        {
+          "id": "sunday-subspace-2",
+          "conference": "FOCS",
+          "kind": "workshop",
+          "track": "1",
+          "title": "Subspace Designs: A Universal Tool for Derandomization, Part 2",
+          "theme": "Subspace Designs: A Universal Tool for Derandomization, Part 2",
+          "start": "12:30",
+          "end": "15:00",
+          "room": "109",
+          "floor": 1,
+          "venueId": "wwh",
+          "url": "https://goyal-rohan.github.io/subspace-designs-focs/",
+          "papers": [
+            {
+              "id": "sunday-subspace-2-talk-1",
+              "title": "Optimal List Decoding via Subspace Designs",
+              "authors": "Rohan Goyal",
+              "order": 1,
+              "start": "12:30",
+              "end": "13:00",
+              "url": "https://goyal-rohan.github.io/subspace-designs-focs/"
+            },
+            {
+              "id": "sunday-subspace-2-talk-2",
+              "title": "A Local View of Proximity Gaps via Line Decoding",
+              "authors": "Kimi Sun",
+              "order": 2,
+              "start": "13:00",
+              "end": "13:30",
+              "url": "https://goyal-rohan.github.io/subspace-designs-focs/"
+            },
+            {
+              "id": "sunday-subspace-2-talk-3",
+              "title": "Discrete Brascamp–Lieb Inequalities and List Recovery",
+              "authors": "Joshua Brakensiek",
+              "order": 3,
+              "start": "13:30",
+              "end": "14:00",
+              "url": "https://goyal-rohan.github.io/subspace-designs-focs/"
+            },
+            {
+              "id": "sunday-subspace-2-talk-4",
+              "title": "Linear-Algebraic Pseudorandomness",
+              "authors": "Dean Doron",
+              "order": 4,
+              "start": "14:00",
+              "end": "14:30",
+              "url": "https://goyal-rohan.github.io/subspace-designs-focs/"
+            },
+            {
+              "id": "sunday-subspace-2-talk-5",
+              "title": "Open Problems and Future Directions",
+              "authors": "The organizers (moderators)",
+              "order": 5,
+              "start": "14:30",
+              "end": "15:00",
+              "url": "https://goyal-rohan.github.io/subspace-designs-focs/"
+            }
+          ]
+        },
+        {
+          "id": "sunday-architecture",
+          "conference": "FOCS",
+          "kind": "workshop",
+          "track": "2",
+          "title": "TCS Problems in Quantum Architecture and Compilation",
+          "theme": "TCS Problems in Quantum Architecture and Compilation",
+          "start": "12:30",
+          "end": "15:00",
+          "room": "101",
+          "floor": 1,
+          "venueId": "wwh",
+          "url": "https://sidjain.me/workshop/",
+          "papers": [
+            {
+              "id": "sunday-architecture-talk-1",
+              "title": "Overview of modern FTQC architectures",
+              "authors": "Zhiyang (Sunny) He",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://sidjain.me/workshop/"
+            },
+            {
+              "id": "sunday-architecture-talk-2",
+              "title": "Co-Designing Quantum Error Correction and Quantum Algorithms",
+              "authors": "Hengyun (Harry) Zhou",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://sidjain.me/workshop/"
+            },
+            {
+              "id": "sunday-architecture-talk-3",
+              "title": "Control complexity and fault tolerance of neutral-atom quantum computers",
+              "authors": "Qian Xu",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://sidjain.me/workshop/"
+            },
+            {
+              "id": "sunday-architecture-talk-4",
+              "title": "Surgery with ultra-low space overhead",
+              "authors": "Ted Yoder",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://sidjain.me/workshop/"
+            }
+          ]
+        },
+        {
+          "id": "sunday-quasirandomness",
+          "conference": "FOCS",
+          "kind": "workshop",
+          "track": "3",
+          "title": "Algorithmic Perspectives on Quasirandomness",
+          "theme": "Algorithmic Perspectives on Quasirandomness",
+          "start": "12:30",
+          "end": "15:00",
+          "room": "102",
+          "floor": 1,
+          "venueId": "wwh",
+          "url": "https://quasirandomness-focs2026.github.io/",
+          "papers": [
+            {
+              "id": "sunday-quasirandomness-talk-1",
+              "title": "Tutorial on Quasirandomness",
+              "authors": "Cassandra Marcussen",
+              "order": 1,
+              "start": "12:30",
+              "end": "13:15",
+              "url": "https://quasirandomness-focs2026.github.io/"
+            },
+            {
+              "id": "sunday-quasirandomness-talk-2",
+              "title": "Sparse Graph Counting and Applications to Systems of Linear Forms",
+              "authors": "Esty Kelman",
+              "order": 2,
+              "start": "13:20",
+              "end": "13:45",
+              "url": "https://quasirandomness-focs2026.github.io/"
+            },
+            {
+              "id": "sunday-quasirandomness-talk-3",
+              "title": "Graph Quasirandomness for Hypothesis Testing of Stochastic Block Models",
+              "authors": "Kiril Bangachev",
+              "order": 3,
+              "start": "13:45",
+              "end": "14:10",
+              "url": "https://quasirandomness-focs2026.github.io/"
+            },
+            {
+              "id": "sunday-quasirandomness-talk-4",
+              "title": "k-Coloring in Average Sublinear Time via Quasirandomness",
+              "authors": "Ted Pyne",
+              "order": 4,
+              "start": "14:10",
+              "end": "14:35",
+              "url": "https://quasirandomness-focs2026.github.io/"
+            },
+            {
+              "id": "sunday-quasirandomness-talk-5",
+              "title": "Short cycle removal and applications in hardness of approximation",
+              "authors": "Or Zamir",
+              "order": 5,
+              "start": "14:35",
+              "end": "15:00",
+              "url": "https://quasirandomness-focs2026.github.io/"
+            }
+          ]
+        },
+        {
+          "id": "sunday-coffee",
+          "conference": "FOCS",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee break",
+          "theme": "Coffee break",
+          "start": "15:00",
+          "end": "15:30",
+          "room": null,
+          "floor": 1,
+          "venueId": "wwh",
+          "url": "https://focs.computer.org/2026/workshop-program/",
+          "papers": []
+        }
+      ]
+    },
+    {
+      "id": "sunday-late",
+      "date": "2026-11-08",
+      "title": "Sunday, November 8 · Kimmel",
+      "venueId": "kimmel",
+      "sessions": [
+        {
+          "id": "sunday-ai",
+          "conference": "FOCS",
+          "kind": "workshop",
+          "track": "Joint",
+          "title": "AI and TCS Workshop",
+          "theme": "AI and TCS Workshop",
+          "start": "15:30",
+          "end": "17:30",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/",
+          "papers": []
+        },
+        {
+          "id": "sunday-estimathon",
+          "conference": "FOCS",
+          "kind": "social",
+          "track": "Joint",
+          "title": "Jane Street Estimathon",
+          "theme": "Jane Street Estimathon",
+          "start": "18:00",
+          "end": "19:30",
+          "room": "802 (Shorin)",
+          "floor": 8,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/jane-street-estimathon/",
+          "papers": []
+        }
+      ]
+    },
+    {
+      "id": "monday",
+      "date": "2026-11-09",
+      "venueId": "kimmel",
+      "sessions": [
+        {
+          "id": "focs-monday-0900-meal",
+          "conference": "FOCS",
+          "kind": "meal",
+          "track": null,
+          "title": "Breakfast / Registration",
+          "theme": "Breakfast / Registration",
+          "start": "09:00",
+          "end": "09:30",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": []
+        },
+        {
+          "id": "focs-1a",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "A",
+          "title": "Flows, Connectivity and Matchings",
+          "theme": "Flows, Connectivity and Matchings",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Mohammad Salavatipour",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-1a-paper-1",
+              "title": "Dynamic Connectivity, Minimum Spanning Tree, and 2-Edge Connectivity with Polylogarithmic Worst-Case Update Time",
+              "authors": "Simon Meierhans, Maximilian Probst Gutenberg, Yu-Cheng Yeh (ETH Zurich)",
+              "start": "09:30",
+              "end": "09:48",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1a-paper-2",
+              "title": "Parallel Small Vertex Connectivity in Near-Linear Work and Polylogarithmic Depth",
+              "authors": "Yonggang Jiang (MPIINF); Changki Yun (Seoul National University)",
+              "start": "09:48",
+              "end": "10:06",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1a-paper-3",
+              "title": "Connectivity augmentation is fixed-parameter tractable",
+              "authors": "Tuukka Korhonen, Mikkel Thorup (University of Copenhagen)",
+              "start": "10:06",
+              "end": "10:24",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1a-paper-4",
+              "title": "Combinatorial Minimum Cost Flow in Almost-Linear Time on Dense Graphs",
+              "authors": "Bernhard Haeupler (INSAIT, Sofia University \"St. Kliment Ohridski\" and ETH Zurich); Yonggang Jiang (MPIINF); Thatchaphol Saranurak (University of Michigan)",
+              "start": "10:24",
+              "end": "10:42",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1a-paper-5",
+              "title": "A Shortest Augmenting Path Algorithm for Linear Matroid Parity",
+              "authors": "Kou Hamada, Satoru Iwata (University of Tokyo)",
+              "start": "10:42",
+              "end": "11:00",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-1b",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "B",
+          "title": "Quantum Tomography and Hamiltonian Learning",
+          "theme": "Quantum Tomography and Hamiltonian Learning",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "405/406",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Thuy-Duong (June) Vuong",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-1b-paper-1",
+              "title": "Mixed state tomography reduces to pure state tomography",
+              "authors": "Angelos Pelecanos, Jack Spilecki, Ewin Tang (UC Berkeley); John Wright (The University of California, Berkeley)",
+              "start": "09:30",
+              "end": "09:48",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1b-paper-2",
+              "title": "Nearly Time-Optimal Pure State Tomography with Pauli Measurements",
+              "authors": "Sabee Grewal (UT Austin); Meghal Gupta (UC Berkeley); William He (Carnegie Mellon University); Aniruddha Sen (UT Austin); Mihir Singhal (UC Berkeley)",
+              "start": "09:48",
+              "end": "10:06",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1b-paper-3",
+              "title": "Quantum channel tomography: optimal bounds and a Heisenberg-to-classical phase transition",
+              "authors": "Kean Chen (University of Pennsylvania); Filippo Girardi (Scuola Normale Superiore); Aadil Oufkir (University Mohammed VI Polytechnic); Nengkun Yu (Stony Brook University); Zhicheng Zhang (Griffith University)",
+              "start": "10:06",
+              "end": "10:24",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1b-paper-4",
+              "title": "The Keyl–Werner algorithm is not optimal for spectrum estimation",
+              "authors": "Angelos Pelecanos, Jack Spilecki, Ewin Tang (UC Berkeley); John Wright (The University of California, Berkeley)",
+              "start": "10:24",
+              "end": "10:42",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1b-paper-5",
+              "title": "Lower Bounds for Learning Hamiltonians from Time Evolution",
+              "authors": "Ziyun Chen, Jerry Li, Joe Slote (University of Washington)",
+              "start": "10:42",
+              "end": "11:00",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-1c",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "C",
+          "title": "Cryptography",
+          "theme": "Cryptography",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "905/907",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Bruce Kapron",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-1c-paper-1",
+              "title": "Doubly-Efficient Interactive Arguments for Bounded-Space from One-Way Functions",
+              "authors": "Guy Rothblum (Apple)",
+              "start": "09:30",
+              "end": "09:48",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1c-paper-2",
+              "title": "Lower Bounds for PIR with Preprocessing from Blackbox Cryptography",
+              "authors": "Alexander Hoover (Stevens Institute of Technology); Giuseppe Persiano (Università di Salerno); Kevin Yeo (Google)",
+              "start": "09:48",
+              "end": "10:06",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1c-paper-3",
+              "title": "On the Hardness of LWE with Trapdoor Hints and Applications to Fuzzy Cryptography",
+              "authors": "Divesh Aggarwal (National University of Singapore); Aayush Jain (CMU); Huijia (Rachel) Lin (University of Washington); Yuetian Wu (Peking University)",
+              "start": "10:06",
+              "end": "10:24",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1c-paper-4",
+              "title": "Overcoming Padding in Cryptography via the Hardness of Certifying Random Strings",
+              "authors": "Yao-Ching Hsieh (University of Washington); Abhishek Jain (NTT Research and Johns Hopkins); Jiatu Li (Massachusetts Institute of Technology); Surya Mathialagan (NTT Research)",
+              "start": "10:24",
+              "end": "10:42",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1c-paper-5",
+              "title": "Undetectable Conversations Between AI Agents via Pseudorandom Noise-Resilient Key Exchange",
+              "authors": "Vinod Vaikuntanathan (MIT CSAIL); Or Zamir (Tel Aviv University)",
+              "start": "10:42",
+              "end": "11:00",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-1d",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "D",
+          "title": "Clustering and Coresets",
+          "theme": "Clustering and Coresets",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Yury Makarychev",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-1d-paper-1",
+              "title": "A Constant Approximation for Non-Uniform k-Center",
+              "authors": "Tanmay Inamdar (Indian Institute of Technology Jodhpur); William Lochet (CNRS, LIRMM); Fahad Panolan (School of Computer Science, University of Leeds)",
+              "start": "09:30",
+              "end": "09:48",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1d-paper-2",
+              "title": "FPT Approximation Schemes for Min-Sum Radii and Min-Sum Diameters",
+              "authors": "Fabrizio Grandoni (IDSIA, USI-SUPSI); Anupam Gupta (New York University, USA); Jatin Yadav (Indian Institute Of Technology, Delhi)",
+              "start": "09:48",
+              "end": "10:06",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1d-paper-3",
+              "title": "Fully Dynamic Euclidean k-Means",
+              "authors": "Sayan Bhattacharya (University of Warwick, UK); Martin Costa, Ermiya Farokhnejad (University of Warwick); Shaofeng Jiang (Peking University); Yaonan Jin (Huawei); Jianing Lou (Peking University)",
+              "start": "10:06",
+              "end": "10:24",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1d-paper-4",
+              "title": "k-Clustering via Iterative Randomized Rounding",
+              "authors": "Jarosław Byrka (University of Wrocław); Yuhao Guo, Yang Hu (Tsinghua University); Shi Li (Nanjing University); Chengzhang Wan (Tsinghua University); Zaixuan Wang (Nanjing University)",
+              "start": "10:24",
+              "end": "10:42",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-1d-paper-5",
+              "title": "A Polynomial Coreset for Furthest Neighbor in Planar Metrics",
+              "authors": "Kacper Kluk (University of Warsaw); Hung Le (University of Massachusetts, Amherst, USA); Wojciech Nadara, Marcin Pilipczuk (University of Warsaw); Hector Tierno, Vinayak Vinayak (University of Massachusetts, Amherst)",
+              "start": "10:42",
+              "end": "11:00",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-monday-1100-break",
+          "conference": "FOCS",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break (20 min)",
+          "theme": "Coffee Break (20 min)",
+          "start": "11:00",
+          "end": "11:20",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": []
+        },
+        {
+          "id": "focs-2a",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "A",
+          "title": "Shortest Paths and Distances",
+          "theme": "Shortest Paths and Distances",
+          "start": "11:20",
+          "end": "12:50",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Magnus Wahlström",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-2a-paper-1",
+              "title": "Almost Optimal Multiple Source Shortest Paths and Reachability",
+              "authors": "Barna Saha, Yinzhan Xu, Christopher Ye (University of California, San Diego)",
+              "start": "11:20",
+              "end": "11:38",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2a-paper-2",
+              "title": "Bellman-Ford in Almost-Linear Time for Dense Graphs",
+              "authors": "George Li (Carnegie Mellon University); Jason Li (CMU); Junkai Zhang (Tsinghua University)",
+              "start": "11:38",
+              "end": "11:56",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2a-paper-3",
+              "title": "Shortest Paths with Linear Edge Weights",
+              "authors": "Suryajith Chillara, Kshitij Gajjar (International Institute of Information Technology, Hyderabad); Nithish Raja (Eindhoven University of Technology)",
+              "start": "11:56",
+              "end": "12:14",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2a-paper-4",
+              "title": "Distances in Planar Graphs are Almost for Free!",
+              "authors": "Shay Mozes, Daniel Prigan (Reichman University, Israel)",
+              "start": "12:14",
+              "end": "12:32",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2a-paper-5",
+              "title": "Optimal algorithm for 2-Approximate All Pair Shortest Paths — almost",
+              "authors": "Manoj Gupta, Mrigankashekhar Shandilya (IIT Gandhinagar)",
+              "start": "12:32",
+              "end": "12:50",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-2b",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "B",
+          "title": "Circuit Lower Bounds and Separations",
+          "theme": "Circuit Lower Bounds and Separations",
+          "start": "11:20",
+          "end": "12:50",
+          "room": "405/406",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Chin Ho Lee",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-2b-paper-1",
+              "title": "A Lower Bound for Non-Commutative Circuits",
+              "authors": "Ran Raz (Princeton University)",
+              "start": "11:20",
+              "end": "11:38",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2b-paper-2",
+              "title": "Exponential lower bounds for depth-3 circuits in small characteristic",
+              "authors": "Michael A. Forbes (University of Illinois at Urbana-Champaign)",
+              "start": "11:38",
+              "end": "11:56",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2b-paper-3",
+              "title": "Derandomized Sunflowers and Radical Lower Bounds",
+              "authors": "Bruno Cavalar (University of Oxford); Théo Fabris (University of Copenhagen); Partha Mukhopadhyay (Chennai Mathematical Institute); Srikanth Srinivasan, Amir Yehudayoff (University of Copenhagen)",
+              "start": "11:56",
+              "end": "12:14",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2b-paper-4",
+              "title": "Near-Maximum Circuit Lower Bounds for Exponential Time with Merlin-Arthur Queries",
+              "authors": "Hanlin Ren (Institute for Advanced Study); Ryan Williams (MIT)",
+              "start": "12:14",
+              "end": "12:32",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2b-paper-5",
+              "title": "Separating RAM and Multitape Turing Machines with Short Random Oracles",
+              "authors": "Lijie Chen, Yichuan Wang (UC Berkeley)",
+              "start": "12:32",
+              "end": "12:50",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-2c",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "C",
+          "title": "Learning Theory and Calibration",
+          "theme": "Learning Theory and Calibration",
+          "start": "11:20",
+          "end": "12:50",
+          "room": "905/907",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Thuy-Duong (June) Vuong",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-2c-paper-1",
+              "title": "Robust Learning with Optimal Error",
+              "authors": "Guy Blanc (Stanford University)",
+              "start": "11:20",
+              "end": "11:38",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2c-paper-2",
+              "title": "Robust Learning of Multi-Index Models under Logconcave Distributions via Weak Partial Learners",
+              "authors": "Ilias Diakonikolas (UW Madison); Daniel M. Kane (University of California, San Diego); Mingchen Ma (UW-Madison)",
+              "start": "11:38",
+              "end": "11:56",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2c-paper-3",
+              "title": "Tight Bounds for Learning Polyhedra with a Margin",
+              "authors": "Shyamal Patel (Columbia University); Santosh Vempala (Georgia Tech)",
+              "start": "11:56",
+              "end": "12:14",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2c-paper-4",
+              "title": "Sample Complexity of Autoregressive Reasoning: Chain-of-Thought vs. End-to-End",
+              "authors": "Steve Hanneke (Purdue University); Idan Mehalel (The Hebrew University); Shay Moran (Technion and Google Research)",
+              "start": "12:14",
+              "end": "12:32",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2c-paper-5",
+              "title": "Optimal Lower Bounds for Online Multicalibration",
+              "authors": "Natalie Collina, Jiuyao Lu, Georgy Noarov, Aaron Roth (University of Pennsylvania)",
+              "start": "12:32",
+              "end": "12:50",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-2d",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "D",
+          "title": "Geometry, Polyhedra and Metric Spaces",
+          "theme": "Geometry, Polyhedra and Metric Spaces",
+          "start": "11:20",
+          "end": "12:50",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Yury Makarychev",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-2d-paper-1",
+              "title": "A general framework for geometric problems: Low-dimensionality implies a PTAS",
+              "authors": "Alon Hovav, Yair Bartal (Hebrew University); Lee-Ad Gottlieb (Ariel University)",
+              "start": "11:20",
+              "end": "11:38",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2d-paper-2",
+              "title": "L₁-distortion of Earth Mover Distances and Transportation Cost Spaces on High Dimensional Grids",
+              "authors": "Chris Gartland (UNC Charlotte); Mikhail Ostrovskii (St. John's University); Yuval Rabani (The Hebrew University of Jerusalem); Robert Young (New York University)",
+              "start": "11:38",
+              "end": "11:56",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2d-paper-3",
+              "title": "A PTAS for Euclidean Capacitated Vehicle Routing",
+              "authors": "Zachary Friggstad (University of Alberta); Fabrizio Grandoni, Ramin Mousavi (IDSIA, USI-SUPSI); Kinter Ren, Mohammad R. Salavatipour (University of Alberta)",
+              "start": "11:56",
+              "end": "12:14",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2d-paper-4",
+              "title": "Single-Source Shortest Paths and Almost Exact Diameter in Pseudodisk Graphs",
+              "authors": "Mark de Berg (TU Eindhoven); Bart Jansen (TU Eindhoven, the Netherlands); Jeroen S.K. Lamme (TU Eindhoven)",
+              "start": "12:14",
+              "end": "12:32",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-2d-paper-5",
+              "title": "Circuit Diameter of Polyhedra is Strongly Polynomial",
+              "authors": "Bento Natura (Columbia University)",
+              "start": "12:32",
+              "end": "12:50",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-monday-1250-meal",
+          "conference": "FOCS",
+          "kind": "meal",
+          "track": null,
+          "title": "Lunch (90 minutes)",
+          "theme": "Lunch (90 minutes)",
+          "start": "12:50",
+          "end": "14:20",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": []
+        },
+        {
+          "id": "focs-3a",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "A",
+          "title": "Fine-Grained Complexity",
+          "theme": "Fine-Grained Complexity",
+          "start": "14:20",
+          "end": "15:50",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Josh Alman",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-3a-paper-1",
+              "title": "3SUM Is Really Hard: A Real-to-Integer Reduction",
+              "authors": "Nick Fischer (Max Planck Institute for Informatics); Adam Polak, Jonas Schmidt (Bocconi University)",
+              "start": "14:20",
+              "end": "14:38",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3a-paper-2",
+              "title": "Min-Plus Convolution Lower Bounds via a Higher-Order BSG Theorem",
+              "authors": "Nick Fischer (Max Planck Institute for Informatics); Ce Jin (UC Berkeley); Yinzhan Xu (University of California, San Diego)",
+              "start": "14:38",
+              "end": "14:56",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3a-paper-3",
+              "title": "Dynamic Time Warping in the Low-Distance Regime",
+              "authors": "Itai Boneh (University of Wrocław); Shay Golan (Ariel University); Tomasz Kociumaka (Max Planck Institute for Informatics)",
+              "start": "14:56",
+              "end": "15:14",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3a-paper-4",
+              "title": "Can We Break Fine-Grained and NP-Hardness Barriers if We've Seen the Graph Before? The Isomorphic-Priors Model",
+              "authors": "Dani Dorfman, Simon Döring, Martin Herold, Danupon Nanongkai (Max Planck Institute for Informatics, Saarland Informatics Campus); Daniel Neuen (TU Dresden); Joachim Spoerhase (University of Liverpool); Zihang Wu (Max Planck Institute for Informatics, Saarland Informatics Campus)",
+              "start": "15:14",
+              "end": "15:32",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3a-paper-5",
+              "title": "Pigeonhole Equal Subset Sum: Subexponential Algorithm, Tight Lower Bounds, and Average-Case Analysis",
+              "authors": "Deepak Bhati (CISPA Helmholtz Center for Information Security); Pranjal Dutta (Nanyang Technological University, Singapore); Antoine Joux, Mahesh Sreekumar Rajasree (CISPA Helmholtz Center for Information Security); Karol Węgrzycki (Max Planck Institute for Informatics)",
+              "start": "15:32",
+              "end": "15:50",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-3b",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "B",
+          "title": "Quantum Circuits and Lower Bounds",
+          "theme": "Quantum Circuits and Lower Bounds",
+          "start": "14:20",
+          "end": "15:50",
+          "room": "405/406",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "François Le Gall",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-3b-paper-1",
+              "title": "QAC⁰ contains TC⁰ (with many copies of the input)",
+              "authors": "Daniel Grier, Jackson Morris (University of California, San Diego); Kewen Wu (Institute for Advanced Study)",
+              "start": "14:20",
+              "end": "14:38",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3b-paper-2",
+              "title": "Worst-case depth hierarchy for shallow quantum circuits",
+              "authors": "Min-Hsiu Hsieh, Michael de Oliveira (Hon Hai (Foxconn) Quantum Computing Research Center); Sathyawageeswar Subramanian (University of Oxford); Xingjian Zhang (University of Technology Sydney)",
+              "start": "14:38",
+              "end": "14:56",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3b-paper-3",
+              "title": "Quantum Speedups Require Structure or Depth",
+              "authors": "Guy Blanc, Jordan Docter, Carmen Strassle, Li-Yang Tan (Stanford University)",
+              "start": "14:56",
+              "end": "15:14",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3b-paper-4",
+              "title": "Efficient quantum circuits for high-dimensional representations of SU(n) and Ramanujan quantum expanders",
+              "authors": "Vishnu Iyer, Siddhartha Jain (UT Austin); Stephen Jordan, Rolando D. Somma (Google)",
+              "start": "15:14",
+              "end": "15:32",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3b-paper-5",
+              "title": "Tight Quantum Lower Bound for k-Distinctness",
+              "authors": "Aleksandrs Belovs (University of Latvia)",
+              "start": "15:32",
+              "end": "15:50",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-3c",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "C",
+          "title": "Mechanism Design, Fair Division and Fixed Points",
+          "theme": "Mechanism Design, Fair Division and Fixed Points",
+          "start": "14:20",
+          "end": "15:50",
+          "room": "905/907",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Chaitanya Swamy",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-3c-paper-1",
+              "title": "Approximately Efficient Multidimensional Bilateral Trade",
+              "authors": "Aviad Rubinstein (Stanford University, USA); Xizhi Tan, Zixin Zhou (Stanford University)",
+              "start": "14:20",
+              "end": "14:38",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3c-paper-2",
+              "title": "On the Existence of Fair Allocations for Goods and Chores under Dissimilar Preferences",
+              "authors": "Egor Gagushin, Marios Mertzanidis (Purdue University); Alexandros Psomas (Purdue University and Google Research)",
+              "start": "14:38",
+              "end": "14:56",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3c-paper-3",
+              "title": "Sample-efficient black-box reductions in Bayesian mechanism design with independent items",
+              "authors": "Arya Maheshwari (Carnegie Mellon University); S. Matthew Weinberg, Eric Xue (Princeton University)",
+              "start": "14:56",
+              "end": "15:14",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3c-paper-4",
+              "title": "Truthful-in-Expectation Mechanisms for MMS Approximation",
+              "authors": "Moshe Babaioff (The Hebrew University of Jerusalem); Uriel Feige (Weizmann Institute of Science); Noam Manaker Morag (The Hebrew University of Jerusalem)",
+              "start": "15:14",
+              "end": "15:32",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3c-paper-5",
+              "title": "Faster Approximate Fixed Points of ℓ∞-Contractions",
+              "authors": "Andrei Feodorov, Sebastian Haslebacher (ETH Zurich)",
+              "start": "15:32",
+              "end": "15:50",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-3d",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "D",
+          "title": "Streaming, Sketching and Communication",
+          "theme": "Streaming, Sketching and Communication",
+          "start": "14:20",
+          "end": "15:50",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Sagnik Mukhopadhyay",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-3d-paper-1",
+              "title": "Adversarial Robustness for Small Frequency Moments and a Weak Equivalence Theorem for Turnstile Streams",
+              "authors": "Elena Gribelyuk (Princeton University); Honghao Lin, David P. Woodruff (Carnegie Mellon University); Huacheng Yu (Princeton University); Samson Zhou (Texas A&M University)",
+              "start": "14:20",
+              "end": "14:38",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3d-paper-2",
+              "title": "Turnstile Streaming Algorithms Might (Still) as Well Be Linear Sketches, for Polynomial-Length Streams",
+              "authors": "Cheng Jiang (MIT); Yinchen Liu (Tsinghua University); Huacheng Yu (Princeton University)",
+              "start": "14:38",
+              "end": "14:56",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3d-paper-3",
+              "title": "Optimal Single-Pass Streaming Lower Bounds for Approximating CSPs",
+              "authors": "Noah G. Singer (Carnegie Mellon University); Madhur Tulsiani (Toyota Technological Institute at Chicago); Santhoshini Velusamy (University of Waterloo)",
+              "start": "14:56",
+              "end": "15:14",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3d-paper-4",
+              "title": "Near-Optimal Space Lower Bounds for Streaming CSPs",
+              "authors": "Yumou Fei, Dor Minzer, Shuo Wang (MIT)",
+              "start": "14:56",
+              "end": "15:14",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3d-paper-5",
+              "title": "Quality control in sublinear time: a case study via random graphs",
+              "authors": "Cassandra Marcussen (Harvard University); Ronitt Rubinfeld (MIT); Madhu Sudan (Harvard University)",
+              "start": "15:14",
+              "end": "15:32",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-3d-paper-6",
+              "title": "Short and Sweet: Computationally Efficient Collaborative Communication Through Indistinguishability and Coarsening",
+              "authors": "Mark Bedaywi, Scott Emmons, Nika Haghtalab, Stuart Russell (UC Berkeley)",
+              "start": "15:32",
+              "end": "15:50",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-monday-1550-break",
+          "conference": "FOCS",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break (20 min)",
+          "theme": "Coffee Break (20 min)",
+          "start": "15:50",
+          "end": "16:10",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": []
+        },
+        {
+          "id": "focs-4a",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "A",
+          "title": "Data Structures and Space–Time Tradeoffs",
+          "theme": "Data Structures and Space–Time Tradeoffs",
+          "start": "16:10",
+          "end": "17:58",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Huacheng Yu",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-4a-paper-1",
+              "title": "An Ω((log n / log log n)²) Cell-Probe Lower Bound for Dynamic Boolean Data Structures",
+              "authors": "Young Kun Ko (Pennsylvania State University)",
+              "start": "16:10",
+              "end": "16:28",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4a-paper-2",
+              "title": "Compressed Inverse Suffix Arrays",
+              "authors": "Sharma V. Thankachan (North Carolina State University)",
+              "start": "16:28",
+              "end": "16:46",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4a-paper-3",
+              "title": "Dynamic Entropy-Encoded Arrays in O(1) Time with Nearly Optimal Space",
+              "authors": "Guy E. Blelloch (Carnegie Mellon University); Yang Hu (Tsinghua University); William Kuszmaul (Carnegie Mellon University); Tianxiao Li (Independent Researcher); Renfei Zhou (Carnegie Mellon University)",
+              "start": "16:46",
+              "end": "17:04",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4a-paper-4",
+              "title": "Sorting under Partial Information with Optimal Preprocessing Time via Unified Bound Heaps",
+              "authors": "Daniel Rutschmann (Institute of Science and Technology Austria (ISTA))",
+              "start": "17:04",
+              "end": "17:22",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4a-paper-5",
+              "title": "Improved space-time tradeoff for TSP via extremal set systems",
+              "authors": "Justin Dallant, László Kozma (Dresden University of Technology)",
+              "start": "17:22",
+              "end": "17:40",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4a-paper-6",
+              "title": "Improved Space-Time Tradeoffs for Permutation Problems via Extremal Combinatorics",
+              "authors": "Afrouz Jabal Ameli, Jesper Nederlof, Shengzhe Wang (Utrecht University)",
+              "start": "17:22",
+              "end": "17:40",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4a-paper-7",
+              "title": "The Power of Two-Choice Linear Probing",
+              "authors": "Amir Azarmehr (Northeastern University); Michael Bender (Stony Brook University); William Kuszmaul, Rose Silver (Carnegie Mellon University)",
+              "start": "17:40",
+              "end": "17:58",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-4b",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "B",
+          "title": "Proof Complexity and Space-Bounded Computation",
+          "theme": "Proof Complexity and Space-Bounded Computation",
+          "start": "16:10",
+          "end": "17:58",
+          "room": "405/406",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Josh Alman",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-4b-paper-1",
+              "title": "Hard CNF Instances for Ideal Proof Systems: The ROABP Case",
+              "authors": "Tuomas Hakoniemi (University of Helsinki); Nutan Limaye (IT University of Copenhagen); Iddo Tzameret (Imperial College London)",
+              "start": "16:10",
+              "end": "16:28",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4b-paper-2",
+              "title": "Many Proof Complexity Generators Inside One Demi-Bits Generator",
+              "authors": "Xin Li (Johns Hopkins University); Hanlin Ren (Institute for Advanced Study); Yan Zhong (Johns Hopkins University)",
+              "start": "16:28",
+              "end": "16:46",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4b-paper-3",
+              "title": "Superpolynomial Length Lower Bounds for Tree-Like Semantic Proof Systems with Bounded Line Size",
+              "authors": "Susanna F. de Rezende, David Engström (Lund University); Yassine Ghannane (University of Copenhagen); Kilian Risse (Lund University)",
+              "start": "16:46",
+              "end": "17:04",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4b-paper-4",
+              "title": "The Proof Analysis Problem for Constant-Depth Frege",
+              "authors": "Noel Arteche (Lund University & University of Copenhagen); Susanna de Rezende (Lund University); Erfan Khaniki (University of Oxford); Kilian Risse (Lund University)",
+              "start": "17:04",
+              "end": "17:22",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4b-paper-5",
+              "title": "Composing Low-Space Algorithms",
+              "authors": "Edward Pyne (MIT); Roei Tell (University of Toronto)",
+              "start": "17:22",
+              "end": "17:40",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4b-paper-6",
+              "title": "Limit on the computational power of C-random strings",
+              "authors": "Alexey Milovanov (University of Lisbon)",
+              "start": "17:40",
+              "end": "17:58",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-4c",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "C",
+          "title": "Online Algorithms, Scheduling and Optimization",
+          "theme": "Online Algorithms, Scheduling and Optimization",
+          "start": "16:10",
+          "end": "17:58",
+          "room": "905/907",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Chaitanya Swamy",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-4c-paper-1",
+              "title": "Online Algorithms via Minimax and Posterior Matching",
+              "authors": "Thomas Kesselheim (University of Bonn); Marco Molinaro (Microsoft Research); Kalen Patton, Sahil Singla (Georgia Institute of Technology)",
+              "start": "16:10",
+              "end": "16:28",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4c-paper-2",
+              "title": "Optimal Online Bin Packing under Prophet, Random-Order, and Learning-from-Samples Models",
+              "authors": "Kailash Gopal Darmasubramanian (Indian Institute of Technology, Madras); Samyak Jha, Arindam Khan, K. V. N. Sreenivas (Indian Institute of Science, Bengaluru)",
+              "start": "16:28",
+              "end": "16:46",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4c-paper-3",
+              "title": "The Instability of all Backoff Protocols",
+              "authors": "Leslie Ann Goldberg (University of Oxford); John Lapinskas (University of Bristol)",
+              "start": "16:46",
+              "end": "17:04",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4c-paper-4",
+              "title": "Breaking the Barrier of 2 for Approximating Weighted Throughput Maximization via the Sherali-Adams Hierarchy",
+              "authors": "Alexander Armbruster (Technical University of Munich); Fabrizio Grandoni (IDSIA, USI-SUPSI); Andreas Wiese (Technical University of Munich)",
+              "start": "17:04",
+              "end": "17:22",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4c-paper-5",
+              "title": "NP-Hardness and a PTAS for the Pinwheel Problem",
+              "authors": "Robert Kleinberg, Ahan Mishra (Cornell University)",
+              "start": "17:22",
+              "end": "17:40",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4c-paper-6",
+              "title": "Stronger Memory-Query Tradeoffs for Convex Optimization: The Limitations of Subquadratic Memory",
+              "authors": "Michael Menart (University of Toronto, Vector Institute); Sasho Nikolov (University of Toronto); Ohad Shamir (Weizmann Institute and University of Toronto)",
+              "start": "17:40",
+              "end": "17:58",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-4d",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "D",
+          "title": "Parameterized Algorithms and Enumeration",
+          "theme": "Parameterized Algorithms and Enumeration",
+          "start": "16:10",
+          "end": "17:58",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Jarosław Byrka",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": [
+            {
+              "id": "focs-4d-paper-1",
+              "title": "Branch-width of connectivity functions is fixed-parameter tractable",
+              "authors": "Tuukka Korhonen (University of Copenhagen); Sang-il Oum (Institute for Basic Science)",
+              "start": "16:10",
+              "end": "16:28",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4d-paper-2",
+              "title": "Fixed-Parameter Tractability and Hardness for Steiner Rooted and Locally Connected Orientations",
+              "authors": "Kristóf Bérczi (Eötvös Loránd University); Florian Hörsch (CISPA Helmholtz Center for Information Security); András Imolay (Eötvös Loránd University); Tamás Schwarcz (London School of Economics and Political Science)",
+              "start": "16:28",
+              "end": "16:46",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4d-paper-3",
+              "title": "Optimal Bounds for the k-Disjoint Paths Problem",
+              "authors": "Maximilian Gorsky (Institute for Basic Science); Dario Giuliano Cavallaro, Stephan Kreutzer (TU Berlin); Dimitrios Thilikos (LIRMM, Univ Montpellier, CNRS, Montpellier, France); Sebastian Wiederrecht (KAIST)",
+              "start": "16:46",
+              "end": "17:04",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4d-paper-4",
+              "title": "Weighted Treewidth on Minor-Free Graphs: Combinatorics and Approximation",
+              "authors": "Dániel Marx (CISPA Helmholtz Center for Information Security); Michał Pilipczuk (University of Warsaw, Poland); Karol Węgrzycki (Max Planck Institute for Informatics)",
+              "start": "17:04",
+              "end": "17:22",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4d-paper-5",
+              "title": "Efficiently Listing Projected Trees, and Equivalence of Listing and Enumeration",
+              "authors": "Karl Bringmann (ETH Zurich); Nick Fischer (Max Planck Institute for Informatics); Yanheng Wang (ETH Zürich)",
+              "start": "17:22",
+              "end": "17:40",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            },
+            {
+              "id": "focs-4d-paper-6",
+              "title": "Optimal FPT-Approximability for Modular Linear Equations",
+              "authors": "Konrad K. Dabrowski (Newcastle University); Peter Jonsson (Linköping University); Sebastian Ordyniak (University of Leeds, UK); George Osipov (University of Oxford); Magnus Wahlstrom (Royal Holloway, University of London, UK)",
+              "start": "17:40",
+              "end": "17:58",
+              "url": "https://focs.computer.org/2026/main-program/#monday"
+            }
+          ]
+        },
+        {
+          "id": "focs-monday-1815-plenary",
+          "conference": "FOCS",
+          "kind": "plenary",
+          "track": null,
+          "title": "Business Meeting",
+          "theme": "Business Meeting",
+          "start": "18:15",
+          "end": "20:00",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#monday",
+          "papers": []
+        }
+      ]
+    },
+    {
+      "id": "tuesday",
+      "date": "2026-11-10",
+      "venueId": "kimmel",
+      "sessions": [
+        {
+          "id": "focs-tuesday-0900-meal",
+          "conference": "FOCS",
+          "kind": "meal",
+          "track": null,
+          "title": "Breakfast",
+          "theme": "Breakfast",
+          "start": "09:00",
+          "end": "09:30",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-1",
+          "conference": "TCC",
+          "kind": "plenary",
+          "track": "TCC",
+          "title": "Opening Remarks",
+          "theme": "Opening Remarks",
+          "start": "09:25",
+          "end": "09:30",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
+          "papers": []
+        },
+        {
+          "id": "focs-5a",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "A",
+          "title": "Quantum Information Theory",
+          "theme": "Quantum Information Theory",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Thuy-Duong (June) Vuong",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": [
+            {
+              "id": "focs-5a-paper-1",
+              "title": "Constructive counterexamples to the additivity of minimum output Rényi entropy of quantum channels for all p > 1",
+              "authors": "Harm Derksen (Northeastern University); Benjamin Lovitz (Concordia University)",
+              "start": "09:30",
+              "end": "09:48",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5a-paper-2",
+              "title": "On the undecidability of quantum channel capacities",
+              "authors": "Archishna Bhattacharyya, Arthur Mehta (University of Ottawa); Yuming Zhao (University of Copenhagen)",
+              "start": "09:48",
+              "end": "10:06",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5a-paper-3",
+              "title": "A quasipolynomial-time classical algorithm for SYK thermal expectations",
+              "authors": "Alexander Zlokapa (MIT)",
+              "start": "10:06",
+              "end": "10:24",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5a-paper-4",
+              "title": "DQC1-completeness of normalized trace estimation for functions of log-local Hamiltonians",
+              "authors": "Zhengfeng Ji (Tsinghua University); Tongyang Li (Peking University); Changpeng Shao (Academy of Mathematics and System Sciences, Chinese Academy of Sciences); Xinzhao Wang (Peking University); Yuxin Zhang (Academy of Mathematics and Systems Science, Chinese Academy of Sciences)",
+              "start": "10:24",
+              "end": "10:42",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5a-paper-5",
+              "title": "Explicit Separations for One-Query Unitary Synthesis",
+              "authors": "Fangqi Dong, Alex Lombardi (Princeton University); Fermi Ma (New York University)",
+              "start": "10:42",
+              "end": "11:00",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-5b",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "B",
+          "title": "Quantum Cryptography and Oracles",
+          "theme": "Quantum Cryptography and Oracles",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "405/406",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Huacheng Yu",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": [
+            {
+              "id": "focs-5b-paper-1",
+              "title": "Classical Obfuscation of Quantum Circuits via Publicly-Verifiable QFHE",
+              "authors": "James Bartusek (Columbia); Aparna Gupte (MIT CSAIL); Saachi Mutreja (Columbia); Omri Shmueli (NTT Research)",
+              "start": "09:30",
+              "end": "09:48",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5b-paper-2",
+              "title": "Obfuscation of Arbitrary Quantum Circuits (via Subspace-Preserving Pseudorandom Unitary)",
+              "authors": "Er-Cheng Tang (University of Washington); Mi-Ying Miryam Huang (University of Southern California)",
+              "start": "09:48",
+              "end": "10:06",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5b-paper-3",
+              "title": "Certified Randomness without Structure Against Shallow-Query Adversaries",
+              "authors": "Dakshita Khurana (UIUC and NTT Research); Bhaskar Roberts, Avishay Tal (UC Berkeley)",
+              "start": "10:06",
+              "end": "10:24",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5b-paper-4",
+              "title": "Quantum oracles, weak and strong",
+              "authors": "John Wright (The University of California, Berkeley); Ewin Tang (UC Berkeley); Mark Zhandry (Stanford)",
+              "start": "10:24",
+              "end": "10:42",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5b-paper-5",
+              "title": "Separating Quantum and Classical Advice with Good Codes",
+              "authors": "Andrew Huang (MIT); John Bostanci (Columbia University); Vinod Vaikuntanathan (MIT)",
+              "start": "10:42",
+              "end": "11:00",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-5c",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "C",
+          "title": "Coding Theory and Error Correction",
+          "theme": "Coding Theory and Error Correction",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "905/907",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Iddo Tzameret",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": [
+            {
+              "id": "focs-5c-paper-1",
+              "title": "Efficient and rate-optimal list-decoding in the presence of minimal feedback: Weldon and Slepian-Wolf in sheep's clothing",
+              "authors": "Pranav Joshi (California Institute of Technology); Daniel McMorrow (National University of Singapore); Yihan Zhang (University of Bristol); Amitalok J. Budkuley (Indian Institute of Technology Kharagpur); Sidharth Jaggi (University of Bristol)",
+              "start": "09:30",
+              "end": "09:48",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5c-paper-2",
+              "title": "Towards a Unified Algorithmic Framework for Shannon's Theorem",
+              "authors": "Sayan Bhattacharya (University of Warwick, UK); Martin Costa (University of Warwick); Shay Solomon (Tel Aviv University); Tianyi Zhang (Nanjing University)",
+              "start": "09:48",
+              "end": "10:06",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5c-paper-3",
+              "title": "Linear-Time Encodable and Decodable Quantum Error-Correcting Codes",
+              "authors": "Adam Wills (Center for Theoretical Physics — a Leinweber Institute, Massachusetts Institute of Technology, Cambridge, MA; Hon Hai (Foxconn) Research Institute, Taipei, Taiwan); Ting-Chun Lin (Department of Physics, University of California at San Diego, La Jolla, CA; Hon Hai (Foxconn) Research Institute, Taipei, Taiwan); Rachel Yun Zhang (CSAIL, Massachusetts Institute of Technology, Cambridge, MA); Min-Hsiu Hsieh (Hon Hai (Foxconn) Research Institute, Taipei, Taiwan)",
+              "start": "10:06",
+              "end": "10:24",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5c-paper-4",
+              "title": "Explicit Constant-Alphabet Subspace Design Codes",
+              "authors": "Rohan Goyal (MIT); Venkatesan Guruswami (UC Berkeley); Jun-Ting Hsieh (Massachusetts Institute of Technology)",
+              "start": "10:24",
+              "end": "10:42",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-5c-paper-5",
+              "title": "Error-Correction of Matrix Multiplication Algorithms over Integers",
+              "authors": "Shuichi Hirahara (National Institute of Informatics); Nobutaka Shimizu (Institute of Science Tokyo)",
+              "start": "10:42",
+              "end": "11:00",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-99",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "Secret Sharing and Correlated Randomness",
+          "theme": "Secret Sharing and Correlated Randomness",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
+          "papers": [
+            {
+              "id": "tcc-talk-69",
+              "title": "Ideal Secret Sharing Schemes over Small Domains",
+              "authors": "Amos Beimel; Aner Ben-Efraim; Oriol Farràs; Adriana Moya",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/1794"
+            },
+            {
+              "id": "tcc-talk-59",
+              "title": "New Imperfect High Threshold and Slice Secret Sharing Schemes",
+              "authors": "Andrej Bogdanov; Yanbo Chen",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/2008"
+            },
+            {
+              "id": "tcc-talk-90",
+              "title": "Deniable Secret Sharing: Towards Practical Faking",
+              "authors": "Ignacio Amores-Sesar; Tamar Ben David; Matteo Campanelli; Sebastian Kolby; Eran Omri; Anat Paskin-Cherniavsky; Sophia Yakoubov",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/2294"
+            },
+            {
+              "id": "tcc-talk-51",
+              "title": "On Perfect Additive Randomized Encodings",
+              "authors": "Yuval Ishai; Eyal Kushilevitz; Sahar Alon Yerushalmi",
+              "order": 4,
+              "start": null,
+              "end": null
+            },
+            {
+              "id": "tcc-talk-88",
+              "title": "Multi-Party Distributed Point Functions, Revisited",
+              "authors": "Elaine Shi; Tianyao Gu; Xuanye Zheng; Yue Yang; Yiping Liu; Yucheng Fu",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/1970"
+            },
+            {
+              "id": "tcc-talk-91",
+              "title": "On Compressing Linearly Shared Correlations",
+              "authors": "Geoffroy Couteau; Alexander Koch; Nikolas Melissaris; Peter Scholl; Sacha Servan-Schreiber; Xiaxi Ye",
+              "order": 6,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/255"
+            }
+          ]
+        },
+        {
+          "id": "focs-tuesday-1100-break",
+          "conference": "FOCS",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break (20 min)",
+          "theme": "Coffee Break (20 min)",
+          "start": "11:00",
+          "end": "11:20",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-100",
+          "conference": "TCC",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break",
+          "theme": "Coffee Break",
+          "start": "11:00",
+          "end": "11:30",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
+          "papers": []
+        },
+        {
+          "id": "focs-6a",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "A",
+          "title": "Sampling and Counting",
+          "theme": "Sampling and Counting",
+          "start": "11:20",
+          "end": "12:50",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Artur Czumaj",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": [
+            {
+              "id": "focs-6a-paper-1",
+              "title": "A computational phase transition for learning-to-sample from Ising models",
+              "authors": "Andrej Risteski (Carnegie Mellon University); Thuy-Duong (June) Vuong (UC San Diego)",
+              "start": "11:20",
+              "end": "11:38",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6a-paper-2",
+              "title": "Rapid mixing in positively weighted restricted Boltzmann machines",
+              "authors": "Weiming Feng (The University of Hong Kong); Heng Guo (University of Edinburgh); Minji Yang (The University of Hong Kong)",
+              "start": "11:38",
+              "end": "11:56",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6a-paper-3",
+              "title": "Subquadratic Counting via Perfect Marginal Sampling",
+              "authors": "Xiaoyu Chen (MIT); Zongchen Chen (Georgia Institute of Technology); Kuikui Liu (MIT); Xinyuan Zhang (Nanjing University)",
+              "start": "11:56",
+              "end": "12:14",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6a-paper-4",
+              "title": "Non-existence probabilities and lower tails in the critical regime via Belief Propagation",
+              "authors": "Matthew Jenssen (King's College London); Will Perkins (Georgia Institute of Technology); Aditya Potukuchi (Max Planck Institute for Software Systems); Michael Simkin (MIT)",
+              "start": "12:14",
+              "end": "12:32",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6a-paper-5",
+              "title": "On Sampling Lower Bounds for Polynomials",
+              "authors": "Mohammad Mahdi Khodabandeh, Igor Shinkar (Simon Fraser University)",
+              "start": "12:32",
+              "end": "12:50",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-6b",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "B",
+          "title": "Random Structures and Constraint Satisfaction",
+          "theme": "Random Structures and Constraint Satisfaction",
+          "start": "11:20",
+          "end": "12:50",
+          "room": "405/406",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Yury Makarychev",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": [
+            {
+              "id": "focs-6b-paper-1",
+              "title": "Strong Low Degree Hardness for Stable Local Optima in Spin Glasses",
+              "authors": "Brice Huang (Stanford); Mark Sellke (Harvard)",
+              "start": "11:20",
+              "end": "11:38",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6b-paper-2",
+              "title": "Stable algorithms cannot reliably find isolated perceptron solutions",
+              "authors": "Shuyang Gong (Peking University); Brice Huang (Stanford University); Shuangping Li (Yale University); Mark Sellke (Harvard University)",
+              "start": "11:38",
+              "end": "11:56",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6b-paper-3",
+              "title": "Sharp Lovasz-Theta Bounds on Random Graphs",
+              "authors": "Aaron Potechin (University of Chicago); Jeff Xu (TTIC)",
+              "start": "11:56",
+              "end": "12:14",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6b-paper-4",
+              "title": "Expanders Meet Reed–Muller: Easy Instances of Noisy k-XOR",
+              "authors": "Jarosław Błasiok, Paul Lou, Alon Rosen (Bocconi University); Madhu Sudan (Harvard University)",
+              "start": "12:14",
+              "end": "12:32",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6b-paper-5",
+              "title": "The Richness of CSP Non-redundancy",
+              "authors": "Joshua Brakensiek (University of California, Berkeley); Venkatesan Guruswami (UC Berkeley); Bart Jansen (TU Eindhoven, the Netherlands); Victor Lagerkvist (Linköpings universitet); Magnus Wahlstrom (Royal Holloway, University of London, UK)",
+              "start": "12:32",
+              "end": "12:50",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-6c",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "C",
+          "title": "Communication, Space-Bounded and Algebraic Algorithms",
+          "theme": "Communication, Space-Bounded and Algebraic Algorithms",
+          "start": "11:20",
+          "end": "12:50",
+          "room": "905/907",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Josh Alman",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": [
+            {
+              "id": "focs-6c-paper-1",
+              "title": "Gap-Majority Lemmas in Communication Complexity",
+              "authors": "Pachara Sawettamalya, Huacheng Yu (Princeton University)",
+              "start": "11:20",
+              "end": "11:38",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6c-paper-2",
+              "title": "No Constant-Cost Protocol for Point–Line Incidence",
+              "authors": "Mika Göös (EPFL); Nathaniel Harms (UBC); Florian K. Richter, Anastasia Sofronova (EPFL)",
+              "start": "11:38",
+              "end": "11:56",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6c-paper-3",
+              "title": "Space-Efficient Simulations Beyond Multitape Turing Machines",
+              "authors": "Danil Sibgatullin, Ryan Williams (MIT)",
+              "start": "11:56",
+              "end": "12:14",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6c-paper-4",
+              "title": "Beyond odd characteristic: Faster isomorphism testing of 2-groups of Frattini class 2",
+              "authors": "Joshua A. Grochow (University of Colorado—Boulder); Gabor Ivanyos (Hungarian Academy of Sciences); Youming Qiao (University of New South Wales); Xiaorui Sun (University of Illinois Chicago)",
+              "start": "12:14",
+              "end": "12:32",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-6c-paper-5",
+              "title": "Approximating the Permanent of a Random Matrix with Polynomially Small Mean: Zeros and Universality",
+              "authors": "Frederic Koehler, Pui Kuen Leung (University of Chicago)",
+              "start": "12:32",
+              "end": "12:50",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-101",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "MPC I",
+          "theme": "MPC I",
+          "start": "11:30",
+          "end": "12:40",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
+          "papers": [
+            {
+              "id": "tcc-talk-44",
+              "title": "From OT to OLE with Almost-Linear Communication",
+              "authors": "Naman Kumar; Geoffroy Couteau",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/295"
+            },
+            {
+              "id": "tcc-talk-54",
+              "title": "A New Approach to Large Party Beaver-Style MPC with Small Computational Overhead",
+              "authors": "Aayush Jain; Huijia Lin; Nuozhou Sun",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2025/2305"
+            },
+            {
+              "id": "tcc-talk-56",
+              "title": "Statistical MPC with a Constant Communication Overhead",
+              "authors": "Ashish Ashish; Ivan Damgaard; Shravani Patil; Arpita Patra",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2025/1555"
+            },
+            {
+              "id": "tcc-talk-36",
+              "title": "A Constant-Rate Compiler for MPC over Noisy Networks",
+              "authors": "Ran Gelles; Carmit Hazay; Manuj Mukherjee; Jaspal Singh; Arun Yeragudipati; Vassilis Zikas",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2025/1699"
+            },
+            {
+              "id": "tcc-talk-85",
+              "title": "A Low-Communication Garbled RAM from Homomorphic Secret Sharing",
+              "authors": "Chase Fickes; Jinye He; Wei-Kai Lin",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/1998"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-102",
+          "conference": "TCC",
+          "kind": "meal",
+          "track": null,
+          "title": "Lunch",
+          "theme": "Lunch",
+          "start": "12:45",
+          "end": "14:15",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
+          "papers": []
+        },
+        {
+          "id": "focs-tuesday-1250-meal",
+          "conference": "FOCS",
+          "kind": "meal",
+          "track": null,
+          "title": "Lunch (1 hour 45 minutes)",
+          "theme": "Lunch (1 hour 45 minutes)",
+          "start": "12:50",
+          "end": "14:35",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-103",
+          "conference": "TCC",
+          "kind": "plenary",
+          "track": "TCC",
+          "title": "Invited Talk I",
+          "theme": "Invited Talk I",
+          "start": "14:15",
+          "end": "15:15",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
+          "papers": [
+            {
+              "id": "tcc-talk-111",
+              "title": "TBD",
+              "authors": "Aayush Jain",
+              "order": 1,
+              "start": null,
+              "end": null
+            }
+          ]
+        },
+        {
+          "id": "focs-tuesday-best-paper-session",
+          "conference": "FOCS",
+          "kind": "plenary",
+          "track": "Plenary",
+          "title": "Best Paper Session",
+          "theme": "Best Paper Session",
+          "start": "14:35",
+          "end": "16:05",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Sepehr Assadi",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": [
+            {
+              "id": "focs-tuesday-best-paper-session-paper-1",
+              "title": "Rational degree is polynomially related to degree",
+              "authors": "Robin Kothari (Google); Matt Kovacs-Deak (University of Maryland); Daochen Wang, Rain Zimin Yang (University of British Columbia)",
+              "start": "14:35",
+              "end": "15:05",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-tuesday-best-paper-session-paper-2",
+              "title": "Approximation Algorithms for Matroid-Intersection Coloring with Applications to Rota's Basis Conjecture",
+              "authors": "Stephen Arndt, Benjamin Moseley (Carnegie Mellon University); Kirk Pruhs (University of Pittsburgh); Chaitanya Swamy (University of Waterloo); Michael Zlatin (Pomona College)",
+              "start": "15:05",
+              "end": "15:35",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-tuesday-best-paper-session-paper-3",
+              "title": "The Four Color Theorem with Linearly Many Reducible Configurations and Near-Linear Time Coloring",
+              "authors": "Yuta Inoue (The University of Tokyo); Ken-ichi Kawarabayashi (National Institute of Informatics, Tokyo); Atsuyuki Miyashita (The University of Tokyo); Bojan Mohar (Simon Fraser University, Burnaby, Canada); Carsten Thomassen (Technical University of Denmark); Mikkel Thorup (University of Copenhagen)",
+              "start": "15:35",
+              "end": "16:05",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-104",
+          "conference": "TCC",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break",
+          "theme": "Coffee Break",
+          "start": "15:15",
+          "end": "15:45",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-105",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "LPN and Code-Based Cryptography",
+          "theme": "LPN and Code-Based Cryptography",
+          "start": "15:45",
+          "end": "17:00",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
+          "papers": [
+            {
+              "id": "tcc-talk-57",
+              "title": "Towards Worst-case Hardness for Low-Noise LPN",
+              "authors": "Divesh Aggarwal; Rishav Gupta; Hai Hoang Nguyen; Kel Zin Tan; Prashant Nalini Vasudevan",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/1168"
+            },
+            {
+              "id": "tcc-talk-70",
+              "title": "Hardness and Algorithms for Batch LPN under Dependent Noise",
+              "authors": "Xin Li; Songtao Mao; Zhaienhe Zhou",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2025/2164"
+            },
+            {
+              "id": "tcc-talk-89",
+              "title": "Field Switching in Learning Parity with Noise",
+              "authors": "Marshall Ball; Saroja Erabelli; Mingyuan Wang; Zhiheng Wang",
+              "order": 3,
+              "start": null,
+              "end": null
+            },
+            {
+              "id": "tcc-talk-31",
+              "title": "Logarithmic-Depth Pseudorandom Functions from Well-Founded Code-Based Assumptions",
+              "authors": "Youlong Ding; Aayush Jain; Ilan Komargodski",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/261"
+            },
+            {
+              "id": "tcc-talk-81",
+              "title": "A Locality-Sensitive Hashing Framework for Reducing Bounded Distance Decoding to EDCP",
+              "authors": "Ryann Cartor; Felice Manganiello; William Youmans",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/2055"
+            }
+          ]
+        },
+        {
+          "id": "focs-tuesday-1605-break",
+          "conference": "FOCS",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break (25 min)",
+          "theme": "Coffee Break (25 min)",
+          "start": "16:05",
+          "end": "16:30",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": []
+        },
+        {
+          "id": "focs-tuesday-best-student-paper-session",
+          "conference": "FOCS",
+          "kind": "plenary",
+          "track": "Plenary",
+          "title": "Best Student Paper Session",
+          "theme": "Best Student Paper Session",
+          "start": "16:30",
+          "end": "17:30",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Sanjeev Khanna",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": [
+            {
+              "id": "focs-tuesday-best-student-paper-session-paper-1",
+              "title": "Flip Distance Between Triangulations of Convex Polygons is NP-Complete",
+              "authors": "Joseph Dorfer (Graz University of Technology)",
+              "start": "16:30",
+              "end": "17:00",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            },
+            {
+              "id": "focs-tuesday-best-student-paper-session-paper-2",
+              "title": "Parity ∉ QAC⁰ ⇔ QAC⁰ is Fourier-Concentrated",
+              "authors": "Lucas Gretta, Meghal Gupta, Malvika Raj Joshi (UC Berkeley)",
+              "start": "17:00",
+              "end": "17:30",
+              "url": "https://focs.computer.org/2026/main-program/#tuesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-tuesday-1930-reception",
+          "conference": "FOCS",
+          "kind": "reception",
+          "track": null,
+          "title": "Joint FOCS + TCC Reception",
+          "theme": "Joint FOCS + TCC Reception",
+          "start": "19:30",
+          "end": "22:00",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-108",
+          "conference": "TCC",
+          "kind": "reception",
+          "track": null,
+          "title": "Reception (joint with FOCS)",
+          "theme": "Reception (joint with FOCS)",
+          "start": "19:30",
+          "end": "22:00",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
+          "papers": []
+        }
+      ]
+    },
+    {
+      "id": "wednesday",
+      "date": "2026-11-11",
+      "venueId": "kimmel",
+      "sessions": [
+        {
+          "id": "focs-wednesday-0900-meal",
+          "conference": "FOCS",
+          "kind": "meal",
+          "track": null,
+          "title": "Breakfast",
+          "theme": "Breakfast",
+          "start": "09:00",
+          "end": "09:30",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": []
+        },
+        {
+          "id": "focs-7a",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "A",
+          "title": "Algebraic Complexity and Tensors",
+          "theme": "Algebraic Complexity and Tensors",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "TBD",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-7a-paper-1",
+              "title": "Schur complements for tensors and multilinear commutative rank",
+              "authors": "Guy Moshkovitz (City University of New York); Daniel G. Zhu (Princeton University)",
+              "start": "09:30",
+              "end": "09:48",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7a-paper-2",
+              "title": "The edge of the asymptotic spectrum of tensors",
+              "authors": "Josh Alman, Baitian Li, Kevin Pratt (Columbia University)",
+              "start": "09:48",
+              "end": "10:06",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7a-paper-3",
+              "title": "Strassen's support functionals coincide with the quantum functionals: a general classical-quantum correspondence for optimization on entanglement polytopes and beyond",
+              "authors": "Keiya Sakabe, Mahmut Levent Doğan, Michael Walter (LMU Munich)",
+              "start": "10:06",
+              "end": "10:24",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7a-paper-4",
+              "title": "Hilbert's Nullstellensatz is in the Counting Hierarchy",
+              "authors": "Robert Andrews, Abhibhav Garg, Éric Schost (University of Waterloo)",
+              "start": "10:24",
+              "end": "10:42",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7a-paper-5",
+              "title": "A Unifying Framework for Quasi-Polynomial Optimization of Fixed-degree Polynomials",
+              "authors": "Martino Bernasconi (Bocconi University); Matteo Castiglioni (Politecnico di Milano); Andrea Celli (Bocconi University); Gabriele Farina (MIT)",
+              "start": "10:42",
+              "end": "11:00",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-7b",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "B",
+          "title": "PCPs and Hardness of Approximation",
+          "theme": "PCPs and Hardness of Approximation",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "405/406",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Zachary Friggstad",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-7b-paper-1",
+              "title": "Direct-product testers and PCPs from coset complexes",
+              "authors": "Ryan O'Donnell, Noah G. Singer (Carnegie Mellon University)",
+              "start": "09:30",
+              "end": "09:48",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7b-paper-2",
+              "title": "Classical Adversarial Fault-Tolerance and PCPs",
+              "authors": "Anurag Anshu (Harvard University); Nikolas Breuckmann (University of Bristol); Louis Golowich (UC Berkeley); Quynh T Nguyen (Harvard University); Umesh Vazirani (UC Berkeley)",
+              "start": "09:48",
+              "end": "10:06",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7b-paper-3",
+              "title": "Gap Amplification for Local Hamiltonians with Combinatorial Soundness",
+              "authors": "Mitali Bafna (University of Washington); Quynh T Nguyen (Harvard University); Tina Zhang (MIT)",
+              "start": "10:06",
+              "end": "10:24",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7b-paper-4",
+              "title": "Deterministic Hardness of Approximation for SVP in all Finite ℓₚ Norms",
+              "authors": "Isaac Hair (UCSB, UCLA); Amit Sahai (UCLA)",
+              "start": "10:24",
+              "end": "10:42",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7b-paper-5",
+              "title": "Optimal PSPACE-hardness of Approximating q-CSP Reconfiguration",
+              "authors": "Shuichi Hirahara (National Institute of Informatics); Naoto Ohsaka (CyberAgent, Inc.)",
+              "start": "10:42",
+              "end": "11:00",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-7c",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "C",
+          "title": "Constraint Satisfaction and Boolean Functions",
+          "theme": "Constraint Satisfaction and Boolean Functions",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "905/907",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Chin Ho Lee",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-7c-paper-1",
+              "title": "Conservative Maltsev Constraint Satisfaction Problems",
+              "authors": "Andrew Moorhead, Manuel Bodirsky (TU Dresden)",
+              "start": "09:30",
+              "end": "09:48",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7c-paper-2",
+              "title": "Singleton algorithms for the Constraint Satisfaction Problem",
+              "authors": "Dmitriy Zhuk (Charles University, Prague)",
+              "start": "09:48",
+              "end": "10:06",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7c-paper-3",
+              "title": "Approximate polymorphisms of predicates",
+              "authors": "Yuval Filmus, Yaroslav Alekseev (Technion)",
+              "start": "10:06",
+              "end": "10:24",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7c-paper-4",
+              "title": "PTF Lower Bounds from Low-Degree Testing Lower Bounds in Additive Noise Models",
+              "authors": "Ilias Diakonikolas (UW Madison); Daniel M. Kane (University of California, San Diego); Sihan Liu (UCSD); Trung Tran (University of California, San Diego)",
+              "start": "10:24",
+              "end": "10:42",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-7c-paper-5",
+              "title": "DNF formulas are efficiently testable with relative error",
+              "authors": "William Pires (Columbia); Xi Chen, Toniann Pitassi, Rocco A. Servedio (Columbia University)",
+              "start": "10:42",
+              "end": "11:00",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-4",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "MPC II",
+          "theme": "MPC II",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
+          "papers": [
+            {
+              "id": "tcc-talk-33",
+              "title": "Constant-round MPC protocols with Fall-back Security",
+              "authors": "Anasuya Acharya; Aditya Patankar; Arpita Patra; Divya Ravi; Raghavendra Vernekar",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_1"
+            },
+            {
+              "id": "tcc-talk-87",
+              "title": "On the Round Complexity of Dishonest-Majority MPC",
+              "authors": "Ran Cohen; Daniel Collins; Pouyan Forghani; Juan Garay; Vassilis Zikas",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_2"
+            },
+            {
+              "id": "tcc-talk-94",
+              "title": "Communication Depth in Multivalued Broadcast",
+              "authors": "Gabriel Dettling; Martin Hirt; Chen-Da Liu-Zhang",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_3"
+            },
+            {
+              "id": "tcc-talk-47",
+              "title": "(Im)possibility of Asynchronous MPC with Honest Majority over Blockchains",
+              "authors": "Ashish Choudhury; Sannidhi V Hebbar; Aniket Kate; Pabitra Mandal; Arpita Patra",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_4"
+            },
+            {
+              "id": "tcc-talk-49",
+              "title": "Asynchronous YOSO a la Paillier",
+              "authors": "Ivan Damgård; Jesper Buus Nielsen; Simon Kamp; Julian Loss",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_5"
+            },
+            {
+              "id": "tcc-talk-93",
+              "title": "Nested YOSO: Optimal Resilience from a PKI",
+              "authors": "Ittai Abraham; Eli Chouatt; Ivan Damg{\\aa}rd; Yossi Gilad; Gilad Stern; Sophia Yakoubov",
+              "order": 6,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_6"
+            }
+          ]
+        },
+        {
+          "id": "focs-wednesday-1100-break",
+          "conference": "FOCS",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break (20 min)",
+          "theme": "Coffee Break (20 min)",
+          "start": "11:00",
+          "end": "11:20",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-5",
+          "conference": "TCC",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee break",
+          "theme": "Coffee break",
+          "start": "11:00",
+          "end": "11:30",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
+          "papers": []
+        },
+        {
+          "id": "focs-8a",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "A",
+          "title": "Codes, Fault Tolerance and Information",
+          "theme": "Codes, Fault Tolerance and Information",
+          "start": "11:20",
+          "end": "12:50",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Huacheng Yu",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-8a-paper-1",
+              "title": "Recovering Polynomials over Finite Fields from Noisy Character Values",
+              "authors": "Swastik Kopparty (University of Toronto)",
+              "start": "11:20",
+              "end": "11:38",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8a-paper-2",
+              "title": "Explicit Almost-Optimal ε-Balanced Codes via Free Expander Walks",
+              "authors": "Jun-Ting Hsieh (Massachusetts Institute of Technology); Sidhanth Mohanty (Northwestern University); Rachel Yun Zhang (MIT)",
+              "start": "11:38",
+              "end": "11:56",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8a-paper-3",
+              "title": "Explicit Rank Extractors and Subspace Designs via Function Fields, with Applications to Strong Blocking Sets",
+              "authors": "Zeyu Guo, Roshan Raj (The Ohio State University); Chong Shangguan (Shandong University); Zihan Zhang (The Ohio State University)",
+              "start": "11:56",
+              "end": "12:14",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8a-paper-4",
+              "title": "Fault-Tolerant Quantum Computation with Adversarial Errors",
+              "authors": "Nikolas Breuckmann (University of Bristol); Louis Golowich, Umesh Vazirani (UC Berkeley)",
+              "start": "12:14",
+              "end": "12:32",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8a-paper-5",
+              "title": "Zero-error information equals amortized communication complexity",
+              "authors": "Daiki Suruga (CFT PAN)",
+              "start": "12:32",
+              "end": "12:50",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-8b",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "B",
+          "title": "Structural Graph Theory",
+          "theme": "Structural Graph Theory",
+          "start": "11:20",
+          "end": "12:50",
+          "room": "405/406",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Shay Solomon",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-8b-paper-1",
+              "title": "Polynomial χ-boundedness for excluding P₅",
+              "authors": "Tung Nguyen (University of Oxford)",
+              "start": "11:20",
+              "end": "11:38",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8b-paper-2",
+              "title": "Hereditary 2-WQO Graph Classes Have Bounded Clique-Width",
+              "authors": "Julien Duron, Nikolas Mählmann, Szymon Toruńczyk (University of Warsaw)",
+              "start": "11:38",
+              "end": "11:56",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8b-paper-3",
+              "title": "The Lovász conjecture holds for moderately dense Cayley graphs",
+              "authors": "Benjamin Bedert (University of Cambridge); Nemanja Draganic, Alp Muyesser (University of Oxford); Matias Pavez-Signe (University of Chile)",
+              "start": "11:56",
+              "end": "12:14",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8b-paper-4",
+              "title": "A coarse Menger's Theorem for planar graphs",
+              "authors": "Václav Blažej, Michał Pilipczuk, Evangelos Protopapas (Faculty of Mathematics, Informatics and Mechanics, University of Warsaw, Poland)",
+              "start": "12:14",
+              "end": "12:32",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8b-paper-5",
+              "title": "Better Bounds For Graph Reconstruction",
+              "authors": "Antoni Buraczewski, Paweł Gawrychowski (University of Wrocław)",
+              "start": "12:32",
+              "end": "12:50",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-8c",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "C",
+          "title": "Equilibria, Welfare and Price of Anarchy",
+          "theme": "Equilibria, Welfare and Price of Anarchy",
+          "start": "11:20",
+          "end": "12:50",
+          "room": "905/907",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Benjamin Moseley",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-8c-paper-1",
+              "title": "On the Complexity of Learning Nash Equilibria",
+              "authors": "Oliver Biggar (Columbia University); Christos Papadimitriou (Columbia U); Georgios Piliouras (Google DeepMind / SUTD)",
+              "start": "11:20",
+              "end": "11:38",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8c-paper-2",
+              "title": "The Complexity of Computing a Unique Nash Equilibrium",
+              "authors": "Abheek Ghosh (Technical University of Munich); Paul W. Goldberg, Alexandros Hollender (University of Oxford)",
+              "start": "11:38",
+              "end": "11:56",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8c-paper-3",
+              "title": "The Mystery Deepens: On the Query Complexity of Tarski Fixed Points",
+              "authors": "Xi Chen, Yuhao Li, Mihalis Yannakakis (Columbia University)",
+              "start": "11:56",
+              "end": "12:14",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8c-paper-4",
+              "title": "The Price of Anarchy for Selfish Load Balancing",
+              "authors": "Xihan Deng (Shanghai Jiao Tong University); Yaonan Jin (Hong Kong University of Science and Technology); Wenqian Wang, Yuhao Zhang (Shanghai Jiao Tong University)",
+              "start": "12:14",
+              "end": "12:32",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-8c-paper-5",
+              "title": "Online Submodular Welfare Maximization: Computation is not the Bottleneck",
+              "authors": "Rajan Udwani (UC Berkeley); David Wajc (Technion)",
+              "start": "12:32",
+              "end": "12:50",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-6",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "Pseudorandomness, Hashing, and Combiners",
+          "theme": "Pseudorandomness, Hashing, and Combiners",
+          "start": "11:30",
+          "end": "12:45",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
+          "papers": [
+            {
+              "id": "tcc-talk-66",
+              "title": "Strong Pseudorandom Functions in $$\\mathsf{AC}^0[2]$$ in the Bounded-Query Setting",
+              "authors": "Marshall Ball; Clément Ducros; Saroja Erabelli; Liso Kohl; Nicolas Resch; Peter Scholl",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_7"
+            },
+            {
+              "id": "tcc-talk-32",
+              "title": "Finding Random Collisions for Random Degree-2 Functions",
+              "authors": "Xinyu Mao",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_8"
+            },
+            {
+              "id": "tcc-talk-96",
+              "title": "Optimal Amplification via Bias-Resilient Combiners",
+              "authors": "Nathan Geier; Benny Applebaum",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_9"
+            },
+            {
+              "id": "tcc-talk-83",
+              "title": "Sprinkle the Salt: RO-combiners with O(n) random bits",
+              "authors": "Rishiraj Bhattacharyya; Mridul Nandi; Anik Raychaudhuri",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_10"
+            },
+            {
+              "id": "tcc-talk-92",
+              "title": "On Robust Combiners for Pseudorandom Codes and PKE with Pseudorandom Ciphertexts",
+              "authors": "Nico Doettling; Venkata Koppula; Mahesh Sreekumar Rajasree; Felix Rohrbach",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_11"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-8",
+          "conference": "TCC",
+          "kind": "meal",
+          "track": null,
+          "title": "Lunch",
+          "theme": "Lunch",
+          "start": "12:45",
+          "end": "14:20",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
+          "papers": []
+        },
+        {
+          "id": "focs-wednesday-1250-meal",
+          "conference": "FOCS",
+          "kind": "meal",
+          "track": null,
+          "title": "Lunch (90 minutes)",
+          "theme": "Lunch (90 minutes)",
+          "start": "12:50",
+          "end": "14:20",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": []
+        },
+        {
+          "id": "focs-wednesday-knuth-prize-lecture",
+          "conference": "FOCS",
+          "kind": "plenary",
+          "track": "Plenary",
+          "title": "Knuth Prize Lecture",
+          "theme": "Knuth Prize Lecture",
+          "start": "14:20",
+          "end": "15:35",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Ran Canetti",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-106",
+          "conference": "TCC",
+          "kind": "plenary",
+          "track": "Plenary",
+          "title": "Knuth Prize Lecture (Joint with FOCS)",
+          "theme": "Knuth Prize Lecture (Joint with FOCS)",
+          "start": "14:20",
+          "end": "15:50",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
+          "papers": [
+            {
+              "id": "tcc-talk-112",
+              "title": "TBD",
+              "authors": "Moni Naor",
+              "order": 1,
+              "start": null,
+              "end": null
+            }
+          ],
+          "timingConflict": {
+            "note": "FOCS publishes 14:20–15:35; TCC publishes 14:20–15:50. Both source schedules are preserved."
+          }
+        },
+        {
+          "id": "focs-wednesday-1535-break",
+          "conference": "FOCS",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break (25 min)",
+          "theme": "Coffee Break (25 min)",
+          "start": "15:35",
+          "end": "16:00",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-10",
+          "conference": "TCC",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break",
+          "theme": "Coffee Break",
+          "start": "15:50",
+          "end": "16:15",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
+          "papers": []
+        },
+        {
+          "id": "focs-9a",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "A",
+          "title": "Graph Algorithms and Distance Oracles",
+          "theme": "Graph Algorithms and Distance Oracles",
+          "start": "16:00",
+          "end": "17:12",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "David Wajc",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-9a-paper-1",
+              "title": "Vertex-Failure Distance Oracles and Labeling Schemes: Compact and Constant-Approximate",
+              "authors": "Yaowei Long (University of Michigan)",
+              "start": "16:00",
+              "end": "16:18",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-9a-paper-2",
+              "title": "A Polynomial-Time Algorithm for the Next-to-Shortest Path Problem on Positively Weighted Directed Graphs",
+              "authors": "Kuowen Chen (Tsinghua University); Nicole Wein (University of Michigan, Ann Arbor, USA); Yiran Zhang (Tsinghua University)",
+              "start": "16:18",
+              "end": "16:36",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-9a-paper-3",
+              "title": "Approximate Spanning Tree Counting from Uncorrelated Edge Sets",
+              "authors": "Yang Liu, Richard Peng, Junzhao Yang (Carnegie Mellon University)",
+              "start": "16:36",
+              "end": "16:54",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-9a-paper-4",
+              "title": "Instance-Optimality of Bidirectional PageRank Estimation",
+              "authors": "Mikkel Thorup (University of Copenhagen); Hanzhi Wang (The University of Melbourne)",
+              "start": "16:54",
+              "end": "17:12",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-9b",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "B",
+          "title": "Sublinear Algorithms and Property Testing",
+          "theme": "Sublinear Algorithms and Property Testing",
+          "start": "16:00",
+          "end": "17:12",
+          "room": "405/406",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Dana Ron",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-9b-paper-1",
+              "title": "Õ(1)-Depth Parallel Reachability Faster than Transitive Closure",
+              "authors": "Shimon Kogan, Merav Parter (Weizmann)",
+              "start": "16:00",
+              "end": "16:18",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-9b-paper-2",
+              "title": "Graph k-Coloring in Sublinear Average Time",
+              "authors": "Cassandra Marcussen (Harvard University); Edward Pyne, Ronitt Rubinfeld (MIT); Asaf Shapira, Shlomo Tauber (Tel Aviv University)",
+              "start": "16:18",
+              "end": "16:36",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-9b-paper-3",
+              "title": "Testing Properties of Edge Distributions",
+              "authors": "Yumou Fei (MIT)",
+              "start": "16:36",
+              "end": "16:54",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-9b-paper-4",
+              "title": "Efficient and Private Property Testing via Indistinguishability",
+              "authors": "Cynthia Dwork, Pranay Tankala (Harvard University)",
+              "start": "16:54",
+              "end": "17:12",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-9c",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "C",
+          "title": "Privacy and Learning",
+          "theme": "Privacy and Learning",
+          "start": "16:00",
+          "end": "17:12",
+          "room": "905/907",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Sagnik Mukhopadhyay",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-9c-paper-1",
+              "title": "Local Node Differential Privacy",
+              "authors": "Sofya Raskhodnikova, Adam Smith, Connor Wagaman, Anatoly Zavyalov (Boston University)",
+              "start": "16:00",
+              "end": "16:18",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-9c-paper-2",
+              "title": "The Sample Complexity of Membership Inference and Privacy Auditing",
+              "authors": "Mahdi Haghifam (TTIC); Adam Smith (Boston University); Jonathan Ullman (Northeastern University)",
+              "start": "16:18",
+              "end": "16:36",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-9c-paper-3",
+              "title": "The optimal information complexity of VC learning",
+              "authors": "Steve Hanneke, Juexiao Wang (Purdue University)",
+              "start": "16:36",
+              "end": "16:54",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-9c-paper-4",
+              "title": "Learning Confidence Ellipsoids and Applications to Robust Subspace Recovery",
+              "authors": "Chao Gao (University of Chicago); Liren Shan (Toyota Technological Institute at Chicago); Vaidehi Srinivas, Aravindan Vijayaraghavan (Northwestern University)",
+              "start": "16:54",
+              "end": "17:12",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-11",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "Foundations",
+          "theme": "Foundations",
+          "start": "16:15",
+          "end": "17:30",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
+          "papers": [
+            {
+              "id": "tcc-talk-29",
+              "title": "Event Algebras and Applications to Cryptography",
+              "authors": "Konstantin Gegier; Ueli Maurer",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_12"
+            },
+            {
+              "id": "tcc-talk-95",
+              "title": "On Composing Oracle Separations",
+              "authors": "Willy Quach; Felix Rohrbach",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_13"
+            },
+            {
+              "id": "tcc-talk-43",
+              "title": "On the Additive Sensitivity of LZ77 Under Consecutive Edits",
+              "authors": "Jeremiah Blocki; Seunghoon Lee",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_14"
+            },
+            {
+              "id": "tcc-talk-52",
+              "title": "Explicit Transformations from Edge-Depth-Robust to Node-Depth-Robust Graphs with Improved Concrete Efficiency",
+              "authors": "Jeremiah Blocki; Nathan Smearsoll",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_15"
+            },
+            {
+              "id": "tcc-talk-97",
+              "title": "A Complexity-Theoretic Approach to Proofs of Space",
+              "authors": "Marshall Ball; Jiaxin Guan",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43617-7_16"
+            }
+          ]
+        },
+        {
+          "id": "focs-wednesday-1712-break",
+          "conference": "FOCS",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break (20 min)",
+          "theme": "Coffee Break (20 min)",
+          "start": "17:12",
+          "end": "17:32",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-110",
+          "conference": "TCC",
+          "kind": "plenary",
+          "track": "TCC",
+          "title": "Business Meeting",
+          "theme": "Business Meeting",
+          "start": "17:30",
+          "end": "18:00",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
+          "papers": []
+        },
+        {
+          "id": "focs-10a",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "A",
+          "title": "Approximation and Exact Algorithms",
+          "theme": "Approximation and Exact Algorithms",
+          "start": "17:32",
+          "end": "18:44",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "Dana Ron",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-10a-paper-1",
+              "title": "An O(log log n)-Approximation Algorithm for Submodular Unsplittable Flow on a Path",
+              "authors": "Alexander Armbruster (Technical University of Munich); Fabrizio Grandoni (IDSIA, USI-SUPSI); Andreas Wiese (Technical University of Munich); Ruilong Zhang (City University of Hong Kong (Dongguan))",
+              "start": "17:32",
+              "end": "17:50",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-10a-paper-2",
+              "title": "Stochastic Gradient Meets Randomized Rounding: New Algorithms for Node-Weighted Steiner Problems",
+              "authors": "Joseph Koutsoutis, Jesse Lerner, Roie Levin, Jiawei Yu (Rutgers University)",
+              "start": "17:50",
+              "end": "18:08",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-10a-paper-3",
+              "title": "Improved Upper Bounds for the Directed Flow-Cut Gap",
+              "authors": "Greg Bodwin, Luba Samborska (University of Michigan)",
+              "start": "18:08",
+              "end": "18:26",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-10a-paper-4",
+              "title": "Dense Subset Sum in Multi-Dimension",
+              "authors": "Lin Chen, Tingwei Hu, Yuchen Mao, Guochuan Zhang (Zhejiang University)",
+              "start": "18:26",
+              "end": "18:44",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-10b",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "B",
+          "title": "Optimization, Refutation and Parameterized Approximation",
+          "theme": "Optimization, Refutation and Parameterized Approximation",
+          "start": "17:32",
+          "end": "18:44",
+          "room": "405/406",
+          "floor": 4,
+          "venueId": "kimmel",
+          "chair": "David Wajc",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-10b-paper-1",
+              "title": "Strongly Refuting Random CSP without Literals",
+              "authors": "Siu On Chan (Unaffiliated); Tommaso D'Orsi (Bocconi University); Jeff Xu (TTIC)",
+              "start": "17:32",
+              "end": "17:50",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-10b-paper-2",
+              "title": "Fast Convergence of Gradient Descent on Random ℓₚ-Norm Regression",
+              "authors": "Yang Liu, Richard Peng, Weina Wang, Junzhao Yang (Carnegie Mellon University)",
+              "start": "17:50",
+              "end": "18:08",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-10b-paper-3",
+              "title": "A Polynomial-Time Algorithm for Variational Inequalities under the Minty Condition",
+              "authors": "Ioannis Anagnostides (Carnegie Mellon University); Gabriele Farina (MIT); Tuomas Sandholm (Carnegie Mellon University); Brian Hu Zhang (MIT)",
+              "start": "18:08",
+              "end": "18:44",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        },
+        {
+          "id": "focs-10c",
+          "conference": "FOCS",
+          "kind": "papers",
+          "track": "C",
+          "title": "Hashing, Contention and Communication",
+          "theme": "Hashing, Contention and Communication",
+          "start": "17:32",
+          "end": "18:44",
+          "room": "905/907",
+          "floor": 9,
+          "venueId": "kimmel",
+          "chair": "Shay Solomon",
+          "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": [
+            {
+              "id": "focs-10c-paper-1",
+              "title": "Fast Insertion for Bucketized Cuckoo Hashing",
+              "authors": "Tolson Bell, William Kuszmaul (Carnegie Mellon University)",
+              "start": "17:32",
+              "end": "17:50",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-10c-paper-2",
+              "title": "Online Graph Balancing and the Power of Two Choices",
+              "authors": "Nikhil Bansal, Milind Prabhu (University of Michigan); Sahil Singla (Georgia Institute of Technology); Siddharth Meenachi Sundaram (Georgia Tech)",
+              "start": "17:50",
+              "end": "18:08",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-10c-paper-3",
+              "title": "The communication complexity of distributed estimation",
+              "authors": "Parikshit Gopalan (Apple); Raghu Meka (UCLA); Prasad Raghavendra, Mihir Singhal (UC Berkeley); Avi Wigderson (Institute for Advanced Study)",
+              "start": "18:08",
+              "end": "18:26",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            },
+            {
+              "id": "focs-10c-paper-4",
+              "title": "Exponential Separation of Quantum and Classical One-Way Numbers-on-Forehead Communication",
+              "authors": "Guangxu Yang, Jiapeng Zhang (University of Southern California)",
+              "start": "18:26",
+              "end": "18:44",
+              "url": "https://focs.computer.org/2026/main-program/#wednesday"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thursday",
+      "date": "2026-11-12",
+      "venueId": "kimmel",
+      "sessions": [
+        {
+          "id": "tcc-session-12",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "Succinct Argument I",
+          "theme": "Succinct Argument I",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-12",
+          "papers": [
+            {
+              "id": "tcc-talk-64",
+              "title": "Interactive Oracle Reductions, Revisited",
+              "authors": "Valerio Cini; Duc Tu Pham; Daniele Micciancio",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_1"
+            },
+            {
+              "id": "tcc-talk-71",
+              "title": "Batch Arguments with Optimal Communication",
+              "authors": "Nico Doettling; Giulio Malavolta; Omer Paneth",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_2"
+            },
+            {
+              "id": "tcc-talk-40",
+              "title": "The Power of Rerandomization in Obfustopia: Collision-Resistant Hash, Somewhere-Extractable BARGs, and More",
+              "authors": "Shafik Nassar",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_3"
+            },
+            {
+              "id": "tcc-talk-74",
+              "title": "Mergeable SNARGs for Trapdoor Languages and Their Applications",
+              "authors": "Zvika Brakerski; Maya Farber Brodsky; Omer Paneth; Tomer Solomon",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_4"
+            },
+            {
+              "id": "tcc-talk-78",
+              "title": "Distributed SNARGs Resilient to Corrupt Verifiers",
+              "authors": "Lalita Devadas; Elette Boyle",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_5"
+            },
+            {
+              "id": "tcc-talk-79",
+              "title": "Collaborative Incrementally Verifiable Computation",
+              "authors": "Eden Aldema Tshuva; Sanjam Garg; Abhiram Kothapalli; Rotem Oshman; Omkant Pandey; Bhaskar Roberts",
+              "order": 6,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_6"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-13",
+          "conference": "TCC",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break",
+          "theme": "Coffee Break",
+          "start": "11:00",
+          "end": "11:30",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-12",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-14",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "Quantum Crypto I",
+          "theme": "Quantum Crypto I",
+          "start": "11:30",
+          "end": "12:45",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-12",
+          "papers": [
+            {
+              "id": "tcc-talk-34",
+              "title": "Proofs of Quantum Memory",
+              "authors": "Minki Hhan; Tomoyuki Morimae; Yasuaki Okinaka; Takashi Yamakawa",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_7"
+            },
+            {
+              "id": "tcc-talk-42",
+              "title": "Certified-Everlasting Quantum NIZK Proofs",
+              "authors": "Nikhil Pappu",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_8"
+            },
+            {
+              "id": "tcc-talk-67",
+              "title": "How to Define Expected Quantum Polynomial-Time Zero Knowledge Simulation",
+              "authors": "Max Tromanhauser; Zhengnan Lai; Nicholas Spooner",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_9"
+            },
+            {
+              "id": "tcc-talk-72",
+              "title": "The Knowledge Complexity of Quantum Problems",
+              "authors": "Giulio Malavolta",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_10"
+            },
+            {
+              "id": "tcc-talk-41",
+              "title": "Non Interactive MPC, (Quantumly) Revisited",
+              "authors": "Prabhanjan Ananth; Divyanshu Bhardwaj; Aparna Gupte",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_11"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-15",
+          "conference": "TCC",
+          "kind": "meal",
+          "track": null,
+          "title": "Lunch",
+          "theme": "Lunch",
+          "start": "12:45",
+          "end": "14:15",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-12",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-17",
+          "conference": "TCC",
+          "kind": "plenary",
+          "track": "TCC",
+          "title": "Invited Talk II",
+          "theme": "Invited Talk II",
+          "start": "14:15",
+          "end": "15:15",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-12",
+          "papers": [
+            {
+              "id": "tcc-talk-113",
+              "title": "TBD",
+              "authors": "Dakshita Khurana",
+              "order": 1,
+              "start": null,
+              "end": null
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-19",
+          "conference": "TCC",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break",
+          "theme": "Coffee Break",
+          "start": "15:15",
+          "end": "15:45",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-12",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-109",
+          "conference": "TCC",
+          "kind": "plenary",
+          "track": "TCC",
+          "title": "Test of Time Award",
+          "theme": "Test of Time Award",
+          "start": "15:45",
+          "end": "16:45",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-12",
+          "papers": [
+            {
+              "id": "tcc-talk-114",
+              "title": "Interactive Oracle Proofs",
+              "authors": "Eli Ben-Sasson, Alessandro Chiesa; Nicholas Spooner",
+              "order": 1,
+              "start": null,
+              "end": null
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-18",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "Succinct Argument II",
+          "theme": "Succinct Argument II",
+          "start": "16:45",
+          "end": "18:00",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-12",
+          "papers": [
+            {
+              "id": "tcc-talk-46",
+              "title": "A Simplified Round-by-round Soundness Proof of FRI",
+              "authors": "Albert Garreta; Nicolas Mohnblatt; Benedikt Wagner",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_12"
+            },
+            {
+              "id": "tcc-talk-37",
+              "title": "Relaxed Modular PCS from Arbitrary PCS and Applications to SNARKs for Integers",
+              "authors": "Alireza Shirzad; Sriram Sridhar; Dimitrios Papadopoulos; Charalampos Papamanthou",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_13"
+            },
+            {
+              "id": "tcc-talk-39",
+              "title": "Almost Linear-Time Permutation Check",
+              "authors": "Benedikt Bünz; Jessica Chen; Zachary DeStefano; Binyi Chen",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_14"
+            },
+            {
+              "id": "tcc-talk-53",
+              "title": "Succinct Arguments from Lattice-Based Non-Interactive Linear Commitments",
+              "authors": "Jonathan Bootle; Ziyi Guan; Christian Knabenhans",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_15"
+            },
+            {
+              "id": "tcc-talk-84",
+              "title": "Dot-Product Proofs of Powers and Applications",
+              "authors": "Saroja Erabelli; Nir Bitansky; Yuval Ishai; Ron D. Rothblum; William Wang",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_16"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "friday",
+      "date": "2026-11-13",
+      "venueId": "kimmel",
+      "sessions": [
+        {
+          "id": "tcc-session-20",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "Quantum Crypto II",
+          "theme": "Quantum Crypto II",
+          "start": "09:30",
+          "end": "11:00",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-13",
+          "papers": [
+            {
+              "id": "tcc-talk-60",
+              "title": "Generic Number-of-Copies Amplification for Pseudorandom States",
+              "authors": "Miri Zenilman; Zvika Brakerski",
+              "order": 1,
+              "start": null,
+              "end": null
+            },
+            {
+              "id": "tcc-talk-68",
+              "title": "Cryptography from Sampling Oracles and LOCC Primitives in the Bounded CRQS Model",
+              "authors": "Zijing Di; Fuyuki Kitagawa; Ryo Nishimaki; Nicholas Spooner; Takashi Yamakawa",
+              "order": 2,
+              "start": null,
+              "end": null
+            },
+            {
+              "id": "tcc-talk-65",
+              "title": "Quantum Cryptography without Entanglement",
+              "authors": "Minki Hhan; Tomoyuki Morimae; Keita Xagawa",
+              "order": 3,
+              "start": null,
+              "end": null
+            },
+            {
+              "id": "tcc-talk-86",
+              "title": "CountCrypt: Quantum Cryptography between QCMA and PP",
+              "authors": "Eli Goldin; Tomoyuki Morimae; Saachi Mutreja; Takashi Yamakawa",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2024/1707"
+            },
+            {
+              "id": "tcc-talk-61",
+              "title": "Feistel Tools: Query-Recording and Reprogramming for QRPs",
+              "authors": "Yu-Hsuan Huang; Andreas Hülsing; Varun Maram; Silvia Ritsch; Abishanka Saha",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/146"
+            },
+            {
+              "id": "tcc-talk-82",
+              "title": "On Gated Permutations and Optimal Non-Collapsing Hash Functions",
+              "authors": "Andrew Huang; Joseph Carolan; Vinod Vaikuntanathan",
+              "order": 6,
+              "start": null,
+              "end": null
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-21",
+          "conference": "TCC",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break",
+          "theme": "Coffee Break",
+          "start": "11:00",
+          "end": "11:30",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-13",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-22",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "Zero Knowledge and Public Verifiability",
+          "theme": "Zero Knowledge and Public Verifiability",
+          "start": "11:30",
+          "end": "12:45",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-13",
+          "papers": [
+            {
+              "id": "tcc-talk-50",
+              "title": "Hidden-Bits Generators with Succinct CRS and Openings",
+              "authors": "Pedro Branco; Nico Döttling; Yao-Ching Hsieh; Abhishek Jain; Akshayaram Srinivasan; Brent Waters",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/2212"
+            },
+            {
+              "id": "tcc-talk-35",
+              "title": "Non-Interactive Black-Box Witness-Indistinguishable Commit-and-Prove via Targeted Hitting-Set Generators",
+              "authors": "Susumu Kiyoshima",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/2286"
+            },
+            {
+              "id": "tcc-talk-55",
+              "title": "Reusable Designated Verifier NIZK from Lossy Trapdoor Functions",
+              "authors": "Riddhi Ghosal; Ilan Komargodski; Brent Waters",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2025/1125"
+            },
+            {
+              "id": "tcc-talk-62",
+              "title": "Lattice-Based Rate-Limited Tokens in the Random Oracle Model",
+              "authors": "Victor Youdom Kemmoe; Anna Lysyanskaya; Ngoc Khanh Nguyen",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/1649"
+            },
+            {
+              "id": "tcc-talk-58",
+              "title": "More from Less: Composable General Multi-Party Computation with Global Public Verifiability from a Single Enclave Only",
+              "authors": "Saskia Bayreuther; Robin Berger; Felix Dörre; Eva Hetzel; Yufan Jiang; Christian Martin; Jeremias Mechler; Jörn Müller-Quade",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/1005"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-24",
+          "conference": "TCC",
+          "kind": "meal",
+          "track": null,
+          "title": "Lunch",
+          "theme": "Lunch",
+          "start": "12:45",
+          "end": "14:15",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-13",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-25",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "Public Key Primitives",
+          "theme": "Public Key Primitives",
+          "start": "14:15",
+          "end": "15:30",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-13",
+          "papers": [
+            {
+              "id": "tcc-talk-30",
+              "title": "Unique Signature Schemes with Tight Security in the Random Oracle Model via Hash-and-Subset-Sign",
+              "authors": "Thomas Attema; Lisa Kohl; Joost van der Laan",
+              "order": 1,
+              "start": null,
+              "end": null
+            },
+            {
+              "id": "tcc-talk-45",
+              "title": "Hint-Free Multi-Signatures",
+              "authors": "Dennis Hofheinz; Michael Reichle; Benedikt Wagner",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/723"
+            },
+            {
+              "id": "tcc-talk-73",
+              "title": "Lattice-based NIKE with optimal tightness",
+              "authors": "Roman Langrehr; Si An Oliver Tran",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/1845"
+            },
+            {
+              "id": "tcc-talk-63",
+              "title": "Generic Bounds for Multi-Instance Problems: The Strange Case of Inverse Diffie-Hellman",
+              "authors": "Akshima; Eike Kiltz; Aysan Nishaburi; Samin Nooripoor; Emiel Wiedijk",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/2253"
+            },
+            {
+              "id": "tcc-talk-38",
+              "title": "Threshold Traitor Tracing Revisited: Insider Attacks and Multi-Traitor Tracing",
+              "authors": "Jan Bormet; Sebastian Faust; Hussien Othman",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/422"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-26",
+          "conference": "TCC",
+          "kind": "break",
+          "track": null,
+          "title": "Coffee Break",
+          "theme": "Coffee Break",
+          "start": "15:30",
+          "end": "16:00",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-13",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-27",
+          "conference": "TCC",
+          "kind": "papers",
+          "track": "TCC",
+          "title": "Homomorphic Encryption and Private Computation",
+          "theme": "Homomorphic Encryption and Private Computation",
+          "start": "16:00",
+          "end": "17:15",
+          "room": "914",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-13",
+          "papers": [
+            {
+              "id": "tcc-talk-80",
+              "title": "Fully-Homomorphic Encryption from Subset Sum",
+              "authors": "Giulio Malavolta; Zayd Maradni",
+              "order": 1,
+              "start": null,
+              "end": null
+            },
+            {
+              "id": "tcc-talk-76",
+              "title": "Multi-Hop Functional Encryption",
+              "authors": "Pratish Datta; Jiaxin Guan; Alexis Korb; Amit Sahai",
+              "order": 2,
+              "start": null,
+              "end": null
+            },
+            {
+              "id": "tcc-talk-77",
+              "title": "Decentralized Multi-Authority Functional Encryption with Malicious Authorities from Standard Assumptions",
+              "authors": "Rishab Goyal; Saikumar Yadugiri",
+              "order": 3,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2025/412"
+            },
+            {
+              "id": "tcc-talk-48",
+              "title": "Communication Preserving SFE from Obfuscation",
+              "authors": "Omkant Pandey; Christopher Smith; Yuhao Tang",
+              "order": 4,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/2214"
+            },
+            {
+              "id": "tcc-talk-75",
+              "title": "Secret-Key PIR from One-Way Functions",
+              "authors": "Nir Bitansky; Noam Mazor",
+              "order": 5,
+              "start": null,
+              "end": null,
+              "url": "https://eprint.iacr.org/2026/865"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

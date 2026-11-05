@@ -1,0 +1,42 @@
+.venue-flight{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:18px;pointer-events:none;background:color-mix(in srgb,var(--paper) 72%,transparent);backdrop-filter:blur(2px);animation:venue-flight-enter 120ms ease-out both}
+.venue-flight-card{width:min(620px,100%);display:flex;flex-direction:column;max-height:calc(100dvh - 36px);overflow:hidden;pointer-events:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:26px;box-shadow:0 14px 46px color-mix(in srgb,var(--ink) 17%,transparent)}
+.venue-flight-heading{flex:0 0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:18px 18px 15px}
+.venue-flight-kicker{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);margin:0 0 4px}
+.venue-flight-heading h2{font:750 21px/1.2 ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.45px;margin:0}
+.venue-flight-address{font-size:13px;line-height:1.4;color:var(--quiet);margin:6px 0 0}
+.venue-flight-skip{min-width:64px;min-height:44px;flex:0 0 auto;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;font-weight:650;line-height:1.3;cursor:pointer}
+.venue-flight-skip:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.venue-flight-stage{flex:1 1 auto;min-height:100px;height:clamp(200px,40vh,320px);position:relative;overflow:hidden;border-block:1px solid var(--line);background:var(--paper)}
+.venue-flight-map{display:block;width:100%;height:100%;overflow:hidden}
+.venue-flight-route-base{stroke:var(--teal);stroke-width:3;fill:none;opacity:.3;stroke-dasharray:5 8;stroke-linecap:round}
+.venue-flight-route{stroke:var(--teal);stroke-width:4;fill:none;stroke-linecap:round}
+.venue-flight-halo{fill:var(--teal);opacity:.13}
+.venue-flight-traveler-body{fill:var(--yellow);stroke:var(--ink);stroke-width:1.5}
+.venue-flight-face{fill:var(--ink);stroke:none}
+.venue-flight-smile{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round}
+/* A small, coarse two-frame pixel sprite, with no smoothed limb rotations. */
+.flight-runner{transform:scaleX(var(--runner-facing,1));shape-rendering:crispEdges}
+.flight-runner-shadow{fill:#000;opacity:.28}
+.flight-runner-frame--a{animation:flight-pixel-a 280ms steps(1,end) infinite}
+.flight-runner-frame--b{animation:flight-pixel-b 280ms steps(1,end) infinite}
+@keyframes flight-pixel-a{0%,49.99%{visibility:visible}50%,100%{visibility:hidden}}
+@keyframes flight-pixel-b{0%,49.99%{visibility:hidden}50%,100%{visibility:visible}}
+.venue-flight-scream{position:absolute;left:50%;bottom:calc(50% + var(--runner-clearance,40px));transform:translateX(-50%) rotate(-3deg);max-width:calc(100% - 24px);padding:8px 11px;border:2px solid #3d2834;border-radius:13px;background:#fff0d4;color:#3d2834;font:800 14px/1.2 ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;white-space:nowrap;box-shadow:3px 3px 0 #0005;z-index:2}
+.venue-flight-scream::after{content:"";position:absolute;left:48%;bottom:-10px;width:12px;height:12px;background:#fff0d4;border-right:2px solid #3d2834;border-bottom:2px solid #3d2834;transform:skewY(25deg) rotate(25deg)}
+.venue-flight-street{position:absolute;left:12px;top:11px;max-width:calc(100% - 24px);padding:5px 9px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--ink);font-size:12px;font-weight:650;line-height:1.35}
+.venue-flight-caption{flex:0 0 auto;padding:12px 18px 14px;color:var(--quiet);font-size:12px;line-height:1.45;margin:0}
+.venue-flight--leaving{animation:venue-flight-exit 160ms ease-in both}
+.venue-flight-announcer{position:fixed;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;pointer-events:none}
+body:is([data-style=pixel],[data-style=apocalypse],[data-style=hacker]) .venue-flight-card{border-radius:6px}
+body:is([data-style=pixel],[data-style=apocalypse],[data-style=hacker]) :is(.venue-flight-skip,.venue-flight-street){border-radius:4px;font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+body:is([data-style=pixel],[data-style=apocalypse],[data-style=hacker]) .venue-flight-heading h2{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:19px;letter-spacing:-.6px}
+body:is([data-style=pixel],[data-style=apocalypse]) .venue-flight-map{shape-rendering:crispEdges}
+body[data-style=kawaii] .venue-flight-card{border-radius:32px;box-shadow:0 12px 38px #9b718220}
+body[data-style=kawaii] .venue-flight-skip{background:#f4dbe4;border-color:#e5c4d2}
+@keyframes venue-flight-enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes venue-flight-exit{from{opacity:1}to{opacity:0}}
+@media(max-width:400px){.venue-flight{padding:14px}.venue-flight-heading{padding:15px 14px 13px;gap:10px}.venue-flight-heading h2{font-size:19px}.venue-flight-address{font-size:12px}.venue-flight-caption{flex:0 0 auto;padding:11px 14px 13px}.venue-flight-skip{padding:9px 12px;min-width:58px}}
+@media(prefers-reduced-motion:reduce){.venue-flight{animation:none;backdrop-filter:none}.flight-runner-frame{animation:none}.flight-runner-frame--a{visibility:visible}.flight-runner-frame--b{visibility:hidden}}
+
+body[data-style=apocalypse] .venue-flight-scream{border-radius:3px;transform:translateX(-50%)}
+body[data-style=apocalypse] .venue-flight-scream::after{bottom:-8px;width:8px;height:8px;transform:none}

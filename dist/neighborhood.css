@@ -1,0 +1,74 @@
+.neighborhood-panel{margin-top:28px;border:1px solid var(--line);border-radius:22px;background:var(--surface);overflow:hidden}
+.neighborhood-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px 10px}
+.neighborhood-heading h2{font-size:20px;margin:0;letter-spacing:-.5px}
+.neighborhood-heading span{font-size:12px;color:var(--quiet)}
+.neighborhood-viewport{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;border-block:1px solid var(--line);background:var(--paper)}
+.neighborhood-viewport>.neighborhood-map{display:block;width:100%;min-width:620px;height:auto}
+.neighborhood-map{color:var(--ink)}
+.neighborhood-ground{fill:var(--paper)}
+.neighborhood-park{fill:color-mix(in srgb,var(--mint) 62%,var(--paper))}
+.neighborhood-park-path{fill:none;stroke:var(--surface);stroke-width:12;stroke-linecap:round;opacity:.8}
+.neighborhood-fountain-rim{fill:var(--surface);stroke:var(--line);stroke-width:3}
+.neighborhood-water{fill:color-mix(in srgb,var(--teal) 35%,var(--surface))}
+.neighborhood-tree{fill:var(--mint);stroke:var(--teal);stroke-width:2;stroke-opacity:.4}
+.neighborhood-tree path{stroke:var(--quiet);stroke-width:5}
+.neighborhood-road-edge{fill:none;stroke:var(--line);stroke-width:57}
+.neighborhood-road{fill:none;stroke:color-mix(in srgb,var(--surface) 68%,var(--paper));stroke-width:52}
+.neighborhood-pedestrian{fill:none;stroke:color-mix(in srgb,var(--mint) 25%,var(--surface));stroke-width:35;stroke-linecap:round}
+.neighborhood-plaza{fill:color-mix(in srgb,var(--peach) 32%,var(--paper));stroke:var(--line);stroke-width:1.5}
+.neighborhood-plaza-paving{fill:none;stroke:var(--line);stroke-width:1.2;opacity:.7}
+.neighborhood-crosswalks{fill:none;stroke:var(--line);stroke-width:4;opacity:.5}
+.neighborhood-building{stroke:var(--line);stroke-width:2;stroke-linejoin:round;--building-color:var(--lilac)}
+.neighborhood-building--stone{--building-color:color-mix(in srgb,var(--line) 45%,var(--paper))}
+.neighborhood-building--brick{--building-color:color-mix(in srgb,var(--peach) 65%,var(--quiet))}
+.neighborhood-building--peach{--building-color:var(--peach)}
+.neighborhood-shadow{fill:var(--ink);stroke:none;opacity:.07}
+.neighborhood-roof{fill:color-mix(in srgb,var(--building-color) 60%,var(--paper))}
+.neighborhood-front{fill:var(--building-color)}
+.neighborhood-side{fill:color-mix(in srgb,var(--building-color) 70%,var(--quiet))}
+.neighborhood-window{fill:none;stroke:var(--surface);stroke-width:4;stroke-linecap:round;opacity:.8}
+.neighborhood-bay{fill:color-mix(in srgb,var(--teal) 36%,var(--surface));stroke:var(--line);stroke-width:1.5;stroke-linejoin:round}
+.neighborhood-bay-seam{fill:none;stroke:var(--surface);stroke-width:1.2;opacity:.8}
+.neighborhood-building-leader{fill:none;stroke:var(--quiet);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.neighborhood-terrace{fill:color-mix(in srgb,var(--mint) 25%,var(--surface));stroke:var(--line);stroke-width:2}
+.neighborhood-solar{fill:color-mix(in srgb,var(--ink) 35%,var(--surface));stroke:var(--line)}
+.neighborhood-grid{fill:none;stroke:var(--surface);stroke-width:1;opacity:.6}
+.neighborhood-face{display:none;fill:var(--ink);stroke:none}
+.neighborhood-face path{fill:none;stroke:var(--ink);stroke-width:2.7;stroke-linecap:round}
+.neighborhood-face .neighborhood-cheek{fill:var(--peach);opacity:.9}
+body[data-style=kawaii] .neighborhood-face{display:inline}
+.neighborhood-label{fill:var(--ink);stroke:var(--paper);stroke-width:5;paint-order:stroke;stroke-linejoin:round;font-family:ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:650}
+.neighborhood-street{font-size:22px;stroke:var(--surface);stroke-width:8}
+.neighborhood-venue-name{font-weight:800;font-size:27px;fill:var(--teal)}
+.neighborhood-park-name{fill:var(--ink);stroke:color-mix(in srgb,var(--mint) 62%,var(--paper));stroke-width:8}
+.neighborhood-plaza-name{font-weight:600}
+.neighborhood-compass{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.neighborhood-pins{fill:var(--teal);stroke:var(--surface);stroke-width:3}
+.neighborhood-route-base{stroke:var(--teal);stroke-width:5;fill:none;stroke-dasharray:5 9;stroke-linecap:round;opacity:.7}
+.neighborhood-caption{margin:0;padding:13px 20px 16px;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;color:var(--quiet);font-size:12px;line-height:1.5}
+.neighborhood-caption a{color:inherit;text-underline-offset:3px}
+body:is([data-style=pixel],[data-style=apocalypse],[data-style=hacker]) .neighborhood-panel{border-radius:6px}
+body:is([data-style=pixel],[data-style=apocalypse],[data-style=hacker]) .neighborhood-label{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-weight:600}
+body:is([data-style=pixel],[data-style=apocalypse]) .neighborhood-map{shape-rendering:crispEdges}
+body[data-style=kawaii] .neighborhood-panel{border-radius:28px;box-shadow:0 3px 0 #EBDDE5}
+body[data-style=kawaii] .neighborhood-roof{rx:12px}
+@media(max-width:400px){.neighborhood-heading{padding:16px 14px 12px}.neighborhood-heading h2{font-size:19px}.neighborhood-caption{padding:12px 14px}}
+
+/* The burning city belongs to the AI-pocalypse venue trip only. */
+.flight-city-fire{display:none;pointer-events:none}
+body[data-style=apocalypse] .venue-flight .flight-city-fire{display:inline}
+body[data-style=apocalypse] .venue-flight .neighborhood-building{--building-color:#72554d}
+body[data-style=apocalypse] .venue-flight .neighborhood-terrace{fill:#554e3b}
+body[data-style=apocalypse] .venue-flight .neighborhood-solar{fill:#3d363c}
+.venue-flight .flight-flame{shape-rendering:crispEdges}
+.venue-flight .flight-flame-frame--a{animation:flight-fire-a var(--flame-speed,.72s) steps(1,end) var(--flame-delay,0s) infinite}
+.venue-flight .flight-flame-frame--b{animation:flight-fire-b var(--flame-speed,.72s) steps(1,end) var(--flame-delay,0s) infinite}
+.venue-flight .flight-flame-outer{fill:#f66a26;stroke:#bd392a;stroke-width:2;stroke-linejoin:miter}
+.venue-flight .flight-flame-inner{fill:#ffb83e;stroke:none}
+.venue-flight .flight-flame-core{fill:#fff0a2;stroke:none}
+.venue-flight .flight-smoke{pointer-events:none}
+.venue-flight .flight-smoke-puff{fill:#8c7774;stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;animation:flight-smoke-rise 2.3s steps(1,end) var(--smoke-delay,0s) infinite}
+@keyframes flight-fire-a{0%,49.99%{visibility:visible}50%,100%{visibility:hidden}}
+@keyframes flight-fire-b{0%,49.99%{visibility:hidden}50%,100%{visibility:visible}}
+@keyframes flight-smoke-rise{0%{opacity:.32;transform:translate(0,0)}34%{opacity:.24;transform:translate(4px,-16px)}67%{opacity:.16;transform:translate(8px,-32px)}100%{opacity:0;transform:translate(12px,-48px)}}
+@media(prefers-reduced-motion:reduce){.venue-flight .flight-flame-frame,.venue-flight .flight-smoke-puff{animation:none}.venue-flight .flight-flame-frame--a{visibility:visible}.venue-flight .flight-flame-frame--b{visibility:hidden}.venue-flight .flight-smoke-puff{opacity:.15}}
