@@ -14,7 +14,7 @@ SCHEMAS = {
     'source': {'id', 'url'},
     'day': set('id date title venueId sessions'.split()),
     'session': set('id conference kind track title theme start end room floor venueId chair url papers relatedLinks timingConflict'.split()),
-    'paper': set('id title authors order start end abstract publicPaperUrl url'.split()),
+    'paper': set('id title authors order start end abstract publicPaperUrl url publicNote'.split()),
     'link': {'label', 'url'},
     'conflict': {'note'},
     'inventory': {'source', 'rooms'},
@@ -43,6 +43,8 @@ def validate(program, inventory):
                 check_keys(link, 'link', 'program.days.sessions.relatedLinks')
             if 'timingConflict' in session:
                 check_keys(session['timingConflict'], 'conflict', 'program.days.sessions.timingConflict')
+                if session.get('id') in {'focs-monday-1815-plenary', 'tcc-session-6'}:
+                    raise ValueError('Removed internal-source comparison notes must not be republished')
     check_keys(inventory, 'inventory', 'inventory')
     if inventory.get('source', {}) != {}:
         raise ValueError('Inventory source records must stay in the maintenance workspace')

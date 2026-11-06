@@ -2272,8 +2272,8 @@
           "theme": "Lunch",
           "start": "12:45",
           "end": "14:15",
-          "room": null,
-          "floor": null,
+          "room": "409 Solarium",
+          "floor": 4,
           "venueId": "kimmel",
           "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
           "papers": []
@@ -2291,6 +2291,27 @@
           "floor": null,
           "venueId": "kimmel",
           "url": "https://focs.computer.org/2026/main-program/#tuesday",
+          "papers": [],
+          "relatedLinks": [
+            {
+              "label": "Graduating Bits details & location",
+              "url": "https://focs.computer.org/2026/graduating-bits/"
+            }
+          ]
+        },
+        {
+          "id": "tcc-session-115",
+          "conference": "TCC",
+          "kind": "plenary",
+          "track": "TCC",
+          "title": "Graduating Bits (joint with FOCS)",
+          "theme": "Graduating Bits (joint with FOCS)",
+          "start": "12:50",
+          "end": "14:10",
+          "room": "Eisner & Lubin Auditorium",
+          "floor": 4,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-10",
           "papers": [],
           "relatedLinks": [
             {
@@ -2319,7 +2340,8 @@
               "authors": "Aayush Jain",
               "order": 1,
               "start": null,
-              "end": null
+              "end": null,
+              "abstract": "The McEliece cryptosystem, proposed by Robert McEliece in 1978, is the oldest candidate for post-quantum public-key encryption. For nearly five decades, it has inspired extensive research in cryptanalysis and remained a cornerstone of code-based cryptography.\n\nIn this talk, we will describe a conceptually simple quasipolynomial-time attack on McEliece’s cryptosystem, in the originally proposed asymptotic regime, based on classical interpolation ideas. The attack emerged “accidentally” from research on practical doubly efficient private information retrieval, an elusive goal in cryptography. We will develop the attack from first principles and explore its unexpected connections to private information retrieval. The talk assumes only basic background in algebra and linear algebra.\n\nThis talk is based on a close and enjoyable collaboration with Ashrujit Ghoshal, Yuval Ishai, and Nuozhou Sun."
             }
           ]
         },
@@ -2821,7 +2843,7 @@
             {
               "id": "tcc-talk-49",
               "title": "Asynchronous YOSO a la Paillier",
-              "authors": "Ivan Damgård; Jesper Buus Nielsen; Simon Kamp; Julian Loss",
+              "authors": "Ivan Damgård; Simon Kamp; Julian Loss; Jesper Buus Nielsen",
               "order": 5,
               "start": null,
               "end": null,
@@ -3079,7 +3101,7 @@
           "title": "Pseudorandomness, Hashing, and Combiners",
           "theme": "Pseudorandomness, Hashing, and Combiners",
           "start": "11:30",
-          "end": "12:45",
+          "end": "12:30",
           "room": "914 COMBO",
           "floor": 9,
           "venueId": "kimmel",
@@ -3105,7 +3127,8 @@
               "end": null,
               "abstract": "We study distributional collision resistance for random degree-2 functions over prime fields.  Let $p$ be a prime and let\n$$\n    h:\\F_p^N\\to\\F_p^M, \\ x \\mapsto (h_1(x), \\dots, h_M(x)) \\qquad M<N,\n$$\nbe a random polynomial map where each coordinate $h_i$ is independently, uniformly chosen at random from all polynomials of degree at most 2 over $\\F_p$.\nThe ideal collision distribution is obtained by choosing $x\\gets\\F_p^N$ and $y\\gets h^{-1}(h(x))$  uniformly at random and output $(x, y)$. \nWe give an efficient algorithm whose output distribution is statistically close to this ideal collision distribution whenever \\(p^{N - M}\\) is superpolynomial. \nIn other words, we show that random degree-2 functions are not distributionally collision-resistant if $p^{N - M}$ is superpolynomial, resolving an open question posed by Bitansky, Haitner, Komargodski, and Yogev (Eurocrypt 2019) in this parameter regime.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/1044",
-              "url": "https://eprint.iacr.org/2026/1044"
+              "url": "https://eprint.iacr.org/2026/1044",
+              "publicNote": "Prerecorded video presentation (not shown during this session)"
             },
             {
               "id": "tcc-talk-96",
@@ -3141,6 +3164,21 @@
               "url": "https://doi.org/10.1007/978-3-032-43617-7_11"
             }
           ]
+        },
+        {
+          "id": "tcc-session-116",
+          "conference": "TCC",
+          "kind": "break",
+          "track": null,
+          "title": "Break before lunch",
+          "theme": "Break before lunch",
+          "start": "12:30",
+          "end": "12:45",
+          "room": null,
+          "floor": null,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
+          "papers": []
         },
         {
           "id": "tcc-session-8",
@@ -3208,10 +3246,11 @@
           "title": "Knuth Prize Lecture: Moni Naor",
           "theme": "Knuth Prize Lecture: Moni Naor",
           "start": "14:20",
-          "end": "15:50",
+          "end": "15:35",
           "room": "Eisner & Lubin Auditorium",
           "floor": 4,
           "venueId": "kimmel",
+          "chair": "Ran Canetti",
           "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
           "papers": [
             {
@@ -3222,10 +3261,7 @@
               "start": null,
               "end": null
             }
-          ],
-          "timingConflict": {
-            "note": "FOCS publishes 14:20–15:35; TCC publishes 14:20–15:50. Both source schedules are preserved."
-          }
+          ]
         },
         {
           "id": "focs-wednesday-1535-break",
@@ -3249,7 +3285,7 @@
           "track": null,
           "title": "Coffee break",
           "theme": "Coffee break",
-          "start": "15:50",
+          "start": "15:35",
           "end": "16:15",
           "room": null,
           "floor": null,
@@ -3512,21 +3548,6 @@
           "floor": null,
           "venueId": "kimmel",
           "url": "https://focs.computer.org/2026/main-program/#wednesday",
-          "papers": []
-        },
-        {
-          "id": "tcc-session-110",
-          "conference": "TCC",
-          "kind": "plenary",
-          "track": "TCC",
-          "title": "Business Meeting",
-          "theme": "Business Meeting",
-          "start": "17:30",
-          "end": "18:00",
-          "room": "914 COMBO",
-          "floor": 9,
-          "venueId": "kimmel",
-          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
           "papers": []
         },
         {
@@ -3872,8 +3893,8 @@
           "theme": "Lunch",
           "start": "12:45",
           "end": "14:15",
-          "room": null,
-          "floor": null,
+          "room": "Rosenthal Pavilion",
+          "floor": 10,
           "venueId": "kimmel",
           "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-12",
           "papers": []
@@ -3898,7 +3919,8 @@
               "authors": "Dakshita Khurana",
               "order": 1,
               "start": null,
-              "end": null
+              "end": null,
+              "abstract": "Quantum computers are usually viewed as a threat to cryptography: they can solve problems that we believe are hard for classical computers and break some important assumptions on which modern cryptography rests. But can quantum computers also create new forms of computational hardness, and use them to build cryptography?\n\nIn this talk, I will overview recent progress towards turning quantum computational power into a cryptographic resource. I will explain how quantum advantage can give rise to cryptographic utility in many different settings. Along the way, we will challenge how we think about computational hardness, especially as we step into a brave new world.\n\nBased on joint works with Andrea Coladangelo, Aditya Gulati, Yael Tauman Kalai, Saachi Mutreja, Justin Raizes, Bhaskar Roberts, Joseph Slote, Avishay Tal, and Kabir Tomer."
             }
           ]
         },
