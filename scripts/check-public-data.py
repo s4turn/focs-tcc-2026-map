@@ -6,6 +6,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+PUBLIC_PATHS = {'.github/workflows/pages.yml', '.gitignore', 'README.md', 'redirect.html', 'scripts/check-public-data.py'}
+PUBLIC_PATHS.update('dist/' + name for name in 'app.js index.html map.css moods.js neighborhood.css neighborhood.js program-data.json program.css program.js room-data.json style.css venue-flight.css venue-flight.js'.split())
+PUBLIC_PATHS.update('dist/assets/sponsors/' + name for name in 'focs-aws.webp focs-cognition.webp focs-google.webp focs-jane-street.webp tcc-aws.svg tcc-category-labs.svg tcc-google.svg tcc-ntt-research.jpg tcc-stellar.png tcc-tinfoil.svg'.split())
 SCHEMAS = {
     'program': set('schemaVersion timezone generatedAt sources reviewHolds days'.split()),
     'source': {'id', 'url'},
@@ -49,6 +52,10 @@ def validate(program, inventory):
             raise ValueError('Inventory purpose must be a display category')
 
 def check(revision=None):
+    args = ['ls-tree', '-r', '--name-only', revision] if revision else ['ls-files']
+    paths = set(subprocess.check_output(['git', '-C', str(ROOT), *args], text=True).splitlines())
+    if paths - PUBLIC_PATHS:
+        raise ValueError('Unexpected public repository paths; review the export before committing')
     def read(name):
         if revision:
             return json.loads(subprocess.check_output(['git', '-C', str(ROOT), 'show', f'{revision}:dist/{name}']))
