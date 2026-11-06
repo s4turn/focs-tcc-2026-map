@@ -311,9 +311,11 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
  }else if(floor===8){
   markup+=rect(0,0,260,45,'#e6eddb');
   markup+=elevator(labels);
-  markup+=selectable('shorin',rect(55,58,205,155,has('shorin')?'D':'neutral')+rect(55,65,35,140,'#b9a4cc')+(labels?labelLines(170,113,['Shorin','802','Estimathon'],18):''));
-  markup+=rect(40,248,95,70)+rect(145,248,115,70)+rect(40,330,95,65)+rect(145,330,115,65);
-  if(labels)markup+=text(130,30,'Upper lounge · north',12)+text(140,235,'Hallway',12)+text(87,288,'808',14)+text(202,288,'803',14)+text(87,370,'805',14)+text(202,370,'804',14);
+  markup+=selectable('shorin',rect(55,58,185,155,has('shorin')?'D':'neutral')+rect(55,65,35,140,'#b9a4cc')+(labels?labelLines(170,113,['Shorin','802','Estimathon'],18):''));
+  // Paired rooms share walls; the east-side circulation is Stovall Gallery.
+  markup+=rect(40,248,105,70)+rect(145,248,95,70)+rect(40,330,200,65);
+  markup+=`<path d="M145 330 V395" fill="none" stroke="${P.line}" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  if(labels)markup+=text(130,30,'Upper lounge · north',12)+text(140,235,'Hallway',12)+text(92,288,'808',14)+text(192,288,'803',14)+text(92,370,'805',14)+text(192,370,'804',14)+text(250,280,'Stovall Gallery',12,'transform="rotate(90 250 280)" style="font-size:12px"');
  }else if(floor===9){
   markup+=selectable('901',rect(0,0,48,49,has('901')?roomColor('901','entry'):'neutral'))+selectable('903',rect(208,0,52,68,has('903')?roomColor('903','entry'):'neutral'));
   if(labels)markup+=text(24,28,'901',11)+text(234,40,'903',11)+text(124,40,'Lounge · north',12);
