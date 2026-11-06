@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-06T09:04:34-05:00",
+  "generatedAt": "2026-11-06T11:10:08-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -2283,15 +2283,21 @@
           "conference": "FOCS",
           "kind": "meal",
           "track": null,
-          "title": "Lunch (1 hour 45 minutes)",
-          "theme": "Lunch (1 hour 45 minutes)",
+          "title": "Lunch · includes Graduating Bits",
+          "theme": "Lunch · includes Graduating Bits",
           "start": "12:50",
           "end": "14:35",
           "room": null,
           "floor": null,
           "venueId": "kimmel",
           "url": "https://focs.computer.org/2026/main-program/#tuesday",
-          "papers": []
+          "papers": [],
+          "relatedLinks": [
+            {
+              "label": "Graduating Bits details & location",
+              "url": "https://focs.computer.org/2026/graduating-bits/"
+            }
+          ]
         },
         {
           "id": "tcc-session-103",
