@@ -151,7 +151,7 @@ function applyStyle(style,now=new Date()){
  return true;
 }
 function baseRooms(floor,day=currentDay()){
- if(floor===1)return [{id:'entry',title:'Entrance',short:'Entrance',subtitle:'60 Washington Square South',description:(day.id==='sunday-late'?'Sunday: use the main entrance on Washington Square South, facing Washington Square Park. The event entrance is closed on Sunday.':'Enter from Washington Square South, facing Washington Square Park. The event entrance is open Monday–Friday.')+' Bring a valid government ID. The elevators serve the conference floors.',color:COLORS.entry}];
+ if(floor===1)return [{id:'entry',title:'Entrance',short:'Entrance',subtitle:'60 Washington Square South',description:(day.id==='sunday-late'?'Sunday: use the main entrance on Washington Square South, facing Washington Square Park. Follow the dotted path around the staircase to the elevators.':'Monday–Friday: use the event entrance on Washington Square South. Follow the dotted path around the staircase to the elevators.')+' Bring a valid government ID. The elevators serve the conference floors.',color:COLORS.entry}];
  if(floor===4){const a=[];if(day.focs){a.push({id:'A',title:'Track A',short:'Track A',subtitle:'Eisner & Lubin Auditorium',description:'Fourth floor · Eisner & Lubin Auditorium.',color:COLORS.A},{id:'B',title:'Track B',short:'Track B',subtitle:'Rooms 405/406',description:'Fourth floor · Rooms 405/406, along the Washington Square South side. A hallway separates these rooms from the auditorium.',color:COLORS.B});a.push({id:'solarium',service:'coffee',title:'Solarium 409',short:'Coffee · 409',subtitle:'Coffee / refreshments',description:'Fourth floor · Solarium 409. Coffee / refreshments.',color:COLORS.coffee});}return a;}
  if(floor===9){if(!day.focs&&!day.tcc)return [];const a=[];if(day.focs)a.push({id:'C',title:'Track C',short:'Track C',subtitle:'Rooms 905/907',description:'Ninth floor · Combined Rooms 905/907, on the LaGuardia Place side.',color:COLORS.C});a.push({id:day.tcc?'TCC':'D',title:day.tcc?'TCC':'Track D',short:day.tcc?'TCC':'Track D',subtitle:'Room 914',description:day.tcc?'Ninth floor · TCC sessions in Room 914, at the south end of the floor.':'Monday only · Track D in Room 914, at the south end of the ninth floor.',color:COLORS.D});return a;}
  if(floor===10&&day.rosenthal)return [{id:'rosenthal',service:'food',title:'Rosenthal Pavilion',short:'Rosenthal',subtitle:'Meals / gathering',description:'Tenth floor · Meals / gathering.',color:COLORS.coffee}];
@@ -375,29 +375,41 @@ function lobbyTreads(){
   return {a,b,height:3+i*3.5,path:`M${a.left} ${a.y} Q122.5 ${a.y-a.bow} ${a.right} ${a.y} L${b.right} ${b.y} Q122.5 ${b.y-b.bow} ${b.left} ${b.y} Z`};
  });
 }
+function lobbyLiftCabs(){
+ return [{x:25,y:303,facing:1},{x:25,y:345,facing:1},{x:65,y:303,facing:-1},{x:65,y:345,facing:-1}];
+}
+function lobbyWalk(day=currentDay()){
+ const sunday=day.id.startsWith('sunday'),start=sunday?47:200;
+ return {start,aisle:57.5,end:338,path:`M${start} 22 V294 H57.5 V338`};
+}
 function kimmelLobby({labels=true,day=currentDay()}={}){
- const eventEntranceOpen=!day.id.startsWith('sunday');
+ const sunday=day.id.startsWith('sunday'),walk=lobbyWalk(day);
  let s=`<g class="kimmel-lobby"><path d="M10 8 H250" stroke="${P.glass}" stroke-width="8"/>`;
- // The main door is west of the event door along Washington Square South.
- s+=selectable('entry',rect(28,0,38,20,'entry'))+rect(181,0,38,20,eventEntranceOpen?'entry':'neutral');
+ // The two simple door bars follow the source's purple entrance markers.
+ const main=rect(28,0,38,20,sunday?'entry':'neutral'),event=rect(181,0,38,20,sunday?'neutral':'entry');
+ s+=sunday?selectable('entry',main)+event:main+selectable('entry',event);
  for(const x of [38,49,191,202])s+=`<path d="M${x} 1 v17" stroke="${P.primary}" stroke-width="1.4"/>`;
- if(labels)s+=labelLines(47,40,['Main','entrance'],12)+labelLines(200,40,['Event','entrance',eventEntranceOpen?'Mon–Fri':'Closed Sunday'],11);
- // Unlabelled front desks and kiosks; positions follow the supplied crop.
- s+=rect(76,76,37,23,'B')+rect(86,81,14,7,P.glass)+rect(192,97,25,29,'B')+rect(198,102,12,8,P.glass);
- s+=rect(63,224,33,15,'B')+rect(69,227,12,5,P.glass);
- // Facing elevator banks are behind the stairs, towards the west/rear.
+ // Facing banks: west cabs open east, east cabs open west into the shared aisle.
  s+=`<g class="lobby-elevators">`;
- for(const[x,y]of [[25,303],[25,338],[65,303],[65,338]]){
-  s+=rect(x,y,25,29,'neutral')+`<path d="M${x+12.5} ${y+3} v23 M${x+4} ${y+3} h17 v23 h-17 Z" fill="none" stroke="${P.line}" stroke-width="1.3"/>`;
+ for(const{x,y,facing}of lobbyLiftCabs()){
+  const front=facing===1?x+25:x,back=facing===1?x:x+25;
+  s+=`<path class="lobby-lift-cab" d="M${front} ${y} H${back} V${y+29} H${front}" fill="${P.closed}" stroke="${P.line}" stroke-width="1.5" stroke-linejoin="round"/><path d="M${front} ${y} v7 m0 15 v7" fill="none" stroke="${P.line}" stroke-width="1.5"/><path d="M${front} ${y+8} v6 m0 1 v6" fill="none" stroke="${P.glass}" stroke-width="3"/>`;
  }
  s+='</g>';
  if(labels)s+=text(145,339,'Elevators',12,'font-weight="650"');
  s+=`<g class="lobby-stairs" aria-hidden="true">${lobbyTreads().map(step=>`<path d="${step.path}" fill="${P.wall}" stroke="${P.wood}" stroke-width="1.1"/>`).join('')}<path d="M79 150 Q104 193 105 282 M166 150 Q139 193 139 282" fill="none" stroke="${P.glass}" stroke-width="3" stroke-linecap="round"/></g>`;
- s+=`<path d="M47 24 V66 H53 V281 H58 V318" class="route"/>`;
+ s+=`<path d="${walk.path}" class="route lobby-walk"/><circle cx="${walk.start}" cy="22" r="3.5" fill="${P.primary}"/><circle cx="${walk.aisle}" cy="${walk.end}" r="3" fill="${P.primary}"/>`;
+ if(labels){const halo=`font-weight="650" paint-order="stroke" stroke="${P.floor}" stroke-width="5" stroke-linejoin="round"`;s+=text(47,45,'(Sun)',12,halo)+text(200,45,'(Mon–Fri)',12,halo);}
  return s+'</g>';
 }
 function lobbyObjects(base){
- let s=block(76,76,37,23,10,base,COLORS.B)+block(86,81,14,7,18,base,P.glass)+block(192,97,25,29,10,base,COLORS.B)+block(198,102,12,8,18,base,P.glass)+block(63,224,33,15,9,base,COLORS.B);
+ let s='';
+ for(const{x,y,facing}of lobbyLiftCabs()){
+  const back=facing===1?x:x+23,front=facing===1?x+25:x;
+  s+=block(back,y,2,29,9,base,P.wall)+block(x,y,25,2,9,base,P.wall)+block(x,y+27,25,2,9,base,P.wall);
+  const a=p(front,y+8,base),b=p(front,y+21,base);
+  s+=`<path d="M${a} L${b} v-8 L${a[0]} ${a[1]-8} Z" fill="${P.glass}" stroke="${P.line}" stroke-width=".8"/>`;
+ }
  for(const step of lobbyTreads().reverse()){
   const{a,height}=step,front=p(a.left,a.y,base-height),mid=p(122.5,a.y-a.bow,base-height),last=p(a.right,a.y,base-height),rise=3.5;
   s+=`<path d="M${front} Q${mid} ${last} v${rise} Q${mid[0]} ${mid[1]+rise} ${front[0]} ${front[1]+rise} Z" fill="${P.wood}" stroke="${P.line}" stroke-width=".5"/><g transform="${projection(base-height)}"><path d="${step.path}" fill="${P.wall}" stroke="${P.wood}" stroke-width="1.1"/></g>`;
@@ -461,8 +473,6 @@ function overview(){
  for(let floor=1;floor<=10;floor++){
   s+=`<g class="floor-layer ${activeFloors().includes(floor)?'floor-hit':''} ${floor===state.floor?'selected-floor':''}" data-level="${floor}" ${activeFloors().includes(floor)?`data-floor="${floor}" aria-label="${floor===state.floor?'Floor':'Open floor'} ${floor}"${floor!==state.floor?' tabindex="0" role="button"':''}`:''} style="transform:translateY(${shiftFor(floor)}px)">${floorContents(floor)}</g>`;
  }
- const[eX,eY]=p(47,0,690);
- s+=`<path d="M${eX-18} ${eY+36} l13 -20 12 20" stroke="#6c4994" stroke-width="3" fill="none"/><text x="${eX-4}" y="${eY+59}" text-anchor="middle" font-size="19" fill="#6c4994" font-weight="700">Entrance</text>`;
  return themed(s+'</svg>');
 }
 function renderBuilding(){
