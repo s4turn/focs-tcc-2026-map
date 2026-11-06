@@ -390,7 +390,7 @@ function kimmelLobby({labels=true}={}){
   s+=rect(x,y,25,29,'neutral')+`<path d="M${x+12.5} ${y+3} v23 M${x+4} ${y+3} h17 v23 h-17 Z" fill="none" stroke="${P.line}" stroke-width="1.3"/>`;
  }
  s+='</g>';
- if(labels)s+=text(105,356,'Elevators',12,'font-weight="650"');
+ if(labels)s+=text(145,339,'Elevators',12,'font-weight="650"');
  s+=`<g class="lobby-stairs" aria-hidden="true">${lobbyTreads().map(step=>`<path d="${step.path}" fill="${P.wall}" stroke="${P.wood}" stroke-width="1.1"/>`).join('')}<path d="M79 150 Q104 193 105 282 M166 150 Q139 193 139 282" fill="none" stroke="${P.glass}" stroke-width="3" stroke-linecap="round"/></g>`;
  s+=`<path d="M47 24 V66 H53 V281 H58 V318" class="route"/>`;
  return s+'</g>';
