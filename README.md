@@ -25,6 +25,8 @@ The schedule is a reviewed snapshot. Its source-check dates, timing status and u
 
 ## Publish
 
-GitHub Pages publishes `dist/` automatically after a push to `main`. To publish elsewhere, copy the contents of `dist/` to the website directory. Keep all files together; paths are relative, so the app works in a subdirectory. No server-side code is required.
+GitHub Pages is the sole application host and publishes `dist/` automatically after a push to `main`. The Courant map URL and the old preview URL redirect to GitHub Pages, so future updates need only a GitHub push.
+
+`redirect.html` is the one-time bridge installed on the old hosts. Keep it outside `dist/` so Pages serves the application itself. The bridge preserves supported day, floor, mood and program-view parameters, plus fragments; unknown query fields are discarded. The old hosts do not need runtime-file synchronization.
 
 This repository contains the public application source and sanitized data snapshots. Internal planning material, authenticated source caches and working notes are excluded.

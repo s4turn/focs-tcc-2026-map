@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>FOCS + TCC conference map</title>
+  <link rel="canonical" href="https://s4turn.github.io/focs-tcc-2026-map/">
+  <script>
+  (() => {
+    'use strict';
+    const destination = new URL('https://s4turn.github.io/focs-tcc-2026-map/');
+    const source = new URL(window.location.href);
+    const canonicalPath = destination.pathname.replace(/\/$/, '');
+    const sourcePath = source.pathname.replace(/\/$/, '');
+    // This bridge belongs on the old hosts. Never redirect its Pages root to itself.
+    if (source.origin === destination.origin &&
+        (sourcePath === canonicalPath || sourcePath === `${canonicalPath}/index.html`)) return;
+    const allowed = {
+      day: ['sunday', 'sunday-early', 'sunday-late', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
+      floor: ['1', '4', '8', '9', '10'],
+      mood: ['auto', 'soft', 'pixel', 'kawaii', 'hacker', 'apocalypse'],
+      view: ['map', 'program'],
+      style: ['auto', 'soft', 'pixel', 'kawaii', 'hacker', 'apocalypse']
+    };
+    for (const [key, values] of Object.entries(allowed)) {
+      const value = source.searchParams.get(key);
+      if (values.includes(value)) destination.searchParams.set(key, value);
+    }
+    destination.hash = source.hash;
+    window.location.replace(destination.href);
+  })();
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=https://s4turn.github.io/focs-tcc-2026-map/">
+  </noscript>
+</head>
+<body>
+  <main>
+    <h1>FOCS + TCC conference map</h1>
+    <p>The map has moved to GitHub Pages.</p>
+    <p><a href="https://s4turn.github.io/focs-tcc-2026-map/">Open the conference map</a>.</p>
+  </main>
+</body>
+</html>
