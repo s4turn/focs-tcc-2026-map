@@ -583,6 +583,7 @@ function renderRestroomGuide(){
 function render(){
  const day=currentDay(),focus=pendingMapFocus||rememberMapFocus();pendingMapFocus=null;
  document.body.dataset.venue=venueId();
+ const wifi=$('wwh-wifi');if(wifi)wifi.hidden=venueId()!=='wwh';
  document.body.dataset.dayIsAutomatic=String(state.automaticDay);
  document.querySelector('.brand-mark').textContent=venueId()==='wwh'?'w.':'k.';
  document.title=`${venueId()==='wwh'?'WWH':'Kimmel'} · Find your ${document.body.dataset.view==='program'?'session':'floor'}`;
