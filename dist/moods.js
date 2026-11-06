@@ -75,8 +75,11 @@ function popZombie(walker){
  spill.style.left=`${r.left+r.width/2-a.left}px`;spill.style.top=`${r.bottom-a.top}px`;
  walker.remove();ambient.appendChild(spill);
  const timer=setTimeout(()=>{spill.remove();gutsTimers.delete(timer);},GUTS_MS);gutsTimers.add(timer);
+ // Make room for both offspring while keeping phones at a fixed sprite budget.
+ // Retire older roaming zombies first; the Lemma Debt entrance always survives.
+ while(ambient.querySelectorAll('.zombie-walker').length>MAX_WALKERS-2)ambient.querySelectorAll('.zombie-pop')[0]?.remove();
  const spawned=[];
- for(let n=0;n<2&&ambient.querySelectorAll('.zombie-walker').length<MAX_WALKERS;n++)spawned.push(spawnWalker(route+n));
+ for(let n=0;n<2;n++)spawned.push(spawnWalker(route+n));
  queueLayout(900);
  if(restoreFocus)spawned[0]?.focus({preventScroll:true});
 }

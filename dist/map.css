@@ -79,3 +79,9 @@ body .room-button[data-choose-room][aria-pressed=true]{border-color:var(--teal);
 .restroom-guide[hidden]{display:none}
 body:is([data-style=pixel],[data-style=apocalypse],[data-style=hacker]) :is(.diagram-restroom-badge,.restroom-guide,.restroom-key){border-radius:4px}
 body[data-style=kawaii] .diagram-restroom-badge{border-radius:14px}
+
+/* An open circulation area gets a feathered wash rather than a room perimeter. */
+body .room-fill.wwh-crosshall{stroke:none}
+.room-outline[data-outline-room="crosshall"]{stroke:none}
+.room-outline[data-outline-room="crosshall"].is-selected{stroke:var(--teal);stroke-opacity:.45;stroke-width:1.5;stroke-dasharray:5 5}
+.svg-room:focus-visible .wwh-crosshall{stroke:var(--teal);stroke-width:3;stroke-dasharray:5 5}

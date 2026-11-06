@@ -248,8 +248,8 @@ function focusMapSelection(){
 }
 function render(focus=focusBookmark()){
  if(!state.data)return;
- const title=state.zoom==='themes'?'Themes at a glance':'Papers & speakers';
- $('program-app').innerHTML=`<div class="program-topline"><h2>${title}</h2><div class="program-zoom" aria-label="Program detail"><button type="button" class="program-button" data-zoom="themes" aria-pressed="${state.zoom==='themes'}">Themes</button><button type="button" class="program-button" data-zoom="papers" aria-pressed="${state.zoom==='papers'}">Papers · zoom in</button></div></div>${clockMarkup()}<div id="program-content">${state.zoom==='themes'?timeline():detail()}</div>${sourcesMarkup()}`;
+ const title=state.zoom==='themes'?'High-level program':'Papers & speakers';
+ $('program-app').innerHTML=`<div class="program-topline"><h2>${title}</h2><div class="program-zoom" aria-label="Program detail"><button type="button" class="program-button" data-zoom="themes" aria-pressed="${state.zoom==='themes'}">High level</button><button type="button" class="program-button" data-zoom="papers" aria-pressed="${state.zoom==='papers'}">Fine-grained</button></div></div>${clockMarkup()}<div id="program-content">${state.zoom==='themes'?timeline():detail()}</div>${sourcesMarkup()}`;
  expansion=null;layoutTimeline();observeTimeline();tick();if(!restoreProgramFocus(focus))focusCurrentTime();
 }
 function focusCurrentTime(){

@@ -177,8 +177,8 @@ function rooms(floor,day=currentDay()){
   const key=hold.roomId,alias=venue==='wwh'?key:key==='eisner-lubin'?'A':key==='405-406'?'B':key==='905-907'?'C':key.startsWith('914')?(day.tcc?'TCC':'D'):key==='409-solarium'?'solarium':key==='802-shorin'?'shorin':key;
   const existing=list.find(r=>r.id===alias);
   if(existing){existing.hold=hold;continue;}
-  const workshop=venue==='wwh'&&['101','102','109'].includes(key),role=workshop?'Workshop':hold.role==='reserve'?'Reserve / auxiliary':hold.role==='workspace'?'Workspace':hold.role==='catering'?'Catering / staging':hold.role==='support'&&/break|coffee/i.test(hold.purpose||'')?'Break room':hold.role==='meal-gathering'?'Meals / gathering':'Auxiliary room';
-  list.push({id:alias,title:hold.room,short:`${hold.room} · ${workshop?'Workshops':hold.role==='workspace'?'Workspace':hold.role==='catering'?'Catering':role==='Break room'?'Break room':'Auxiliary'}`,subtitle:role,description:`${venue==='wwh'?'WWH':'Kimmel'} · Floor ${floor}. ${role}.`,color:workshop?(['109','101','102'].indexOf(key)===0?COLORS.A:key==='101'?COLORS.B:COLORS.C):COLORS.entry,hold});
+  const workshop=venue==='wwh'&&['101','102','109'].includes(key),role=workshop?'Workshop':hold.role==='reserve'?(venue==='kimmel'?'Free space':'Reserve / auxiliary'):hold.role==='workspace'?'Workspace':hold.role==='catering'?'Catering / staging':hold.role==='support'&&/break|coffee/i.test(hold.purpose||'')?'Break room':hold.role==='meal-gathering'?'Meals / gathering':venue==='kimmel'?'Free space':'Auxiliary room';
+  list.push({id:alias,title:hold.room,short:`${hold.room} · ${workshop?'Workshops':hold.role==='workspace'?'Workspace':hold.role==='catering'?'Catering':role==='Break room'?'Break room':role==='Free space'?'Free space':'Auxiliary'}`,subtitle:role,description:`${venue==='wwh'?'WWH':'Kimmel'} · Floor ${floor}. ${role}.`,color:workshop?(['109','101','102'].indexOf(key)===0?COLORS.A:key==='101'?COLORS.B:COLORS.C):COLORS.entry,hold});
  }
  const programDay=PROGRAM_DATA?.days.find(item=>item.id===day.id);
  if(programDay&&venue==='wwh'){
@@ -206,7 +206,7 @@ function rooms(floor,day=currentDay()){
   }
   for(const room of list){
    if(['A','B','C','D','TCC'].includes(room.id)&&!groups.has(room.id)){
-    if(room.hold){room.programTracks=[];room.planLabel='Auxiliary';room.title=room.hold.room;room.short=`${room.hold.room} · Auxiliary`;room.subtitle='Auxiliary room';}
+    if(room.hold){room.programTracks=[];room.planLabel='Free space';room.title=room.hold.room;room.short=`${room.hold.room} · Free space`;room.subtitle='Free space';room.description=`Kimmel · Floor ${floor}. Free space.`;}
     else room.obsolete=true;
    }
   }
@@ -232,12 +232,14 @@ function wwhPlan(floor,{labels=true,outlines=true}={}){
  // Its interior services are not labelled as elevators.
  s+=rect(0,197,195,43,P.wall);
  s+=rect(14,205,51,35,P.floor)+rect(76,216,15,24,P.closed)+rect(78,219,11,11,P.glass);
- // Crosshall is enlarged for the user-confirmed food and coffee staging area.
- s+=selectable('crosshall',`<path class="room-fill wwh-crosshall" d="M0 240 H238 V300 H0 Z" fill="${color('crosshall')}"/>`);
+ // A feathered wash marks food/coffee in the open crosshall, not another room.
+ const hallWash=`wwh-crosshall-${labels?'plan':'iso'}`;
+ s+=`<defs><radialGradient id="${hallWash}"><stop offset="0" stop-color="${color('crosshall')}" stop-opacity=".36"/><stop offset=".65" stop-color="${color('crosshall')}" stop-opacity=".18"/><stop offset="1" stop-color="${color('crosshall')}" stop-opacity="0"/></radialGradient></defs>`;
+ s+=selectable('crosshall',`<path class="room-fill wwh-crosshall" d="M0 240 H238 V300 H0 Z" fill="url(#${hallWash})"/>`+(labels?text(130,260,'Crosshall',12)+text(130,282,'Food & coffee',14)+foodFriend('food','x="45" y="256" width="26" height="26"')+foodFriend('coffee','x="185" y="256" width="26" height="26"'):''));
  s+=room('109','M0 300 H260 V400 H0 Z',130,342,'A');
  s+=`<path d="M42 300 H218" stroke="${P.wood}" stroke-width="7"/>`;
  for(const x of [10,219])s+=`<path d="M${x} 300 h32" stroke="${P.floor}" stroke-width="8"/><path class="wwh-109-doors" d="M${x} 300 v16 h16 v-16 m0 16 h16 v-16" fill="none" stroke="${P.primary}" stroke-width="1.5"/>`;
- if(labels)s+=text(124,187,'Lobby',14)+restroomMarker(39,221,'All-gender restrooms')+text(130,260,'Crosshall',12)+text(130,282,'Food & coffee',14)+foodFriend('food','x="45" y="256" width="26" height="26"')+foodFriend('coffee','x="185" y="256" width="26" height="26"');
+ if(labels)s+=text(124,187,'Lobby',14)+restroomMarker(39,221,'All-gender restrooms');
  return themed(s+(outlines?roomOutlines(s):''));
 }
 function wwhUpperStack(){
@@ -328,7 +330,7 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   if(labels)markup+=text(177,17,'Balcony · north',11);
   markup+=selectable('rosenthal',rect(95,30,165,280,meals?'coffee':has('rosenthal')?'entry':'neutral')+(labels?labelLines(178,125,['Rosenthal','Pavilion'],18):''));
   if(meals){for(const[x,y]of [[132,200],[211,200],[171,257]])markup+=`<circle cx="${x}" cy="${y}" r="14" fill="#fff9e9" stroke="#b8a773"/><circle cx="${x}" cy="${y}" r="3" fill="#c7b380"/>`;}
-  if(labels){markup+=labelLines(178,165,meals?['Meals /','gathering']:catering?['Catering /','staging']:has('rosenthal')?['Auxiliary','room']:['No conference','space today'],13);if(meals)markup+=foodFriend('food','x="117" y="182" width="30" height="30"');}
+  if(labels){markup+=labelLines(178,165,meals?['Meals /','gathering']:catering?['Catering /','staging']:has('rosenthal')?['Free space']:['No conference','space today'],13);if(meals)markup+=foodFriend('food','x="117" y="182" width="30" height="30"');}
   markup+=elevator(labels)+rect(-35,220,70,65)+rect(95,330,165,70);
   if(labels)markup+=text(175,371,'Kitchen / service',12);
  }else{
@@ -515,7 +517,7 @@ function drawPixelFrame(){
  copy.querySelectorAll('[data-level]').forEach((layer,index)=>{layer.style.transform=getComputedStyle(liveLayers[index]).transform;layer.style.transition='none';});
  const css=document.createElementNS('http://www.w3.org/2000/svg','style');
  // Outer contours retain at least one output pixel in the small raster version.
- css.textContent=`text{font-family:monospace}.room-fill{stroke:${P.line};stroke-width:1.5}.room-outline{fill:none;stroke:${P.line};stroke-width:${Math.max(1.5,750/width)};stroke-linejoin:round;stroke-linecap:round;pointer-events:none}.room-outline.is-selected{stroke:${P.primary};stroke-width:${Math.max(3,1125/width)}}.route{fill:none;stroke:${P.primary};stroke-width:3;stroke-dasharray:5 5}`;copy.prepend(css);
+ css.textContent=`text{font-family:monospace}.room-fill{stroke:${P.line};stroke-width:1.5}.room-outline{fill:none;stroke:${P.line};stroke-width:${Math.max(1.5,750/width)};stroke-linejoin:round;stroke-linecap:round;pointer-events:none}.room-outline.is-selected{stroke:${P.primary};stroke-width:${Math.max(3,1125/width)}}.wwh-crosshall{stroke:none}.room-outline[data-outline-room="crosshall"]{stroke:none}.room-outline[data-outline-room="crosshall"].is-selected{stroke:${P.primary};stroke-opacity:.45;stroke-width:1.5;stroke-dasharray:5 5}.route{fill:none;stroke:${P.primary};stroke-width:3;stroke-dasharray:5 5}`;copy.prepend(css);
  const url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(copy)],{type:'image/svg+xml'}));
  const picture=new Image(),sequence=++pixelSequence;
  picture.onload=()=>{if(sequence===pixelSequence&&canvas.isConnected&&usesPixels()){const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,width,height);ctx.drawImage(picture,0,0,width,height);$('building').dataset.pixelsReady='true';}URL.revokeObjectURL(url);};
