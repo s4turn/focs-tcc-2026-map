@@ -150,6 +150,11 @@ function applyStyle(style,now=new Date()){
  document.dispatchEvent(new CustomEvent('kimmel:mood',{detail:{mood:state.style}}));
  return true;
 }
+function registrationLocation(floor,day=currentDay()){
+ if(day.venue==='wwh'&&floor===1)return {point:[135,149],subtitle:'WWH · Outside 101/102',description:'In front of rooms 101 and 102, next to the security desk.'};
+ if(day.venue!=='wwh'&&floor===4)return {point:[65,385],subtitle:'Kimmel · Solarium 409',description:'Solarium 409, fourth floor.'};
+ return null;
+}
 function baseRooms(floor,day=currentDay()){
  if(floor===1)return [{id:'entry',title:'Entrance',short:'Entrance',subtitle:'60 Washington Square South',description:(day.id==='sunday-late'?'Sunday: use the main entrance on Washington Square South, facing Washington Square Park. Follow the dotted path around the staircase to the elevators.':'Monday–Friday: use the event entrance on Washington Square South. Follow the dotted path around the staircase to the elevators.')+' Bring a valid government ID. The elevators serve the conference floors.',color:COLORS.entry}];
  if(floor===4){const a=[];if(day.focs){a.push({id:'A',title:'Track A',short:'Track A',subtitle:'Eisner & Lubin Auditorium',description:'Fourth floor · Eisner & Lubin Auditorium.',color:COLORS.A},{id:'B',title:'Track B',short:'Track B',subtitle:'Rooms 405/406',description:'Fourth floor · Rooms 405/406, along the Washington Square South side. A hallway separates these rooms from the auditorium.',color:COLORS.B});a.push({id:'solarium',service:'coffee',title:'Solarium 409',short:'Coffee · 409',subtitle:'Coffee / refreshments',description:'Fourth floor · Solarium 409. Coffee / refreshments.',color:COLORS.coffee});}return a;}
@@ -211,7 +216,14 @@ function rooms(floor,day=currentDay()){
    }
   }
  }
+ const registration=registrationLocation(floor,day);if(registration)list.push({id:'registration',kind:'registration',title:'Registration',short:'Registration',subtitle:registration.subtitle,description:registration.description,mapPoint:registration.point,color:COLORS.entry});
  return list.filter(room=>!room.obsolete&&!(ROOM_DATA.source&&room.service&&!room.hold));
+}
+function registrationMarker(floor,{labels=true,day=currentDay()}={}){
+ const location=registrationLocation(floor,day);if(!location)return '';
+ const[x,y]=location.point,selected=state.room==='registration';
+ const marker=`<g class="registration-location"><title>Registration · ${esc(location.subtitle)}</title><rect class="registration-table" x="${x-16}" y="${y-6}" width="32" height="12" rx="3" fill="${COLORS.entry}" stroke="${selected?P.primary:P.line}" stroke-width="${selected?2.5:1.5}"/>${labels?text(x,y+3.5,'Reg.',10,'font-weight="700"'):''}</g>`;
+ return labels?selectable('registration',marker):marker;
 }
 function wwhPlan(floor,{labels=true,outlines=true}={}){
  // User-corrected adjacency; proportions are adjusted for readable wayfinding.
@@ -240,6 +252,7 @@ function wwhPlan(floor,{labels=true,outlines=true}={}){
  s+=`<path d="M42 300 H218" stroke="${P.wood}" stroke-width="7"/>`;
  for(const x of [10,219])s+=`<path d="M${x} 300 h32" stroke="${P.floor}" stroke-width="8"/><path class="wwh-109-doors" d="M${x} 300 v16 h16 v-16 m0 16 h16 v-16" fill="none" stroke="${P.primary}" stroke-width="1.5"/>`;
  if(labels)s+=text(124,187,'Lobby',14)+restroomMarker(39,221,'All-gender restrooms');
+ s+=registrationMarker(1,{labels});
  return themed(s+(outlines?roomOutlines(s):''));
 }
 function wwhUpperStack(){
@@ -272,10 +285,11 @@ function foodFriend(kind='coffee',attributes=''){
  return `<svg class="food-friend" data-food="${kind}" viewBox="0 0 48 48" aria-hidden="true" focusable="false" ${attributes}>${art}</svg>`;
 }
 function floorSummary(floor){
- if(venueId()==='wwh')return floor===1?['A · B · C','Food · Coffee']:[];
- if(currentDay().id==='sunday-late')return floor===4?['AI & TCS']:floor===8?['802']:[];
+ if(venueId()==='wwh')return floor===1?['A · B · C','Reg · Food · Coffee']:[];
+ if(currentDay().id==='sunday-late')return floor===4?['AI & TCS','Reg']:floor===8?['802']:[];
  const available=rooms(floor),tracks=[...new Set(available.flatMap(room=>room.programTracks||(['A','B','C','D','TCC'].includes(room.id)?[room.id]:[])))];
- return [tracks.join(' · '),available.some(r=>r.id==='shorin')?'802':available.some(room=>room.service==='coffee')?'Coffee':available.some(room=>room.service==='food')?'Food':''].filter(Boolean);
+ const service=available.some(r=>r.id==='shorin')?'802':available.some(room=>room.service==='coffee')?'Coffee':available.some(room=>room.service==='food')?'Food':'';
+ return [tracks.join(' · '),[service,available.some(room=>room.kind==='registration')?'Reg':''].filter(Boolean).join(' · ')].filter(Boolean);
 }
 function rect(x,y,w,h,fill='neutral',extra=''){return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" class="room-fill" fill="${COLORS[fill]||fill}" ${extra}/>`;}
 function text(x,y,label,size=14,extra=''){return `<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="#493a55" ${extra}>${esc(label)}</text>`;}
@@ -307,7 +321,7 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   if(labels){markup+=labelLines(150,172,has('A')?[roomLabel('A',day.id==='sunday-late'?'AI & TCS':'Track A'),'Eisner & Lubin','Auditorium']:['Eisner & Lubin','Auditorium'],14)+text(150,334,'Stage · south',12);markup+=text(130,72,'Hallway',11);}
   for(let row=0;row<5;row++)for(let col=0;col<6;col++)markup+=`<rect x="${71+col*27}" y="${220+row*13}" width="16" height="6" rx="3" fill="#9e85b8" opacity=".6"/>`;
   markup+=elevator(labels)+rect(0,215,25,80);
-  markup+=selectable('solarium',`<path class="room-fill" d="M240 250 H260 V400 H35 V375 H240 Z" fill="${active.some(room=>room.service==='coffee')?COLORS.coffee:has('solarium')?COLORS.entry:COLORS.neutral}"/>`+(labels?text(125,393,'Solarium 409',13,'font-weight="700"')+(active.some(room=>room.service==='coffee')?foodFriend('coffee','x="215" y="366" width="30" height="30"'):''):''));
+  markup+=selectable('solarium',`<path class="room-fill" d="M240 250 H260 V400 H35 V375 H240 Z" fill="${active.some(room=>room.service==='coffee')?COLORS.coffee:has('solarium')?COLORS.entry:COLORS.neutral}"/>`+(labels?text(155,393,'Solarium 409',13,'font-weight="700"')+(active.some(room=>room.service==='coffee')?foodFriend('coffee','x="215" y="366" width="30" height="30"'):''):''));
  }else if(floor===8){
   markup+=rect(0,0,260,45,'#e6eddb');
   markup+=elevator(labels);
@@ -338,6 +352,7 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
  }else{
   markup+=kimmelLobby({labels,day});
  }
+ if(floor===4)markup+=registrationMarker(floor,{labels,day});
  if(labels)markup+=(RESTROOMS[floor]?.points||[]).map(([x,y])=>restroomMarker(x,y)).join('');
  return themed(markup+(outlines?roomOutlines(markup):''));
 }
@@ -497,7 +512,7 @@ function updateDiagramLabels(){
  let overlay=map.querySelector('.diagram-overlays');
  if(!overlay){
   overlay=document.createElement('div');overlay.className='diagram-overlays';
-  overlay.innerHTML=`<svg class="badge-leaders" aria-hidden="true"></svg><svg class="vector-place-labels" viewBox="-45 -35 750 965" aria-hidden="true"></svg><div class="map-place map-place--laguardia"><span>LaGuardia</span><span>Place</span></div><div class="map-place map-place--south"><span>Washington</span><span>Square South</span></div><div class="map-place map-place--park"><span>Washington</span><span>Square Park</span></div><button type="button" class="diagram-restroom-badge" data-show-restrooms aria-label="Find restrooms"><span aria-hidden="true">WC</span></button><div class="diagram-track-labels" aria-hidden="true"></div><div class="diagram-amenity" aria-hidden="true"></div>${activeFloors().map(f=>`<button type="button" class="diagram-floor-badge" data-choose-floor="${f}" aria-label="Open floor ${f}">${f}</button>`).join('')}`;map.append(overlay);
+  overlay.innerHTML=`<svg class="badge-leaders" aria-hidden="true"></svg><svg class="vector-place-labels" viewBox="-45 -35 750 965" aria-hidden="true"></svg><div class="map-place map-place--laguardia"><span>LaGuardia</span><span>Place</span></div><div class="map-place map-place--south"><span>Washington</span><span>Square South</span></div><div class="map-place map-place--park"><span>Washington</span><span>Square Park</span></div><button type="button" class="diagram-restroom-badge" data-show-restrooms aria-label="Find restrooms"><span aria-hidden="true">WC</span></button><div class="diagram-track-labels" aria-hidden="true"></div><div class="diagram-amenity" aria-hidden="true"></div><div class="diagram-registration-marker" aria-hidden="true" hidden>Reg.</div>${activeFloors().map(f=>`<button type="button" class="diagram-floor-badge" data-choose-floor="${f}" aria-label="Open floor ${f}">${f}</button>`).join('')}`;map.append(overlay);
   const labels=overlay.querySelector('.vector-place-labels');source.querySelectorAll(':scope > text').forEach(node=>labels.append(node.cloneNode(true)));
  }
  const items=activeFloors().map(floor=>{const layer=source.querySelector(`[data-level="${floor}"]`),shift=new DOMMatrix(getComputedStyle(layer).transform).m42,[x,y]=p(5,10,baseFor(floor)+shift);return {floor,x:(x+45)*width/750,y:(y+35)*height/965};}).sort((a,b)=>a.y-b.y);
@@ -519,6 +534,14 @@ function updateDiagramLabels(){
   leaders+=`<path class="place-pointer" d="M${from.x} ${from.y} L${target.x} ${target.y}" fill="none" stroke="${P.ink}" stroke-width="1.2" stroke-linecap="round"/><circle cx="${target.x}" cy="${target.y}" r="2.4" fill="${P.ink}"/>`;
  }
  const amenity=overlay.querySelector('.diagram-amenity'),available=rooms(state.floor),serviceRoom=available.find(room=>room.service||room.amenities?.length),kind=serviceRoom?.service||serviceRoom?.amenities?.[0]||null;
+ const registration=available.find(room=>room.kind==='registration'),registrationBadge=overlay.querySelector('.diagram-registration-marker');
+ registrationBadge.hidden=!registration;
+ if(registration){
+  const layer=source.querySelector(`[data-level="${state.floor}"]`),shift=new DOMMatrix(getComputedStyle(layer).transform).m42;
+  const[x,y]=p(...registration.mapPoint,baseFor(state.floor)+shift);
+  registrationBadge.style.left=`${(x+45)*width/750}px`;registrationBadge.style.top=`${(y+35)*height/965}px`;
+  registrationBadge.classList.toggle('is-selected',state.room==='registration');
+ }
  const restroom=overlay.querySelector('.diagram-restroom-badge'),bathroom=restroomInfo();
  restroom.hidden=!bathroom?.points.length;
  if(bathroom?.points.length){
@@ -532,7 +555,7 @@ function updateDiagramLabels(){
  if(kind){
   amenity.innerHTML=(serviceRoom.amenities||[kind]).map(item=>foodFriend(item)).join('');
   const layer=source.querySelector(`[data-level="${state.floor}"]`),shift=new DOMMatrix(getComputedStyle(layer).transform).m42;
-  const[x,y]=p(...(venueId()==='wwh'?[210,262]:kind==='coffee'?[168,385]:[153,228]),baseFor(state.floor)+shift);
+  const[x,y]=p(...(venueId()==='wwh'?[210,262]:kind==='coffee'?[200,385]:[153,228]),baseFor(state.floor)+shift);
   amenity.style.left=`${(x+45)*width/750}px`;amenity.style.top=`${(y+35)*height/965}px`;
  }
  const drawnRooms=[...source.querySelectorAll('.selected-floor .svg-room[data-room]')];

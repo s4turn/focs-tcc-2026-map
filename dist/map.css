@@ -85,3 +85,9 @@ body .room-fill.wwh-crosshall{stroke:none}
 .room-outline[data-outline-room="crosshall"]{stroke:none}
 .room-outline[data-outline-room="crosshall"].is-selected{stroke:var(--teal);stroke-opacity:.45;stroke-width:1.5;stroke-dasharray:5 5}
 .svg-room:focus-visible .wwh-crosshall{stroke:var(--teal);stroke-width:3;stroke-dasharray:5 5}
+
+/* Registration is a point annotation, with its own native select button. */
+.diagram-registration-marker { position:absolute; transform:translate(-50%,-50%); display:grid; place-items:center; min-width:31px; height:18px; padding:0 4px; border:1px solid var(--line); border-radius:4px; background:var(--surface); color:var(--ink); font:650 11px/1 ui-sans-serif,sans-serif; pointer-events:none; z-index:3; }
+.diagram-registration-marker[hidden] { display:none; }
+.diagram-registration-marker.is-selected { border-color:var(--teal); box-shadow:0 0 0 1px var(--teal); }
+.svg-room[data-room="registration"]:focus-visible .registration-table { stroke:var(--teal); stroke-width:3; }
