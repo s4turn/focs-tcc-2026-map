@@ -2,7 +2,7 @@
 'use strict';
 const DAYS=[
  {id:'sunday-early',short:'Sun',period:'<3PM',date:8,title:'Sunday <3PM · November 8',conference:'FOCS workshops · WWH',venue:'wwh',focs:false,tcc:false,note:'WWH · Rooms 101, 102 and 109. Workshops through 3 p.m.; coffee break 3–3:30 p.m. Later events are at Kimmel.'},
- {id:'sunday-late',short:'Sun',period:'≥3PM',date:8,title:'Sunday ≥3PM · November 8',conference:'FOCS workshops · Kimmel',venue:'kimmel',focs:false,tcc:false,note:'AI and TCS · 3:30–5:30 p.m., Eisner & Lubin, floor 4. Estimathon · 6–7:30 p.m., Shorin 802, floor 8.'},
+ {id:'sunday-late',short:'Sun',period:'≥3PM',date:8,title:'Sunday ≥3PM · November 8',conference:'FOCS workshops · Kimmel',venue:'kimmel',focs:false,tcc:false,note:'Use the Kimmel main entrance on Washington Square South. AI and TCS · 3:30–5:30 p.m., Eisner & Lubin, floor 4. Estimathon · 6–7:30 p.m., Shorin 802, floor 8.'},
  {id:'monday',short:'Mon',date:9,title:'Monday, November 9',conference:'FOCS',focs:true,tcc:false,solarium:'9 a.m.–2:30 p.m.',rosenthal:'8 a.m.–4 p.m.',note:'Track D · Room 914 today. Coffee · Solarium 409, floor 4.'},
  {id:'tuesday',short:'Tue',date:10,title:'Tuesday, November 10',conference:'FOCS + TCC',focs:true,tcc:true,solarium:'9 a.m.–10 p.m.',rosenthal:null,note:'Joint reception · Eisner & Lubin Auditorium, 7:30–10 p.m. Coffee · Solarium 409, floor 4.'},
  {id:'wednesday',short:'Wed',date:11,title:'Wednesday, November 11',conference:'FOCS + TCC',focs:true,tcc:true,solarium:'9 a.m.–5 p.m.',rosenthal:'8 a.m.–3 p.m.',note:'Joint Knuth lecture · Eisner & Lubin Auditorium. Coffee · Solarium 409, floor 4.'},
@@ -151,7 +151,7 @@ function applyStyle(style,now=new Date()){
  return true;
 }
 function baseRooms(floor,day=currentDay()){
- if(floor===1)return [{id:'entry',title:'Entrance',short:'Entrance',subtitle:'60 Washington Square South',description:'Enter from Washington Square South, facing Washington Square Park. Bring a valid government ID. The elevators serve the conference floors.',color:COLORS.entry}];
+ if(floor===1)return [{id:'entry',title:'Entrance',short:'Entrance',subtitle:'60 Washington Square South',description:(day.id==='sunday-late'?'Sunday: use the main entrance on Washington Square South, facing Washington Square Park. The event entrance is closed on Sunday.':'Enter from Washington Square South, facing Washington Square Park. The event entrance is open Monday–Friday.')+' Bring a valid government ID. The elevators serve the conference floors.',color:COLORS.entry}];
  if(floor===4){const a=[];if(day.focs){a.push({id:'A',title:'Track A',short:'Track A',subtitle:'Eisner & Lubin Auditorium',description:'Fourth floor · Eisner & Lubin Auditorium.',color:COLORS.A},{id:'B',title:'Track B',short:'Track B',subtitle:'Rooms 405/406',description:'Fourth floor · Rooms 405/406, along the Washington Square South side. A hallway separates these rooms from the auditorium.',color:COLORS.B});a.push({id:'solarium',service:'coffee',title:'Solarium 409',short:'Coffee · 409',subtitle:'Coffee / refreshments',description:'Fourth floor · Solarium 409. Coffee / refreshments.',color:COLORS.coffee});}return a;}
  if(floor===9){if(!day.focs&&!day.tcc)return [];const a=[];if(day.focs)a.push({id:'C',title:'Track C',short:'Track C',subtitle:'Rooms 905/907',description:'Ninth floor · Combined Rooms 905/907, on the LaGuardia Place side.',color:COLORS.C});a.push({id:day.tcc?'TCC':'D',title:day.tcc?'TCC':'Track D',short:day.tcc?'TCC':'Track D',subtitle:'Room 914',description:day.tcc?'Ninth floor · TCC sessions in Room 914, at the south end of the floor.':'Monday only · Track D in Room 914, at the south end of the ninth floor.',color:COLORS.D});return a;}
  if(floor===10&&day.rosenthal)return [{id:'rosenthal',service:'food',title:'Rosenthal Pavilion',short:'Rosenthal',subtitle:'Meals / gathering',description:'Tenth floor · Meals / gathering.',color:COLORS.coffee}];
@@ -336,7 +336,7 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   markup+=elevator(labels)+rect(-35,220,70,65)+rect(95,330,165,70);
   if(labels)markup+=text(175,371,'Kitchen / service',12);
  }else{
-  markup+=kimmelLobby({labels});
+  markup+=kimmelLobby({labels,day});
  }
  if(labels)markup+=(RESTROOMS[floor]?.points||[]).map(([x,y])=>restroomMarker(x,y)).join('');
  return themed(markup+(outlines?roomOutlines(markup):''));
@@ -375,12 +375,13 @@ function lobbyTreads(){
   return {a,b,height:3+i*3.5,path:`M${a.left} ${a.y} Q122.5 ${a.y-a.bow} ${a.right} ${a.y} L${b.right} ${b.y} Q122.5 ${b.y-b.bow} ${b.left} ${b.y} Z`};
  });
 }
-function kimmelLobby({labels=true}={}){
+function kimmelLobby({labels=true,day=currentDay()}={}){
+ const eventEntranceOpen=!day.id.startsWith('sunday');
  let s=`<g class="kimmel-lobby"><path d="M10 8 H250" stroke="${P.glass}" stroke-width="8"/>`;
  // The main door is west of the event door along Washington Square South.
- s+=selectable('entry',rect(28,0,38,20,'entry'))+rect(181,0,38,20,'entry');
+ s+=selectable('entry',rect(28,0,38,20,'entry'))+rect(181,0,38,20,eventEntranceOpen?'entry':'neutral');
  for(const x of [38,49,191,202])s+=`<path d="M${x} 1 v17" stroke="${P.primary}" stroke-width="1.4"/>`;
- if(labels)s+=labelLines(47,40,['Main','entrance'],12)+labelLines(200,40,['Event','entrance'],12);
+ if(labels)s+=labelLines(47,40,['Main','entrance'],12)+labelLines(200,40,['Event','entrance',eventEntranceOpen?'Mon–Fri':'Closed Sunday'],11);
  // Unlabelled front desks and kiosks; positions follow the supplied crop.
  s+=rect(76,76,37,23,'B')+rect(86,81,14,7,P.glass)+rect(192,97,25,29,'B')+rect(198,102,12,8,P.glass);
  s+=rect(63,224,33,15,'B')+rect(69,227,12,5,P.glass);
