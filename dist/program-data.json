@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-05T17:39:13-05:00",
+  "generatedAt": "2026-11-06T03:29:06-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -50,7 +50,7 @@
           "papers": [
             {
               "id": "sunday-subspace-1-talk-1",
-              "title": "Subspace Designs and Local Linear Properties: A Tutorial",
+              "title": "Subspace Designs and Applications: A Survey",
               "authors": "Venkat Guruswami",
               "order": 1,
               "start": "09:00",
@@ -1012,7 +1012,13 @@
           "floor": null,
           "venueId": "kimmel",
           "url": "https://focs.computer.org/2026/main-program/#monday",
-          "papers": []
+          "papers": [],
+          "relatedLinks": [
+            {
+              "label": "Junior/Senior Lunch groups",
+              "url": "https://focs.computer.org/2026/junior-senior-lunches/"
+            }
+          ]
         },
         {
           "id": "focs-3a",
@@ -1962,8 +1968,8 @@
           "conference": "TCC",
           "kind": "break",
           "track": null,
-          "title": "Coffee Break",
-          "theme": "Coffee Break",
+          "title": "Coffee break",
+          "theme": "Coffee break",
           "start": "11:00",
           "end": "11:30",
           "room": null,
@@ -2340,8 +2346,8 @@
           "conference": "TCC",
           "kind": "break",
           "track": null,
-          "title": "Coffee Break",
-          "theme": "Coffee Break",
+          "title": "Coffee break",
+          "theme": "Coffee break",
           "start": "15:15",
           "end": "15:45",
           "room": null,
@@ -3087,7 +3093,13 @@
           "floor": 10,
           "venueId": "kimmel",
           "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
-          "papers": []
+          "papers": [],
+          "relatedLinks": [
+            {
+              "label": "Junior/Senior Lunch groups",
+              "url": "https://focs.computer.org/2026/junior-senior-lunches/"
+            }
+          ]
         },
         {
           "id": "focs-wednesday-1250-meal",
@@ -3102,7 +3114,13 @@
           "floor": null,
           "venueId": "kimmel",
           "url": "https://focs.computer.org/2026/main-program/#wednesday",
-          "papers": []
+          "papers": [],
+          "relatedLinks": [
+            {
+              "label": "Junior/Senior Lunch groups",
+              "url": "https://focs.computer.org/2026/junior-senior-lunches/"
+            }
+          ]
         },
         {
           "id": "focs-wednesday-knuth-prize-lecture",
@@ -3167,8 +3185,8 @@
           "conference": "TCC",
           "kind": "break",
           "track": null,
-          "title": "Coffee Break",
-          "theme": "Coffee Break",
+          "title": "Coffee break",
+          "theme": "Coffee break",
           "start": "15:50",
           "end": "16:15",
           "room": null,
@@ -3680,8 +3698,8 @@
           "conference": "TCC",
           "kind": "break",
           "track": null,
-          "title": "Coffee Break",
-          "theme": "Coffee Break",
+          "title": "Coffee break",
+          "theme": "Coffee break",
           "start": "11:00",
           "end": "11:30",
           "room": null,
@@ -3794,8 +3812,8 @@
           "conference": "TCC",
           "kind": "break",
           "track": null,
-          "title": "Coffee Break",
-          "theme": "Coffee Break",
+          "title": "Coffee break",
+          "theme": "Coffee break",
           "start": "15:15",
           "end": "15:45",
           "room": null,
@@ -3968,8 +3986,8 @@
           "conference": "TCC",
           "kind": "break",
           "track": null,
-          "title": "Coffee Break",
-          "theme": "Coffee Break",
+          "title": "Coffee break",
+          "theme": "Coffee break",
           "start": "11:00",
           "end": "11:30",
           "room": null,
@@ -4052,7 +4070,13 @@
           "floor": 10,
           "venueId": "kimmel",
           "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-13",
-          "papers": []
+          "papers": [],
+          "relatedLinks": [
+            {
+              "label": "Junior/Senior Lunch groups",
+              "url": "https://focs.computer.org/2026/junior-senior-lunches/"
+            }
+          ]
         },
         {
           "id": "tcc-session-25",
@@ -4119,8 +4143,8 @@
           "conference": "TCC",
           "kind": "break",
           "track": null,
-          "title": "Coffee Break",
-          "theme": "Coffee Break",
+          "title": "Coffee break",
+          "theme": "Coffee break",
           "start": "15:30",
           "end": "16:00",
           "room": null,

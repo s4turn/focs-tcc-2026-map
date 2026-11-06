@@ -177,8 +177,8 @@ function rooms(floor,day=currentDay()){
   const key=hold.roomId,alias=venue==='wwh'?key:key==='eisner-lubin'?'A':key==='405-406'?'B':key==='905-907'?'C':key.startsWith('914')?(day.tcc?'TCC':'D'):key==='409-solarium'?'solarium':key==='802-shorin'?'shorin':key;
   const existing=list.find(r=>r.id===alias);
   if(existing){existing.hold=hold;continue;}
-  const workshop=venue==='wwh'&&['101','102','109'].includes(key),role=workshop?'Workshop':hold.role==='reserve'?'Reserve / auxiliary':hold.role==='breakout'?'Auxiliary / quiet space':hold.role==='meal-gathering'?'Meals / gathering':'Auxiliary space';
-  list.push({id:alias,title:hold.room,short:`${hold.room} · ${workshop?'Workshops':'Auxiliary'}`,subtitle:role,description:`${venue==='wwh'?'WWH':'Kimmel'} · Floor ${floor}. ${role}.`,color:workshop?(['109','101','102'].indexOf(key)===0?COLORS.A:key==='101'?COLORS.B:COLORS.C):COLORS.entry,hold});
+  const workshop=venue==='wwh'&&['101','102','109'].includes(key),role=workshop?'Workshop':hold.role==='reserve'?'Reserve / auxiliary':hold.role==='workspace'?'Workspace':hold.role==='catering'?'Catering / staging':hold.role==='support'&&/break|coffee/i.test(hold.purpose||'')?'Break room':hold.role==='meal-gathering'?'Meals / gathering':'Auxiliary room';
+  list.push({id:alias,title:hold.room,short:`${hold.room} · ${workshop?'Workshops':hold.role==='workspace'?'Workspace':hold.role==='catering'?'Catering':role==='Break room'?'Break room':'Auxiliary'}`,subtitle:role,description:`${venue==='wwh'?'WWH':'Kimmel'} · Floor ${floor}. ${role}.`,color:workshop?(['109','101','102'].indexOf(key)===0?COLORS.A:key==='101'?COLORS.B:COLORS.C):COLORS.entry,hold});
  }
  const programDay=PROGRAM_DATA?.days.find(item=>item.id===day.id);
  if(programDay&&venue==='wwh'){
@@ -273,7 +273,7 @@ function floorSummary(floor){
  if(venueId()==='wwh')return floor===1?['A · B · C','Food · Coffee']:[];
  if(currentDay().id==='sunday-late')return floor===4?['AI & TCS']:floor===8?['802']:[];
  const available=rooms(floor),tracks=[...new Set(available.flatMap(room=>room.programTracks||(['A','B','C','D','TCC'].includes(room.id)?[room.id]:[])))];
- return [tracks.join(' · '),available.some(r=>r.id==='shorin')?'802':available.some(room=>room.service==='coffee')?'Coffee':available.some(room=>room.id==='rosenthal')?'Food':''].filter(Boolean);
+ return [tracks.join(' · '),available.some(r=>r.id==='shorin')?'802':available.some(room=>room.service==='coffee')?'Coffee':available.some(room=>room.service==='food')?'Food':''].filter(Boolean);
 }
 function rect(x,y,w,h,fill='neutral',extra=''){return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" class="room-fill" fill="${COLORS[fill]||fill}" ${extra}/>`;}
 function text(x,y,label,size=14,extra=''){return `<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="#493a55" ${extra}>${esc(label)}</text>`;}
@@ -323,11 +323,12 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   const endId=day.tcc?'TCC':'D';markup+=selectable(endId,rect(100,310,160,90,has(endId)?roomColor(endId,COLORS[endId]):'neutral')+(labels?labelLines(180,345,[has(endId)?roomLabel(endId,day.tcc?'TCC':'Track D'):'Room','914'],16):''));
   markup+=elevator(labels)+rect(-35,220,63,50);
  }else if(floor===10){
+  const meals=active.some(room=>room.id==='rosenthal'&&room.service==='food'),catering=active.some(room=>room.id==='rosenthal'&&room.hold?.role==='catering');
   markup+=rect(95,0,165,25,'#e6eddb');
   if(labels)markup+=text(177,17,'Balcony · north',11);
-  markup+=selectable('rosenthal',rect(95,30,165,280,has('rosenthal')?'coffee':'neutral')+(labels?labelLines(178,125,['Rosenthal','Pavilion'],18):''));
-  if(has('rosenthal')){for(const[x,y]of [[132,200],[211,200],[171,257]])markup+=`<circle cx="${x}" cy="${y}" r="14" fill="#fff9e9" stroke="#b8a773"/><circle cx="${x}" cy="${y}" r="3" fill="#c7b380"/>`;}
-  if(labels){markup+=labelLines(178,165,has('rosenthal')?['Meals /','gathering']:['No conference','space today'],13);if(has('rosenthal'))markup+=foodFriend('food','x="117" y="182" width="30" height="30"');}
+  markup+=selectable('rosenthal',rect(95,30,165,280,meals?'coffee':has('rosenthal')?'entry':'neutral')+(labels?labelLines(178,125,['Rosenthal','Pavilion'],18):''));
+  if(meals){for(const[x,y]of [[132,200],[211,200],[171,257]])markup+=`<circle cx="${x}" cy="${y}" r="14" fill="#fff9e9" stroke="#b8a773"/><circle cx="${x}" cy="${y}" r="3" fill="#c7b380"/>`;}
+  if(labels){markup+=labelLines(178,165,meals?['Meals /','gathering']:catering?['Catering /','staging']:has('rosenthal')?['Auxiliary','room']:['No conference','space today'],13);if(meals)markup+=foodFriend('food','x="117" y="182" width="30" height="30"');}
   markup+=elevator(labels)+rect(-35,220,70,65)+rect(95,330,165,70);
   if(labels)markup+=text(175,371,'Kitchen / service',12);
  }else{
