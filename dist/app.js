@@ -152,7 +152,7 @@ function applyStyle(style,now=new Date()){
 }
 function baseRooms(floor,day=currentDay()){
  if(floor===1)return [{id:'entry',title:'Entrance',short:'Entrance',subtitle:'60 Washington Square South',description:'Enter from Washington Square South, facing Washington Square Park. Bring a valid government ID. The elevators serve the conference floors.',color:COLORS.entry}];
- if(floor===4){const a=[];if(day.focs){a.push({id:'A',title:'Track A',short:'Track A',subtitle:'Eisner & Lubin Auditorium',description:'Fourth floor · Eisner & Lubin Auditorium. The stage is at the south end, away from the park.',color:COLORS.A},{id:'B',title:'Track B',short:'Track B',subtitle:'Rooms 405/406',description:'Fourth floor · Rooms 405/406, along the Washington Square South side. A hallway separates these rooms from the auditorium.',color:COLORS.B});a.push({id:'solarium',service:'coffee',title:'Solarium 409',short:'Coffee · 409',subtitle:'Coffee / refreshments',description:'Fourth floor · Solarium 409. Coffee / refreshments.',color:COLORS.coffee});}return a;}
+ if(floor===4){const a=[];if(day.focs){a.push({id:'A',title:'Track A',short:'Track A',subtitle:'Eisner & Lubin Auditorium',description:'Fourth floor · Eisner & Lubin Auditorium.',color:COLORS.A},{id:'B',title:'Track B',short:'Track B',subtitle:'Rooms 405/406',description:'Fourth floor · Rooms 405/406, along the Washington Square South side. A hallway separates these rooms from the auditorium.',color:COLORS.B});a.push({id:'solarium',service:'coffee',title:'Solarium 409',short:'Coffee · 409',subtitle:'Coffee / refreshments',description:'Fourth floor · Solarium 409. Coffee / refreshments.',color:COLORS.coffee});}return a;}
  if(floor===9){if(!day.focs&&!day.tcc)return [];const a=[];if(day.focs)a.push({id:'C',title:'Track C',short:'Track C',subtitle:'Rooms 905/907',description:'Ninth floor · Combined Rooms 905/907, on the LaGuardia Place side.',color:COLORS.C});a.push({id:day.tcc?'TCC':'D',title:day.tcc?'TCC':'Track D',short:day.tcc?'TCC':'Track D',subtitle:'Room 914',description:day.tcc?'Ninth floor · TCC sessions in Room 914, at the south end of the floor.':'Monday only · Track D in Room 914, at the south end of the ninth floor.',color:COLORS.D});return a;}
  if(floor===10&&day.rosenthal)return [{id:'rosenthal',service:'food',title:'Rosenthal Pavilion',short:'Rosenthal',subtitle:'Meals / gathering',description:'Tenth floor · Meals / gathering.',color:COLORS.coffee}];
  return [];
@@ -178,7 +178,7 @@ function rooms(floor,day=currentDay()){
   const existing=list.find(r=>r.id===alias);
   if(existing){existing.hold=hold;continue;}
   const workshop=venue==='wwh'&&['101','102','109'].includes(key),role=workshop?'Workshop':hold.role==='reserve'?(venue==='kimmel'?'Free space':'Reserve / auxiliary'):hold.role==='workspace'?'Workspace':hold.role==='catering'?'Catering / staging':hold.role==='support'&&/break|coffee/i.test(hold.purpose||'')?'Break room':hold.role==='meal-gathering'?'Meals / gathering':venue==='kimmel'?'Free space':'Auxiliary room';
-  list.push({id:alias,title:hold.room,short:`${hold.room} · ${workshop?'Workshops':hold.role==='workspace'?'Workspace':hold.role==='catering'?'Catering':role==='Break room'?'Break room':role==='Free space'?'Free space':'Auxiliary'}`,subtitle:role,description:`${venue==='wwh'?'WWH':'Kimmel'} · Floor ${floor}. ${role}.`,color:workshop?(['109','101','102'].indexOf(key)===0?COLORS.A:key==='101'?COLORS.B:COLORS.C):COLORS.entry,hold});
+  list.push({id:alias,title:hold.room,short:`${hold.room} · ${workshop?'Workshops':hold.role==='workspace'?'Workspace':hold.role==='catering'?'Catering':role==='Break room'?'Break room':role==='Free space'?'Free space':'Auxiliary'}`,subtitle:role,description:`${venue==='wwh'?'WWH':'Kimmel'} · Floor ${floor}. ${role==='Free space'?'Breakout room for work or discussion':role}.`,color:workshop?(['109','101','102'].indexOf(key)===0?COLORS.A:key==='101'?COLORS.B:COLORS.C):COLORS.entry,hold});
  }
  const programDay=PROGRAM_DATA?.days.find(item=>item.id===day.id);
  if(programDay&&venue==='wwh'){
@@ -206,7 +206,7 @@ function rooms(floor,day=currentDay()){
   }
   for(const room of list){
    if(['A','B','C','D','TCC'].includes(room.id)&&!groups.has(room.id)){
-    if(room.hold){room.programTracks=[];room.planLabel='Free space';room.title=room.hold.room;room.short=`${room.hold.room} · Free space`;room.subtitle='Free space';room.description=`Kimmel · Floor ${floor}. Free space.`;}
+    if(room.hold){room.programTracks=[];room.planLabel='Free space';room.title=room.hold.room;room.short=`${room.hold.room} · Free space`;room.subtitle='Free space';room.description=`Kimmel · Floor ${floor}. Breakout room for work or discussion.`;}
     else room.obsolete=true;
    }
   }
@@ -235,7 +235,7 @@ function wwhPlan(floor,{labels=true,outlines=true}={}){
  // A feathered wash marks food/coffee in the open crosshall, not another room.
  const hallWash=`wwh-crosshall-${labels?'plan':'iso'}`;
  s+=`<defs><radialGradient id="${hallWash}"><stop offset="0" stop-color="${color('crosshall')}" stop-opacity=".36"/><stop offset=".65" stop-color="${color('crosshall')}" stop-opacity=".18"/><stop offset="1" stop-color="${color('crosshall')}" stop-opacity="0"/></radialGradient></defs>`;
- s+=selectable('crosshall',`<path class="room-fill wwh-crosshall" d="M0 240 H238 V300 H0 Z" fill="url(#${hallWash})"/>`+(labels?text(130,260,'Crosshall',12)+text(130,282,'Food & coffee',14)+foodFriend('food','x="45" y="256" width="26" height="26"')+foodFriend('coffee','x="185" y="256" width="26" height="26"'):''));
+ s+=selectable('crosshall',`<path class="room-fill wwh-crosshall" d="M0 240 H238 V300 H0 Z" fill="url(#${hallWash})" fill-opacity="${state.room==='crosshall'?1:0}"/>`+(labels?text(130,260,'Crosshall',12)+text(130,282,'Food & coffee',14)+foodFriend('food','x="45" y="256" width="26" height="26"')+foodFriend('coffee','x="185" y="256" width="26" height="26"'):''));
  s+=room('109','M0 300 H260 V400 H0 Z',130,342,'A');
  s+=`<path d="M42 300 H218" stroke="${P.wood}" stroke-width="7"/>`;
  for(const x of [10,219])s+=`<path d="M${x} 300 h32" stroke="${P.floor}" stroke-width="8"/><path class="wwh-109-doors" d="M${x} 300 v16 h16 v-16 m0 16 h16 v-16" fill="none" stroke="${P.primary}" stroke-width="1.5"/>`;

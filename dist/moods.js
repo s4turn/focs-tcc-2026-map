@@ -7,10 +7,10 @@ const SPEECH_DURATION_MIN_MS=1400;
 const SPEECH_DURATION_MAX_MS=1900;
 const PHRASES=['data','lemma'];
 const GAME_URL='https://s4turn.github.io/lemma-debt/';
-const MAX_WALKERS=12,GUTS_MS=5000;
+const MAX_WALKERS=48,MAX_GUTS=16,GUTS_MS=5000,WALKER_SIZE=44;
 const app=document.querySelector('.app');
-let ambient=null,speechTimer=null,bubbleTimer=null,layoutFrame=null,followUntil=0,spawnSerial=0;
-const gutsTimers=new Set();
+let ambient=null,speechTimer=null,bubbleTimer=null,layoutFrame=null,followUntil=0,spawnSerial=0,routeLayout=null;
+const gutsTimers=new Map(),walkerLayouts=new WeakMap(),flameLayouts=new WeakMap();
 const randomInt=(min,max)=>Math.floor(min+Math.random()*(max-min+1));
 const active=()=>document.body.dataset.style==='apocalypse';
 const visible=()=>document.visibilityState!=='hidden';
@@ -67,20 +67,30 @@ function spawnWalker(routeIndex,{game=false}={}){
  }
  ambient.appendChild(walker);return walker;
 }
+function removeGuts(spill){
+ clearTimeout(gutsTimers.get(spill));gutsTimers.delete(spill);spill.remove();
+}
 function popZombie(walker){
  if(!active()||!visible()||!ambient?.contains(walker)||document.body.dataset.view==='program')return;
- const a=app.getBoundingClientRect(),r=walker.getBoundingClientRect(),restoreFocus=document.activeElement===walker;
+ const a=app.getBoundingClientRect(),r=walker.getBoundingClientRect();
+ let restoreFocus=walker.contains(document.activeElement);
  const route=Number(walker.dataset.route),spill=document.createElement('span');
  spill.className='zombie-guts';spill.setAttribute('aria-hidden','true');spill.innerHTML=gutsSvg;
  spill.style.left=`${r.left+r.width/2-a.left}px`;spill.style.top=`${r.bottom-a.top}px`;
  walker.remove();ambient.appendChild(spill);
- const timer=setTimeout(()=>{spill.remove();gutsTimers.delete(timer);},GUTS_MS);gutsTimers.add(timer);
+ gutsTimers.set(spill,setTimeout(()=>removeGuts(spill),GUTS_MS));
+ while(gutsTimers.size>MAX_GUTS)removeGuts(gutsTimers.keys().next().value);
  // Make room for both offspring while keeping phones at a fixed sprite budget.
  // Retire older roaming zombies first; the Lemma Debt entrance always survives.
- while(ambient.querySelectorAll('.zombie-walker').length>MAX_WALKERS-2)ambient.querySelectorAll('.zombie-pop')[0]?.remove();
+ let count=ambient.querySelectorAll('.zombie-walker').length;
+ for(const retired of ambient.querySelectorAll('.zombie-pop')){
+  if(count<=MAX_WALKERS-2)break;
+  if(retired.contains(document.activeElement))restoreFocus=true;
+  retired.remove();count--;
+ }
  const spawned=[];
  for(let n=0;n<2;n++)spawned.push(spawnWalker(route+n));
- queueLayout(900);
+ queueLayout();
  if(restoreFocus)spawned[0]?.focus({preventScroll:true});
 }
 function mount(){
@@ -93,18 +103,19 @@ function mount(){
 function stop(){
  clearSpeechTimer();if(layoutFrame)cancelAnimationFrame(layoutFrame);layoutFrame=null;followUntil=0;
  gutsTimers.forEach(clearTimeout);gutsTimers.clear();
- ambient?.remove();ambient=null;
+ ambient?.remove();ambient=null;routeLayout=null;
 }
-function rectFor(selector){
+function rectFor(selector,origin){
  const node=document.querySelector(selector);if(!node)return null;
- const a=app.getBoundingClientRect(),r=node.getBoundingClientRect();
+ const r=node.getBoundingClientRect();
  if(r.width<1||r.height<1)return null;
- return {left:r.left-a.left,top:r.top-a.top,width:r.width,height:r.height};
+ return {left:r.left-origin.left,top:r.top-origin.top,width:r.width,height:r.height};
 }
 function layout(){
  if(!ambient)return;
- const positions=[];
- const surround=(selector,fractions,offset=0)=>{const r=rectFor(selector);if(!r)return;for(const[x,y]of fractions)positions.push([r.left+r.width*x,r.top+r.height*y+offset]);};
+ const origin=app.getBoundingClientRect(),maxX=app.clientWidth-4,positions=[],rects=new Map();
+ const readRect=selector=>{if(!rects.has(selector))rects.set(selector,rectFor(selector,origin));return rects.get(selector);};
+ const surround=(selector,fractions,offset=0)=>{const r=readRect(selector);if(!r)return;for(const[x,y]of fractions)positions.push([r.left+r.width*x,r.top+r.height*y+offset]);};
  surround('header',[[.01,.9],[.99,.9],[.32,1],[.66,1]],6);
  surround('#days',[[0,.9],[.2,1],[.4,1],[.6,1],[.8,1],[1,.9]],8);
  surround('#floor-selector',[[0,.7],[1,.7],[.25,1],[.75,1]],5);
@@ -114,23 +125,37 @@ function layout(){
  surround('#room-list',[[0,.9],[1,.9],[.4,1]],7);
  surround('.selection',[[0,.12],[1,.12],[.98,.95]],2);
  surround('footer',[[0,1],[.35,1],[.65,1],[1,1]],4);
+ // Collect every geometry read before changing positions. Each landmark, including
+ // the building shared by flames and walkers, is measured only once per layout.
+ const map=readRect('#building'),walkers=ambient.querySelectorAll('.zombie-walker');
  ambient.querySelectorAll('.ambient-flame').forEach((node,i)=>{
-  const spot=positions[i];node.hidden=!spot;
-  if(spot){node.style.left=`${Math.max(4,Math.min(app.clientWidth-4,spot[0]))}px`;node.style.top=`${spot[1]}px`;}
+  const spot=positions[i],hidden=!spot;if(node.hidden!==hidden)node.hidden=hidden;
+  if(spot){
+   const left=`${Math.max(4,Math.min(maxX,spot[0]))}px`,top=`${spot[1]}px`,key=`${left}/${top}`;
+   if(flameLayouts.get(node)!==key){node.style.left=left;node.style.top=top;flameLayouts.set(node,key);}
+  }
  });
- const map=rectFor('#building'),walkers=ambient.querySelectorAll('.zombie-walker');
- walkers.forEach(node=>{
-  node.hidden=!map||map.width<1||map.height<1;if(node.hidden)return;
-  const routeIndex=Number(node.dataset.route),route=STREET_ROUTES[routeIndex];
+ const venue=document.body.dataset.venue||'kimmel',key=map?`${venue}/${map.left}/${map.top}/${map.width}/${map.height}`:null;
+ if(map&&routeLayout?.key!==key){
   const project=([x,y])=>({x:map.left+(488-.70*x-.70*y+45)*map.width/750,y:map.top+(700+.35*x-.35*y+35)*map.height/965});
-  const start=project(route.from),end=project(route.to);
-  node.dataset.street=document.body.dataset.venue==='wwh'?(routeIndex<2?'West 4th Street':'Mercer Street'):route.street;
-  node.style.left=`${start.x-(node.offsetWidth||44)/2}px`;node.style.top=`${start.y-(node.offsetHeight||44)}px`;
-  node.style.setProperty('--roam-x',`${end.x-start.x}px`);node.style.setProperty('--roam-y',`${end.y-start.y}px`);
+  routeLayout={key,routes:STREET_ROUTES.map((route,index)=>{
+   const start=project(route.from),end=project(route.to);
+   // The CSS hit target stays 44×44 even when the visible sprite is smaller.
+   return {left:`${start.x-WALKER_SIZE/2}px`,top:`${start.y-WALKER_SIZE}px`,x:`${end.x-start.x}px`,y:`${end.y-start.y}px`,street:venue==='wwh'?(index<2?'West 4th Street':'Mercer Street'):route.street};
+  })};
+ }
+ walkers.forEach(node=>{
+  const hidden=!map;if(node.hidden!==hidden)node.hidden=hidden;
+  if(hidden||walkerLayouts.get(node)===key)return;
+  const route=routeLayout.routes[Number(node.dataset.route)];node.dataset.street=route.street;
+  node.style.left=route.left;node.style.top=route.top;
+  node.style.setProperty('--roam-x',route.x);node.style.setProperty('--roam-y',route.y);
+  walkerLayouts.set(node,key);
  });
 }
 function queueLayout(duration=0){
  if(!ambient||!visible())return;
+ if(typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches)duration=0;
  followUntil=Math.max(followUntil,performance.now()+duration);
  if(layoutFrame)return;
  const step=()=>{layoutFrame=null;if(!ambient||!visible())return;layout();if(performance.now()<followUntil)layoutFrame=requestAnimationFrame(step);};
@@ -139,7 +164,7 @@ function queueLayout(duration=0){
 function sync(){if(active()){mount();ambient?.classList.toggle('ambient-paused',!visible());queueLayout(800);}else stop();}
 document.addEventListener('kimmel:mood',sync);
 document.addEventListener('kimmel:view',event=>{if(event.detail?.view==='program')clearSpeechTimer();else if(active())scheduleSpeech();queueLayout(900);});
-document.addEventListener('click',()=>queueLayout(900));
+document.addEventListener('click',event=>{if(!event.target.closest?.('.zombie-walker'))queueLayout(900);});
 document.addEventListener('change',()=>queueLayout(900));
 document.addEventListener('visibilitychange',()=>{
  if(!visible()){clearSpeechTimer();if(layoutFrame)cancelAnimationFrame(layoutFrame);layoutFrame=null;ambient?.classList.add('ambient-paused');}
