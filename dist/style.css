@@ -2,7 +2,7 @@
   color-scheme: light;
   --paper: #fff9ed;
   --ink: #173f3d;
-  --quiet: #6e817a;
+  --quiet: #53675f;
   --teal: #2e7771;
   --purple: var(--teal);
   --lilac: #cde7de;
@@ -83,6 +83,7 @@ main { display: grid; grid-template-columns: minmax(0, 1.07fr) minmax(0, 1fr); g
 footer { margin-top: 27px; font-size: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--quiet); }
 .floor-hit, .svg-room { cursor: pointer; }
 .floor-hit:focus { outline: none; }
+.svg-room:focus-visible .room-fill,.floor-hit:focus-visible .floor-slab { stroke:var(--teal); stroke-width:4; }
 .floor-hit:hover .floor-slab { stroke: #719b8d; stroke-width: 2; }
 .room-outline { fill: none; stroke: var(--line); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; pointer-events: none; }
 .room-outline.is-selected { stroke: var(--teal); stroke-width: 3; }

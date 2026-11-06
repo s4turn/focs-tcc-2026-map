@@ -20,6 +20,44 @@ const selectedSession=()=>sessions().find(session=>session.id===state.session)||
 const WWH_TRACKS=Object.freeze({'109':'A','101':'B','102':'C'});
 const displayTrack=session=>state.day==='sunday-early'?(WWH_TRACKS[String(session.room)]||({'1':'A','2':'B','3':'C'})[String(session.track)]||session.track):session.track;
 const safeUrl=value=>{try{const url=new URL(value);return /^https?:$/.test(url.protocol)?url.href:null;}catch{return null;}};
+// The three proceedings abstracts containing TeX need readable plain text,
+// not an HTML/TeX interpreter. Keep citation keys and unknown command names.
+function readableAbstract(value){
+ const source=String(value);
+ if(!/\$|\\(?:textit|emph|cite)\{/.test(source))return source;
+ let at=0;
+ const symbols={Omega:'Ω',times:' × ',leq:' ≤ ',in:' ∈ ',pm:'±',log:'log ',min:'min'};
+ function argument(){
+  while(source[at]===' ')at++;
+  if(source[at]==='{'){at++;return parse(true);}
+  return source[at++]||'';
+ }
+ function parse(group=false){
+  let out='';
+  while(at<source.length){
+   const char=source[at++];
+   if(char==='}'&&group)return out;
+   if(char==='$')continue;
+   if(char==='{'){out+=parse(true);continue;}
+   if(char==='^'||char==='_'){
+    const grouped=source[at]==='{',part=argument();out+=char+(grouped?`(${part})`:part);continue;
+   }
+   if(char!=='\\'){out+=char;continue;}
+   const command=/^[A-Za-z]+/.exec(source.slice(at));
+   if(!command){out+=source[at++]||'\\';continue;}
+   const name=command[0];at+=name.length;
+   if(name==='left'||name==='right')continue;
+   if(name==='textit'||name==='emph'||name==='text'){out+=argument();continue;}
+   if(name==='cite'){out+=`[${argument().split(',').map(key=>key.trim()).join(', ')}]`;continue;}
+   if(name==='frac'){const numerator=argument(),denominator=argument();out+=`(${numerator})/(${denominator})`;continue;}
+   if(name==='sqrt'){out+=`√(${argument()})`;continue;}
+   if(Object.hasOwn(symbols,name)){out+=symbols[name];continue;}
+   out+=name+(source[at]==='{'?`(${argument()})`:'');
+  }
+  return out;
+ }
+ return parse().replace(/---/g,'—').replace(/--/g,'–').replace(/``/g,'“').replace(/''/g,'”').replace(/[ \t]+/g,' ');
+}
 function etNow(){
  const now=new Date(),parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:ZONE,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(now).map(part=>[part.type,part.value]));
  return {date:`${parts.year}-${parts.month}-${parts.day}`,minutes:Number(parts.hour)*60+Number(parts.minute)+Number(parts.second)/60,label:new Intl.DateTimeFormat('en-US',{timeZone:ZONE,weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit'}).format(now)};
@@ -87,20 +125,34 @@ function timeline(){
  return `${shortHtml}<div class="program-timeline-scroll" aria-label="Parallel tracks. Scroll horizontally on a small screen."><div class="program-timeline" style="--lane-count:${Math.max(1,list.length)};--timeline-height:${height}px"><div class="program-lane-headings"><span class="program-axis-label">ET</span>${list.map(lane=>`<div class="program-lane-heading" data-track="${lane.track}"><strong>${esc(lane.title)}</strong><span>${esc(lane.subtitle)}</span></div>`).join('')}</div><div class="program-timeline-body"><div class="program-time-axis" aria-hidden="true">${ticks.join('')}</div>${list.map(lane=>`<div class="program-lane" data-lane="${esc(lane.id)}" data-track="${lane.track}" aria-label="${esc(lane.title)}">${sessions().filter(s=>minutes(s.end)-minutes(s.start)>=15&&(laneFor(s)===lane.id||(['break','meal'].includes(s.kind)&&s.conference===lane.conference))).map(s=>sessionButton(s,b,lane)).join('')}</div>`).join('')}<div id="program-now-line" class="program-now-line" hidden><span class="program-now-label" id="program-now-label"></span></div></div></div></div>`;
 }
 let expansion=null,timelineObserver;
-function timelinePosition(minute,followPapers=false){
+function timelinePosition(minute){
  const base=(minute-bounds().start)*PIXELS_PER_MINUTE;
  if(!expansion||minute<expansion.start)return base;
  if(minute>=expansion.end)return base+expansion.extra;
- if(followPapers&&expansion.slots?.length){
-  const slot=expansion.slots.find(slot=>minute>=slot.start&&minute<slot.end);
-  if(slot)return slot.top+(slot.bottom-slot.top)*(minute-slot.start)/(slot.end-slot.start);
-  const before=expansion.slots.filter(slot=>slot.end<=minute).at(-1),after=expansion.slots.find(slot=>slot.start>minute);
-  // Explicit organizer gaps remain gaps; the line rests at / moves through the divider.
-  if(before&&after)return before.bottom+(after.top-before.bottom)*(minute-before.end)/(after.start-before.end);
-  if(before)return before.bottom;
-  if(after)return after.top;
+ const after=expansion.anchors.findIndex(anchor=>anchor.minute>minute);
+ const left=expansion.anchors[after-1],right=expansion.anchors[after];
+ return expansion.top+left.offset+(right.offset-left.offset)*(minute-left.minute)/(right.minute-left.minute);
+}
+function measuredExpansion(start,end,height,rows,top){
+ const length=Math.max((end-start)*PIXELS_PER_MINUTE,height+3),groups=new Map();
+ for(const row of rows){
+  if(row.end<=row.start||row.start<start||row.end>end)continue;
+  const key=`${row.start}/${row.end}`,slot=groups.get(key);
+  if(slot){slot.top=Math.min(slot.top,row.top);slot.bottom=Math.max(slot.bottom,row.bottom);}
+  else groups.set(key,{...row});
  }
- return base+expansion.extra*(minute-expansion.start)/(expansion.end-expansion.start);
+ const anchors=new Map([[start,0],[end,length]]);
+ for(const slot of [...groups.values()].sort((a,b)=>a.start-b.start)){
+  // Session chrome belongs to the first/last interval. One minute has one
+  // position for every lane, including the session's own start and end.
+  if(slot.start>start&&slot.start<end)anchors.set(slot.start,slot.top);
+  if(slot.end>start&&slot.end<end)anchors.set(slot.end,slot.bottom);
+ }
+ let previous=0;
+ const points=[...anchors].sort((a,b)=>a[0]-b[0]).map(([minute,offset])=>{
+  previous=Math.max(previous,Math.min(length,offset));return {minute,offset:previous};
+ });
+ return {start,end,top,extra:length-(end-start)*PIXELS_PER_MINUTE,anchors:points};
 }
 function layoutTimeline(){
  const timeline=document.querySelector('.program-timeline');if(!timeline)return;
@@ -111,8 +163,12 @@ function layoutTimeline(){
  timeline.style.minWidth=`${54+list.length*168+(openLane?expandedWidth-168:0)+list.length*12}px`;
  expansion=null;
  if(open){
-  const start=Number(open.dataset.sessionStart),end=Number(open.dataset.sessionEnd),base=(end-start)*PIXELS_PER_MINUTE;
-  expansion={start,end,extra:Math.max(0,open.getBoundingClientRect().height+3-base)};
+  const start=Number(open.dataset.sessionStart),end=Number(open.dataset.sessionEnd),rect=open.getBoundingClientRect();
+  // Local row offsets are independent of the previous layout's stretched axis.
+  const rows=[...open.querySelectorAll('[data-talk-start][data-talk-end]')].map(row=>{
+   const box=row.getBoundingClientRect();return {start:Number(row.dataset.talkStart),end:Number(row.dataset.talkEnd),top:box.top-rect.top,bottom:box.bottom-rect.top};
+  });
+  expansion=measuredExpansion(start,end,rect.height,rows,(start-b.start)*PIXELS_PER_MINUTE);
  }
  timeline.style.setProperty('--timeline-height',`${timelinePosition(b.end)}px`);
  for(const card of cards){
@@ -120,23 +176,19 @@ function layoutTimeline(){
   card.style.top=`${timelinePosition(start)}px`;card.style.setProperty('--session-height',`${Math.max(44,timelinePosition(end)-timelinePosition(start)-3)}px`);
   card.querySelector('summary').setAttribute('aria-expanded',String(card.open));
  }
- if(open){
-  const origin=timeline.querySelector('.program-timeline-body').getBoundingClientRect().top,groups=new Map();
-  open.querySelectorAll('[data-talk-start][data-talk-end]').forEach(row=>{
-   const start=Number(row.dataset.talkStart),end=Number(row.dataset.talkEnd),rect=row.getBoundingClientRect(),key=`${start}/${end}`;
-   if(end<=start)return;
-   const slot=groups.get(key);if(slot)slot.bottom=rect.bottom-origin;else groups.set(key,{start,end,top:rect.top-origin,bottom:rect.bottom-origin});
-  });
-  expansion.slots=[...groups.values()];
- }
- timeline.querySelectorAll('[data-minute]').forEach(tick=>{tick.style.top=`${timelinePosition(Number(tick.dataset.minute),true)}px`;});
+ timeline.querySelectorAll('[data-minute]').forEach(tick=>{tick.style.top=`${timelinePosition(Number(tick.dataset.minute))}px`;});
  tick();
 }
 function observeTimeline(){
  timelineObserver?.disconnect();
  if(typeof ResizeObserver==='undefined')return;
  const timeline=document.querySelector('.program-timeline-scroll');if(!timeline)return;
- timelineObserver=new ResizeObserver(layoutTimeline);timelineObserver.observe(timeline);
+ let width=timeline.clientWidth;
+ timelineObserver=new ResizeObserver(entries=>{
+  const next=entries[0]?.contentRect.width;
+  // Stretching changes height; observing that change must not relayout itself.
+  if(Number.isFinite(next)&&Math.abs(next-width)>.5){width=next;layoutTimeline();}
+ });timelineObserver.observe(timeline);
 }
 function paperTime(paper,session){
  return paper.start?range(paper.start,paper.end||session.end):`Session ${range(session.start,session.end)}`;
@@ -145,8 +197,8 @@ function paperDetail(paper,session){
  const url=safeUrl(paper.publicPaperUrl)||safeUrl(paper.url)||safeUrl(session.url),isPaper=url&&url!==safeUrl(session.url)&&!url.includes('focs.computer.org/2026/main-program');
  const linkLabel=isPaper?(/https:\/\/doi\.org\//.test(url)?'Publisher page':'Read the paper'):'Published program';
  const location=sessionLocation(session);
- const abstract=paper.abstract?`<section class="program-paper-abstract" aria-label="Abstract"><h4>Abstract</h4><p>${esc(paper.abstract)}</p></section>`:'';
- return `<h3 id="program-selected-title" aria-live="polite">${esc(paper.title)}</h3><p class="program-paper-authors">${esc(authors(paper))}</p><div class="program-paper-where"><strong>${esc(paperTime(paper,session))} ET</strong>${location?`<span>${esc(location)}</span>`:''}<span>${esc(session.conference)}${displayTrack(session)&&!['TCC','Plenary','Joint'].includes(displayTrack(session))?` · Track ${esc(displayTrack(session))}`:''}</span></div>${url?`<a class="program-paper-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${linkLabel} ↗</a>`:''}${abstract}${session.floor?`<div>${floorLink(session)}</div>`:''}`;
+ const abstract=paper.abstract?`<section class="program-paper-abstract" aria-label="Abstract"><h4>Abstract</h4><p>${esc(readableAbstract(paper.abstract))}</p></section>`:'';
+ return `<h3 id="program-selected-title" tabindex="-1">${esc(paper.title)}</h3><p class="program-paper-authors">${esc(authors(paper))}</p><div class="program-paper-where"><strong>${esc(paperTime(paper,session))} ET</strong>${location?`<span>${esc(location)}</span>`:''}<span>${esc(session.conference)}${displayTrack(session)&&!['TCC','Plenary','Joint'].includes(displayTrack(session))?` · Track ${esc(displayTrack(session))}`:''}</span></div>${url?`<a class="program-paper-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${linkLabel} ↗</a>`:''}${abstract}${session.floor?`<div>${floorLink(session)}</div>`:''}`;
 }
 function detail(){
  const session=selectedSession();if(!session)return '<p>No sessions are listed for this day.</p>';
@@ -165,11 +217,33 @@ function sourcesMarkup(){
  const date=updated?new Intl.DateTimeFormat('en-US',{month:'long',day:'numeric',year:'numeric'}).format(new Date(`${updated}T12:00:00`)):'';
  return `<div class="program-sources">${sources.map(s=>`<a href="${esc(safeUrl(s.url)||'#')}" target="_blank" rel="noopener noreferrer">${s.id==='focs-public'?'FOCS program':'TCC program'} ↗</a>`).join('')}${state.data.reviewHolds?.length?`<small class="program-conflict">Workshop source changes need review; the last reviewed agenda is shown.</small>`:''}${date?`<small>Last updated on ${esc(date)}.</small>`:''}</div>`;
 }
-function render(){
+function focusBookmark(){
+ const active=document.activeElement;
+ if(active?.id==='program-session-selector'||active?.id==='program-selected-title')return {id:active.id};
+ if(active?.dataset?.zoom)return {zoom:active.dataset.zoom};
+ if(active?.dataset?.paper)return {paper:active.dataset.paper};
+ return null;
+}
+function restoreProgramFocus(bookmark){
+ if(!bookmark)return false;
+ const target=bookmark.id?$(bookmark.id):[...document.querySelectorAll(bookmark.zoom?'[data-zoom]':'[data-paper]')].find(node=>bookmark.zoom?node.dataset.zoom===bookmark.zoom:node.dataset.paper===bookmark.paper);
+ if(!target)return false;
+ target.focus({preventScroll:true});return true;
+}
+function focusSelectedPaper(){
+ const title=$('program-selected-title');if(!title)return;
+ title.focus({preventScroll:true});
+ if(matchMedia('(max-width:700px)').matches)title.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start',inline:'nearest'});
+}
+function focusMapSelection(){
+ const target=document.querySelector('#map-view [data-choose-room][aria-pressed="true"]')||document.querySelector('#map-view [data-choose-floor][aria-pressed="true"]')||$('map-tab');
+ target?.focus();
+}
+function render(focus=focusBookmark()){
  if(!state.data)return;
  const title=state.zoom==='themes'?'Themes at a glance':'Papers & speakers';
  $('program-app').innerHTML=`<div class="program-topline"><h2>${title}</h2><div class="program-zoom" aria-label="Program detail"><button type="button" class="program-button" data-zoom="themes" aria-pressed="${state.zoom==='themes'}">Themes</button><button type="button" class="program-button" data-zoom="papers" aria-pressed="${state.zoom==='papers'}">Papers · zoom in</button></div></div>${clockMarkup()}<div id="program-content">${state.zoom==='themes'?timeline():detail()}</div>${sourcesMarkup()}`;
- expansion=null;layoutTimeline();observeTimeline();tick();focusCurrentTime();
+ expansion=null;layoutTimeline();observeTimeline();tick();if(!restoreProgramFocus(focus))focusCurrentTime();
 }
 function focusCurrentTime(){
  const current=activeTime(),key=`${state.day}/${state.zoom}`;
@@ -213,7 +287,7 @@ function tick(){
  badge.dataset.mode=current.mode;badge.textContent=current.mode==='live'?'Live now':'New York now';
  $('program-clock-value').textContent=`${clockTime(current.now.minutes)} ET`;
  $('program-actual-clock').textContent=current.mode==='live'?`Today’s program · ${current.now.label} ET.`:`${current.now.label} ET · Program: ${date}.`;
- if(line){const inside=current.minutes!==null&&current.minutes>=b.start&&current.minutes<=b.end;line.hidden=!inside;if(inside){line.dataset.mode=current.mode;line.style.top=`${timelinePosition(current.minutes,true)}px`;$('program-now-label').textContent=`Now ${time(current.minutes).replace(' a.m.','a').replace(' p.m.','p')}`;}}
+ if(line){const inside=current.minutes!==null&&current.minutes>=b.start&&current.minutes<=b.end;line.hidden=!inside;if(inside){line.dataset.mode=current.mode;line.style.top=`${timelinePosition(current.minutes)}px`;$('program-now-label').textContent=`Now ${time(current.minutes).replace(' a.m.','a').replace(' p.m.','p')}`;}}
  document.querySelectorAll('.program-inline-paper[data-talk-start]').forEach(row=>{
   const active=current.minutes!==null&&current.minutes>=Number(row.dataset.talkStart)&&current.minutes<Number(row.dataset.talkEnd);
   row.classList.toggle('program-inline-paper--now',active);
@@ -230,22 +304,25 @@ function setView(view){
  if(isProgram){render();tick();}
  document.dispatchEvent(new CustomEvent('kimmel:view',{detail:{view}}));
 }
-function chooseSession(id){state.session=id;state.paper=null;state.zoom='papers';render();}
+function chooseSession(id){state.session=id;state.paper=null;state.zoom='papers';render({id:'program-session-selector'});}
 document.addEventListener('click',event=>{
  if(event.target.closest('#map-tab')){setView('map');return;}
  if(event.target.closest('#session-tab')){setView('program');return;}
  const collapse=event.target.closest('[data-collapse-session]');if(collapse){
   const card=collapse.closest('details');if(card){card.open=false;card.querySelector('summary')?.focus();}return;
  }
- const zoom=event.target.closest('[data-zoom]');if(zoom){state.zoom=zoom.dataset.zoom;render();return;}
+ const zoom=event.target.closest('[data-zoom]');if(zoom){state.zoom=zoom.dataset.zoom;render({zoom:state.zoom});return;}
  const session=event.target.closest('[data-session]');if(session){chooseSession(session.dataset.session);return;}
  const paperButton=event.target.closest('[data-paper]');if(paperButton){
   const session=selectedSession(),paper=session?.papers?.find(p=>p.id===paperButton.dataset.paper);if(!paper)return;state.paper=paper.id;
   $('program-paper-detail').innerHTML=paperDetail(paper,session);document.querySelectorAll('[data-paper]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.paper===paper.id)));
-  if(matchMedia('(max-width:700px)').matches)$('program-paper-detail').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'nearest'});
+  focusSelectedPaper();
   return;
  }
- const floor=event.target.closest('[data-show-floor]');if(floor){document.dispatchEvent(new CustomEvent('conference:locate',{detail:{day:floor.dataset.showDay||state.day,venueId:floor.dataset.showVenue||'kimmel',floor:Number(floor.dataset.showFloor),room:floor.dataset.showRoom}}));setView('map');return;}
+ const floor=event.target.closest('[data-show-floor]');if(floor){
+  document.dispatchEvent(new CustomEvent('conference:locate',{detail:{day:floor.dataset.showDay||state.day,venueId:floor.dataset.showVenue||'kimmel',floor:Number(floor.dataset.showFloor),room:floor.dataset.showRoom}}));
+  setView('map');focusMapSelection();return;
+ }
  if(event.target.closest('#program-retry'))load();
 });
 document.addEventListener('toggle',event=>{

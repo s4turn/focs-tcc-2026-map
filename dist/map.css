@@ -3,6 +3,9 @@
 .pixel-canvas { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; z-index: 2; }
 body:not([data-style=pixel]):not([data-style=apocalypse]) .pixel-canvas { display: none; }
 body:is([data-style=pixel],[data-style=apocalypse]) .building[data-pixels-ready=true] > .building-scene { opacity: 0; }
+/* Keyboard focus must remain visible on the interactive source beneath the raster. */
+body:is([data-style=pixel],[data-style=apocalypse]) .building:has(.building-scene :focus-visible) > .building-scene { opacity:1; }
+body:is([data-style=pixel],[data-style=apocalypse]) .building:has(.building-scene :focus-visible) > .pixel-canvas { visibility:hidden; }
 .plan-wrap svg text { font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:15px; }
 .plan-wrap svg text[font-weight="650"] { font-size:17px; }
 .diagram-overlays { position:absolute; inset:0; z-index:4; pointer-events:none; }
