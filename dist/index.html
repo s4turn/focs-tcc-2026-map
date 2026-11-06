@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#101c27">
 <meta name="description" content="A day-by-day, phone-friendly map of FOCS and TCC at NYU Kimmel Center and Warren Weaver Hall.">
 <title>Kimmel · Find your floor</title>
-<link rel="stylesheet" href="style.css?v=92a4c923ac">
+<link rel="stylesheet" href="style.css?v=c26dc66c1a">
 <link rel="stylesheet" href="map.css?v=0e5d6cf3f6">
 <link rel="stylesheet" href="program.css?v=00f80a8624">
 <link rel="stylesheet" href="neighborhood.css?v=f19f3e8f7b">
@@ -55,13 +55,38 @@
     <div id="program-app"><p class="program-loading" role="status">Loading the program…</p></div>
   </section>
   <footer>
+    <section class="conference-sponsors" aria-labelledby="conference-sponsors-title">
+      <h2 id="conference-sponsors-title">Conference sponsors</h2>
+      <div class="sponsor-conferences">
+        <section class="sponsor-conference" aria-labelledby="focs-sponsors-title">
+          <h3 id="focs-sponsors-title"><a href="https://focs.computer.org/2026/" target="_blank" rel="noopener noreferrer">FOCS 2026 <span aria-hidden="true">↗</span></a></h3>
+          <ul class="sponsor-grid">
+            <li><a class="sponsor-tile" href="https://cognition.ai/" target="_blank" rel="noopener noreferrer"><span class="sponsor-tier">Platinum</span><span class="sponsor-logo"><img src="assets/sponsors/focs-cognition.webp" width="2560" height="524" alt="Cognition" loading="lazy" decoding="async"></span></a></li>
+            <li><a class="sponsor-tile" href="https://research.google/" target="_blank" rel="noopener noreferrer"><span class="sponsor-tier">Gold</span><span class="sponsor-logo sponsor-logo--padded"><img src="assets/sponsors/focs-google.webp" width="300" height="237" alt="Google" loading="lazy" decoding="async"></span></a></li>
+            <li><a class="sponsor-tile" href="https://www.janestreet.com/" target="_blank" rel="noopener noreferrer"><span class="sponsor-tier">Gold</span><span class="sponsor-logo"><img src="assets/sponsors/focs-jane-street.webp" width="300" height="78" alt="Jane Street" loading="lazy" decoding="async"></span></a></li>
+            <li><a class="sponsor-tile" href="https://aws.amazon.com/" target="_blank" rel="noopener noreferrer"><span class="sponsor-tier">Bronze</span><span class="sponsor-logo sponsor-logo--padded sponsor-logo--amazon"><img src="assets/sponsors/focs-aws.webp" width="300" height="237" alt="Amazon Web Services (AWS)" loading="lazy" decoding="async"></span></a></li>
+          </ul>
+        </section>
+        <section class="sponsor-conference" aria-labelledby="tcc-sponsors-title">
+          <h3 id="tcc-sponsors-title"><a href="https://tcc.iacr.org/2026/sponsors.php" target="_blank" rel="noopener noreferrer">TCC 2026 <span aria-hidden="true">↗</span></a></h3>
+          <ul class="sponsor-grid">
+            <li><a class="sponsor-tile" href="https://aws.com" target="_blank" rel="noopener noreferrer"><span class="sponsor-tier">Gold</span><span class="sponsor-logo"><img src="assets/sponsors/tcc-aws.svg" width="503" height="300" alt="Amazon Web Services (AWS)" loading="lazy" decoding="async"></span></a></li>
+            <li><a class="sponsor-tile" href="https://google.com" target="_blank" rel="noopener noreferrer"><span class="sponsor-tier">Silver</span><span class="sponsor-logo"><img src="assets/sponsors/tcc-google.svg" width="270" height="82" alt="Google" loading="lazy" decoding="async"></span></a></li>
+            <li><a class="sponsor-tile" href="https://www.category.xyz/" target="_blank" rel="noopener noreferrer"><span class="sponsor-tier">Bronze</span><span class="sponsor-logo"><img src="assets/sponsors/tcc-category-labs.svg" width="1344" height="234" alt="Category Labs" loading="lazy" decoding="async"></span></a></li>
+            <li><a class="sponsor-tile" href="https://ntt-research.com/" target="_blank" rel="noopener noreferrer"><span class="sponsor-tier">Bronze</span><span class="sponsor-logo"><img src="assets/sponsors/tcc-ntt-research.jpg" width="4053" height="1008" alt="NTT Research" loading="lazy" decoding="async"></span></a></li>
+            <li><a class="sponsor-tile" href="https://stellar.org/" target="_blank" rel="noopener noreferrer"><span class="sponsor-tier">Bronze</span><span class="sponsor-logo"><img src="assets/sponsors/tcc-stellar.png" width="6231" height="1560" alt="Stellar" loading="lazy" decoding="async"></span></a></li>
+            <li><a class="sponsor-tile" href="https://tinfoil.sh/" target="_blank" rel="noopener noreferrer"><span class="sponsor-tier">Bronze</span><span class="sponsor-logo"><img src="assets/sponsors/tcc-tinfoil.svg" width="3154" height="813" alt="Tinfoil" loading="lazy" decoding="async"></span></a></li>
+          </ul>
+        </section>
+      </div>
+    </section>
     <p id="map-footer-note">Schematic illustration · Not to scale</p>
     <p><a href="https://focs.computer.org/2026/main-program/" target="_blank" rel="noopener">FOCS program ↗</a></p>
   </footer>
 </div>
 <script src="neighborhood.js?v=b03c56cd8b"></script>
 <script src="venue-flight.js?v=3c7ddb44fd"></script>
-<script src="app.js?v=591f1ea8a8"></script>
+<script src="app.js?v=3b24fbdd14"></script>
 <script src="moods.js?v=ffe82302a3"></script>
 <script src="program.js?v=d151583371"></script>
 </body>

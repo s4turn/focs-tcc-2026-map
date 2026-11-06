@@ -124,7 +124,7 @@ function syncConferenceTime(){
 const holdTime=value=>{const[h,m]=value.split(':').map(Number);return `${h%12||12}${m?':'+String(m).padStart(2,'0'):''} ${h>=12?'p.m.':'a.m.'}`;};
 const usesPixels=()=>state.style==='pixel'||state.style==='apocalypse';
 const RESTROOMS={
- 1:{points:[[-10,216]],description:'Single-stall restroom behind the elevators. The lobby drawing marks the approximate area. NYU lists this restroom as not wheelchair accessible.'},
+ 1:{points:[],description:'Single-stall restroom behind the main elevators. NYU lists this restroom as not wheelchair accessible.'},
  4:{points:[[-4,244]],description:'Restrooms just south of the main elevator bank, on the west side of the floor.'},
  8:{points:[[-4,244]],description:'Restrooms just south of the main elevator bank, on the west side of the floor.'},
  9:{points:[[-4,244]],description:'Restrooms just south of the main elevator bank, on the west side of the floor.'},
@@ -336,15 +336,7 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   markup+=elevator(labels)+rect(-35,220,70,65)+rect(95,330,165,70);
   if(labels)markup+=text(175,371,'Kitchen / service',12);
  }else{
-  markup+=`<path d="M10 8 H250" stroke="${P.glass}" stroke-width="9"/>`+elevator(labels);
-  markup+=selectable('entry',rect(65,0,85,22,'entry'));
-  markup+=rect(183,44,70,36,'B')+rect(224,50,20,12,P.glass)+rect(10,38,43,26,'B')+rect(19,42,13,8,P.glass);
-  markup+=rect(48,146,164,171,'coffee');
-  for(let step=0;step<11;step++)markup+=`<path d="M48 ${150+step*15} H212" stroke="${P.wood}" stroke-width="2"/>`;
-  markup+=`<path d="M59 150 V310 M201 150 V310" stroke="${P.glass}" stroke-width="4"/>`;
-  markup+=rect(31,182,18,94,'B')+rect(213,213,18,84,'entry');
-  markup+=`<path d="M105 25 V45 H51 V114 H23" class="route"/>`;
-  if(labels)markup+=text(108,44,'Entrance',13,'font-weight="700"');
+  markup+=kimmelLobby({labels});
  }
  if(labels)markup+=(RESTROOMS[floor]?.points||[]).map(([x,y])=>restroomMarker(x,y)).join('');
  return themed(markup+(outlines?roomOutlines(markup):''));
@@ -374,11 +366,46 @@ function buildingSmile(x,y){
  if(state.style!=='kawaii')return '';
  return `<g class="building-smile" fill="${P.ink}"><circle cx="${x-10}" cy="${y}" r="3"/><circle cx="${x+10}" cy="${y}" r="3"/><path d="M${x-5} ${y+7} q5 7 10 0" fill="none" stroke="${P.ink}" stroke-width="2"/><ellipse cx="${x-18}" cy="${y+6}" rx="5" ry="2" fill="#EDB2C7"/><ellipse cx="${x+18}" cy="${y+6}" rx="5" ry="2" fill="#EDB2C7"/></g>`;
 }
+// The supplied lobby plan is rotated 90 degrees clockwise to stay north-up.
+// One shared set of fan-shaped treads drives both plan and raised isometric art.
+function lobbyTreads(){
+ const edge=t=>({left:79+26*Math.sin(t*Math.PI/2),right:166-27*Math.sin(t*Math.PI/2),y:150+132*t,bow:14*(1-t)});
+ return Array.from({length:12},(_,i)=>{
+  const a=edge(i/12),b=edge((i+1)/12);
+  return {a,b,height:3+i*3.5,path:`M${a.left} ${a.y} Q122.5 ${a.y-a.bow} ${a.right} ${a.y} L${b.right} ${b.y} Q122.5 ${b.y-b.bow} ${b.left} ${b.y} Z`};
+ });
+}
+function kimmelLobby({labels=true}={}){
+ let s=`<g class="kimmel-lobby"><path d="M10 8 H250" stroke="${P.glass}" stroke-width="8"/>`;
+ // The main door is west of the event door along Washington Square South.
+ s+=selectable('entry',rect(28,0,38,20,'entry'))+rect(181,0,38,20,'entry');
+ for(const x of [38,49,191,202])s+=`<path d="M${x} 1 v17" stroke="${P.primary}" stroke-width="1.4"/>`;
+ if(labels)s+=labelLines(47,40,['Main','entrance'],12)+labelLines(200,40,['Event','entrance'],12);
+ // Unlabelled front desks and kiosks; positions follow the supplied crop.
+ s+=rect(76,76,37,23,'B')+rect(86,81,14,7,P.glass)+rect(192,97,25,29,'B')+rect(198,102,12,8,P.glass);
+ s+=rect(63,224,33,15,'B')+rect(69,227,12,5,P.glass);
+ // Facing elevator banks are behind the stairs, towards the west/rear.
+ s+=`<g class="lobby-elevators">`;
+ for(const[x,y]of [[25,303],[25,338],[65,303],[65,338]]){
+  s+=rect(x,y,25,29,'neutral')+`<path d="M${x+12.5} ${y+3} v23 M${x+4} ${y+3} h17 v23 h-17 Z" fill="none" stroke="${P.line}" stroke-width="1.3"/>`;
+ }
+ s+='</g>';
+ if(labels)s+=text(105,356,'Elevators',12,'font-weight="650"');
+ s+=`<g class="lobby-stairs" aria-hidden="true">${lobbyTreads().map(step=>`<path d="${step.path}" fill="${P.wall}" stroke="${P.wood}" stroke-width="1.1"/>`).join('')}<path d="M79 150 Q104 193 105 282 M166 150 Q139 193 139 282" fill="none" stroke="${P.glass}" stroke-width="3" stroke-linecap="round"/></g>`;
+ s+=`<path d="M47 24 V66 H53 V281 H58 V318" class="route"/>`;
+ return s+'</g>';
+}
 function lobbyObjects(base){
- let s=block(183,44,70,36,13,base,COLORS.B)+block(224,49,19,10,25,base,P.glass)+block(10,38,43,26,12,base,COLORS.B)+block(19,42,13,8,20,base,P.glass);
- for(let step=0;step<11;step++)s+=block(48,146+step*15,164,15,4+step*4,base,COLORS.coffee);
- for(const x of [58,202]){const a=p(x,146,base-7),b=p(x,311,base-48);s+=`<path d="M${a} L${b}" stroke="${P.glass}" stroke-width="3"/>`;}
- return s+block(31,182,18,94,10,base,COLORS.B)+block(213,213,18,84,10,base,COLORS.entry);
+ let s=block(76,76,37,23,10,base,COLORS.B)+block(86,81,14,7,18,base,P.glass)+block(192,97,25,29,10,base,COLORS.B)+block(198,102,12,8,18,base,P.glass)+block(63,224,33,15,9,base,COLORS.B);
+ for(const step of lobbyTreads().reverse()){
+  const{a,height}=step,front=p(a.left,a.y,base-height),mid=p(122.5,a.y-a.bow,base-height),last=p(a.right,a.y,base-height),rise=3.5;
+  s+=`<path d="M${front} Q${mid} ${last} v${rise} Q${mid[0]} ${mid[1]+rise} ${front[0]} ${front[1]+rise} Z" fill="${P.wood}" stroke="${P.line}" stroke-width=".5"/><g transform="${projection(base-height)}"><path d="${step.path}" fill="${P.wall}" stroke="${P.wood}" stroke-width="1.1"/></g>`;
+ }
+ for(const[left,right]of [[79,105],[166,139]]){
+  const a=p(left,150,base-8),b=p(right,282,base-48),c=p((left+right)/2,210,base-28);
+  s+=`<path d="M${a} Q${c} ${b}" fill="none" stroke="${P.glass}" stroke-width="3" stroke-linecap="round"/>`;
+ }
+ return s;
 }
 function floorContents(floor){
  const b=baseFor(floor),open=floor===state.floor;
@@ -433,7 +460,7 @@ function overview(){
  for(let floor=1;floor<=10;floor++){
   s+=`<g class="floor-layer ${activeFloors().includes(floor)?'floor-hit':''} ${floor===state.floor?'selected-floor':''}" data-level="${floor}" ${activeFloors().includes(floor)?`data-floor="${floor}" aria-label="${floor===state.floor?'Floor':'Open floor'} ${floor}"${floor!==state.floor?' tabindex="0" role="button"':''}`:''} style="transform:translateY(${shiftFor(floor)}px)">${floorContents(floor)}</g>`;
  }
- const[eX,eY]=p(108,0,690);
+ const[eX,eY]=p(47,0,690);
  s+=`<path d="M${eX-18} ${eY+36} l13 -20 12 20" stroke="#6c4994" stroke-width="3" fill="none"/><text x="${eX-4}" y="${eY+59}" text-anchor="middle" font-size="19" fill="#6c4994" font-weight="700">Entrance</text>`;
  return themed(s+'</svg>');
 }
