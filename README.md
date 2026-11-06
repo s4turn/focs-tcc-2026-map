@@ -18,15 +18,17 @@ Open <http://localhost:8765/>. Query parameters preserve the selected day, floor
 
 - `dist/app.js` and the map styles render the venue guide.
 - `dist/program.js` and `dist/program-data.json` provide the program and session expansion.
-- `dist/room-data.json` supplies the reviewed room inventory and its confirmation dates.
+- `dist/room-data.json` supplies the attendee room inventory.
 - Neighborhood and venue-flight files provide the transition between venues.
 
-The schedule is a reviewed snapshot. Its source-check dates, timing status and unresolved conflicts are retained in the published data. Room holds and refreshment service have separate evidence; a reservation alone does not establish food or coffee service. Floor plans are schematic and not to scale.
+The schedule is a reviewed snapshot of the attendee program. Runtime data retains the fields needed for existing program and map displays. Floor plans are schematic and not to scale.
 
 ## Publish
+
+Before committing an export, run `python3 scripts/check-public-data.py`. Export only attendee display fields; retain source provenance and operational records in the private maintenance workspace. The deployment workflow checks the same boundary.
 
 GitHub Pages is the sole application host and publishes `dist/` automatically after a push to `main`. The Courant map URL and the old preview URL redirect to GitHub Pages, so future updates need only a GitHub push.
 
 `redirect.html` is the one-time bridge installed on the old hosts. Keep it outside `dist/` so Pages serves the application itself. The bridge preserves supported day, floor, mood and program-view parameters, plus fragments; unknown query fields are discarded. The old hosts do not need runtime-file synchronization.
 
-This repository contains the public application source and sanitized data snapshots. Internal planning material, authenticated source caches and working notes are excluded.
+This repository contains the public application source and attendee data snapshots. Internal planning material, authenticated source caches and working notes belong only in the private maintenance workspace. Historical snapshots require a separate privacy audit.
