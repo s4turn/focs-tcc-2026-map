@@ -61,7 +61,7 @@ function restoreMapFocus(focus){
  const exact=()=>$(focus.scope)?.querySelector(`[${focus.attribute}="${CSS.escape(focus.value)}"][tabindex="0"],button[${focus.attribute}="${CSS.escape(focus.value)}"]`);
  const target=exact();if(target){target.focus({preventScroll:true});return;}
  // Diagram badges are created on the next drawing frame after a venue/theme rebuild.
- requestAnimationFrame(()=>{const fallback=focus.attribute.includes('room')?`#room-list [data-choose-room="${CSS.escape(state.room||'')}"]`:`#floor-selector [data-choose-floor="${state.floor}"]`; (exact()||document.querySelector(fallback))?.focus({preventScroll:true});});
+ requestAnimationFrame(()=>{const choice=roomChoices().find(room=>room.id===state.room||room.memberIds?.includes(state.room));const fallback=focus.attribute.includes('room')?`#room-list [data-choose-room="${CSS.escape(choice?.id||'')}"]`:`#floor-selector [data-choose-floor="${state.floor}"]`; (exact()||document.querySelector(fallback))?.focus({preventScroll:true});});
 }
 function automaticDayIndex(now=nowInNewYork()){
  if(now.date<'2026-11-08')return 0;
@@ -230,6 +230,21 @@ function rooms(floor,day=currentDay()){
  const bathroom=restroomInfo(floor,day);if(bathroom)list.push({id:'restrooms',kind:'restrooms',title:venue==='wwh'?'All-gender restrooms':'Restrooms',short:venue==='wwh'?'All-gender restrooms':'Restrooms',subtitle:venue==='wwh'?'WWH · First floor':`Kimmel · Floor ${floor}`,description:bathroom.description,color:COLORS.neutral});
  return list.filter(room=>!room.obsolete&&!(ROOM_DATA.source&&room.service&&!room.hold&&!room.serviceConfirmed));
 }
+function roomChoices(floor=state.floor,day=currentDay()){
+ const available=rooms(floor,day);
+ if((day.venue||'kimmel')!=='kimmel'||floor!==9)return available;
+ const members=available.filter(room=>room.subtitle==='Free space'&&!room.service&&!room.amenities&&!room.kind&&!room.programTracks?.length);
+ if(!members.length)return available;
+ const memberIds=members.map(room=>room.id),labels=members.map(room=>room.hold?.room||room.title);
+ const group={id:'free-space',kind:'free-space',title:'Free space',short:'Free space',subtitle:labels.join(', '),description:'Breakout rooms for work or discussion.',color:COLORS.entry,memberIds};
+ let inserted=false;
+ return available.flatMap(room=>{if(!memberIds.includes(room.id))return [room];if(inserted)return [];inserted=true;return [group];});
+}
+function roomIsSelected(id,room){
+ if(state.room===id)return true;
+ return state.room==='free-space'&&venueId()==='kimmel'&&state.floor===9&&room?.subtitle==='Free space'&&!room.service&&!room.amenities&&!room.kind&&!room.programTracks?.length;
+}
+function validRoomSelection(){return rooms(state.floor).some(room=>room.id===state.room)||roomChoices().some(room=>room.id===state.room);}
 function lunchDestination(day=currentDay()){
  if(day.id==='sunday-late')return null;
  const meals=PROGRAM_DATA?.days.find(item=>item.id===day.id)?.sessions.filter(session=>session.kind==='meal'&&/^Lunch\b/i.test(session.title))||[];
@@ -324,12 +339,13 @@ function elevator(topdown=true){return `<g>${rect(-37,82,65,83,'#e9e1ed')}${[[-2
 function selectable(id,body){
  // The first fill is the room footprint; later fills may be furniture or a stage.
  const marked=body.replace(/<(?:path|rect)\b[^>]*class="[^"]*\broom-fill\b[^"]*"[^>]*\/>/,shape=>shape.replace(/\/>$/,` data-room-boundary="${esc(id)}"/>`));
- const room=rooms(state.floor).find(item=>item.id===id);
- return `<g class="svg-room ${state.room===id?'selected':''}" data-room="${id}"${room?` tabindex="0" role="button" aria-label="${esc(`${room.title} · ${room.subtitle}`)}" aria-pressed="${state.room===id}"`:''}>${marked}</g>`;
+ const room=rooms(state.floor).find(item=>item.id===id),selected=roomIsSelected(id,room);
+ return `<g class="svg-room ${selected?'selected':''}" data-room="${id}"${room?` tabindex="0" role="button" aria-label="${esc(`${room.title} · ${room.subtitle}`)}" aria-pressed="${selected}"`:''}>${marked}</g>`;
 }
 function roomOutlines(markup){
+ const available=new Map(rooms(state.floor).map(room=>[room.id,room]));
  const contours=(markup.match(/<(?:path|rect)\b[^>]*data-room-boundary="[^"]*"[^>]*\/>/g)||[]).map(shape=>{
-  const id=shape.match(/data-room-boundary="([^"]*)"/)[1],selected=state.room===id;
+  const id=shape.match(/data-room-boundary="([^"]*)"/)[1],selected=roomIsSelected(id,available.get(id));
   return {selected,shape:shape.replace(/class="[^"]*"/,`class="room-outline${selected?' is-selected':''}"`).replace(/fill="[^"]*"/,'fill="none"').replace('data-room-boundary=','data-outline-room=')};
  });
  // Selected contours paint last so neighboring rooms cannot cover a shared edge.
@@ -357,13 +373,13 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   markup+=`<path d="M145 330 V395" fill="none" stroke="${P.line}" stroke-width="1.5" stroke-dasharray="5 4"/>`;
   if(labels)markup+=text(130,30,'Upper lounge · north',12)+text(140,235,'Hallway',12)+text(92,288,'808',14)+text(192,288,'803',14)+text(92,370,'805',14)+text(192,370,'804',14)+text(250,280,'Stovall Gallery',12,'transform="rotate(90 250 280)" style="font-size:12px"');
  }else if(floor===9){
-  markup+=selectable('901',rect(0,0,48,49,has('901')?roomColor('901','entry'):'neutral'))+selectable('903',rect(208,0,52,68,has('903')?roomColor('903','entry'):'neutral'));
-  if(labels)markup+=text(24,28,'901',11)+text(234,40,'903',11)+text(124,40,'Lounge · north',12);
+  markup+=selectable('901',rect(0,0,48,49,has('901')?roomColor('901','entry'):'neutral')+(labels?text(24,28,'901',11):''))+selectable('903',rect(208,0,52,68,has('903')?roomColor('903','entry'):'neutral')+(labels?text(234,40,'903',11):''));
+  if(labels)markup+=text(124,40,'Lounge · north',12);
   markup+=selectable('C',rect(180,75,80,110,has('C')?roomColor('C','C'):'neutral')+(labels?labelLines(220,110,['905',has('C')?roomLabel('C','Track C'):'','907'],13):''));
   markup+=`<path d="M180 130 H260" stroke="#93b5aa" stroke-dasharray="5 4"/>`;
   const coffee912=active.some(room=>room.id==='912'&&room.service==='coffee');
   markup+=selectable('909',rect(180,185,80,55,has('909')?roomColor('909','entry'):'neutral')+(labels?text(220,218,'909',12):''))+selectable('912',rect(180,240,80,55,has('912')?roomColor('912','entry'):'neutral')+(labels?text(220,coffee912?255:273,'912',12)+(coffee912?foodFriend('coffee','x="205" y="260" width="30" height="30"'):''):''));
-  [904,906,908,910].forEach((n,i)=>{markup+=selectable(String(n),rect(80,75+i*44,57,44,has(String(n))?roomColor(String(n),'entry'):'neutral'));if(labels)markup+=text(108,102+i*44,String(n),11);});
+  [904,906,908,910].forEach((n,i)=>{markup+=selectable(String(n),rect(80,75+i*44,57,44,has(String(n))?roomColor(String(n),'entry'):'neutral')+(labels?text(108,102+i*44,String(n),11):''));});
   const endId=day.tcc?'TCC':'D';markup+=selectable(endId,rect(100,310,160,90,has(endId)?roomColor(endId,COLORS[endId]):'neutral')+(labels?labelLines(180,345,[has(endId)?roomLabel(endId,day.tcc?'TCC':'Track D'):'Room','914'],16):''));
   markup+=elevator(labels)+rect(-35,220,63,50);
  }else if(floor===10){
@@ -630,12 +646,12 @@ function detail(){
  const lobby=floor===1;
  return themed(`<svg viewBox="${lobby?'-70 -100 360 545':'-70 -65 360 510'}" role="group" aria-label="North-up schematic of Kimmel floor ${floor}. Washington Square South is at the top and LaGuardia Place is at the right."><rect x="-64" y="${lobby?-95:-60}" width="350" height="24" rx="9" fill="#dce9d7"/>${text(110,lobby?-79:-44,'Washington Square Park',12)}${text(110,lobby?-48:-14,'Washington Square South · north',12)}${plan(floor)}<text x="281" y="205" text-anchor="middle" font-size="12" fill="#776b80" transform="rotate(90 281 205)">LaGuardia Place · east</text>${floor!==1?text(120,428,'South · away from the park',11):''}</svg>`);
 }
-function chooseRoom(id){const found=rooms(state.floor).find(r=>r.id===id);if(found){const focus=rememberMapFocus();state.automaticLocation=false;state.lunch=false;state.room=id;renderSelection();$('floor-plan').innerHTML=detail();renderBuilding();updateMapUrl();restoreMapFocus(focus);}}
+function chooseRoom(id){const found=roomChoices().find(r=>r.id===id)||rooms(state.floor).find(r=>r.id===id);if(found){const focus=rememberMapFocus();state.automaticLocation=false;state.lunch=false;state.room=id;renderSelection();$('floor-plan').innerHTML=detail();renderBuilding();updateMapUrl();restoreMapFocus(focus);}}
 function chooseLunch(){const lunch=lunchDestination();if(!lunch)return;state.automaticLocation=false;state.floor=lunch.floor;state.room=lunch.roomId;state.lunch=true;render();requestAnimationFrame(()=>$('building').scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'}));}
 function chooseFloor(floor){if(!activeFloors().includes(Number(floor)))return;state.automaticLocation=false;state.lunch=false;state.floor=Number(floor);state.room=rooms(state.floor)[0]?.id||null;render();}
 function renderSelection(){
- const available=rooms(state.floor),lunch=lunchDestination(),lunchSelected=state.lunch&&lunch?.floor===state.floor&&lunch.roomId===state.room;const chosen=lunchSelected?{...lunch,id:lunch.roomId,color:COLORS.coffee}:available.find(r=>r.id===state.room)||available[0];
- $('room-list').innerHTML=available.map(r=>`<button type="button" class="room-button" data-choose-room="${r.id}" style="--room-color:${esc(r.color||P.floor)}" aria-pressed="${r.id===chosen?.id}">${r.kind==='restrooms'?'<span class="restroom-key">WC</span>':r.service||r.amenities?foodFriend(r.service||'coffee'):''}<span>${esc(r.short)}</span></button>`).join('')+(lunch?`<button type="button" class="room-button lunch-shortcut" data-show-lunch style="--room-color:${COLORS.coffee}" aria-pressed="${lunchSelected}" aria-label="${esc(`${lunch.title} · ${lunch.subtitle}`)}">${foodFriend('food')}<span>${esc(lunch.title)}</span></button>`:'');
+ const available=roomChoices(),lunch=lunchDestination(),lunchSelected=state.lunch&&lunch?.floor===state.floor&&lunch.roomId===state.room;const chosen=lunchSelected?{...lunch,id:lunch.roomId,color:COLORS.coffee}:available.find(r=>r.id===state.room)||rooms(state.floor).find(r=>r.id===state.room)||available[0];
+ $('room-list').innerHTML=available.map(r=>`<button type="button" class="room-button" data-choose-room="${r.id}" style="--room-color:${esc(r.color||P.floor)}" aria-pressed="${r.id===chosen?.id||!!r.memberIds?.includes(chosen?.id)}">${r.kind==='restrooms'?'<span class="restroom-key">WC</span>':r.service||r.amenities?foodFriend(r.service||'coffee'):''}<span>${esc(r.short)}</span></button>`).join('')+(lunch?`<button type="button" class="room-button lunch-shortcut" data-show-lunch style="--room-color:${COLORS.coffee}" aria-pressed="${lunchSelected}" aria-label="${esc(`${lunch.title} · ${lunch.subtitle}`)}">${foodFriend('food')}<span>${esc(lunch.title)}</span></button>`:'');
  $('selection-title').textContent=chosen?`${chosen.title} · ${chosen.subtitle}`:'No conference space today';
  $('selection-description').textContent=chosen?chosen.description:'No conference space is listed on this floor today.';
  $('selection-dot').style.background=chosen?.color||'#d0c5d7';
@@ -648,6 +664,7 @@ function renderRestroomGuide(){
 }
 function render(){
  const day=currentDay(),focus=pendingMapFocus||rememberMapFocus();pendingMapFocus=null;
+ if(state.room==='free-space'&&!validRoomSelection())state.room=rooms(state.floor)[0]?.id||null;
  document.body.dataset.venue=venueId();
  const wifi=$('wwh-wifi');if(wifi)wifi.hidden=venueId()!=='wwh';
  document.body.dataset.dayIsAutomatic=String(state.automaticDay);
@@ -706,7 +723,7 @@ document.addEventListener('conference:locate',event=>{
  if(before!==venueId())document.dispatchEvent(new CustomEvent('conference:venue',{detail:{from:before,to:venueId()}}));
 });
 async function refreshRooms(){
- try{const response=await fetch('room-data.json',{cache:'no-cache'});if(!response.ok)return;const data=await response.json();if(!Array.isArray(data.rooms))return;const changed=JSON.stringify(data)!==JSON.stringify(ROOM_DATA);ROOM_DATA=data;if(changed){if(!rooms(state.floor).some(room=>room.id===state.room))state.room=rooms(state.floor).find(room=>room.id==='109')?.id||rooms(state.floor)[0]?.id||null;render();}}catch{}
+ try{const response=await fetch('room-data.json',{cache:'no-cache'});if(!response.ok)return;const data=await response.json();if(!Array.isArray(data.rooms))return;const changed=JSON.stringify(data)!==JSON.stringify(ROOM_DATA);ROOM_DATA=data;if(changed){if(!validRoomSelection())state.room=rooms(state.floor).find(room=>room.id==='109')?.id||rooms(state.floor)[0]?.id||null;render();}}catch{}
 }
 refreshRooms();setInterval(refreshRooms,300000);setInterval(syncConferenceTime,15000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){syncConferenceTime();refreshRooms();}});
 new ResizeObserver(()=>requestPixelRender(80)).observe($('building'));
