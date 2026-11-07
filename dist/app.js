@@ -21,7 +21,7 @@ let COLORS=P.rooms;
 const FLOORS=[10,9,4,1];
 let ROOM_DATA={rooms:[]},PROGRAM_DATA=null;
 const query=new URLSearchParams(location.search);
-const state={day:0,floor:1,room:null,style:'pixel',mood:'auto',automaticDay:true,automaticLocation:true};
+const state={day:0,floor:1,room:null,style:'pixel',mood:'auto',automaticDay:true,automaticLocation:true,lunch:false};
 let pendingMapFocus=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -51,9 +51,9 @@ function venueSolarZenith(now=new Date()){
 function automaticMood(now=new Date()){return venueSolarZenith(now)<=90.833?'soft':'pixel';}
 function syncAutomaticMood(now=new Date()){return state.mood==='auto'&&automaticMood(now)!==state.style?applyStyle('auto',now):false;}
 function rememberMapFocus(){
- const node=document.activeElement,control=node?.closest?.('[data-choose-floor],[data-choose-room],[data-room],[data-floor],[data-show-restrooms]');
+ const node=document.activeElement,control=node?.closest?.('[data-choose-floor],[data-choose-room],[data-room],[data-floor],[data-show-restrooms],[data-show-lunch]');
  const scope=control?.closest('#floor-selector,#room-list,#floor-plan,#building')?.id;if(!scope)return null;
- const attribute=['data-choose-floor','data-choose-room','data-room','data-floor','data-show-restrooms'].find(name=>control.hasAttribute(name));
+ const attribute=['data-choose-floor','data-choose-room','data-room','data-floor','data-show-restrooms','data-show-lunch'].find(name=>control.hasAttribute(name));
  return {scope,attribute,value:control.getAttribute(attribute)};
 }
 function restoreMapFocus(focus){
@@ -130,8 +130,8 @@ const RESTROOMS={
  9:{points:[[-4,244]],description:'Restrooms just south of the main elevator bank, on the west side of the floor.'},
  10:{points:[[-4,246],[68,246]],description:'Restrooms on both sides of the corridor just south of the main elevator bank, beside Rosenthal Pavilion.'}
 };
-const restroomInfo=()=>venueId()==='wwh'?{points:[[39,221]],description:'Adjacent to the snack machine.'}:RESTROOMS[state.floor];
-function restroomMarker(x,y,name='Restrooms'){return `<g class="restroom-marker" transform="translate(${x} ${y})" role="img" aria-label="${esc(name)}"><title>${esc(name)}</title><rect x="-17" y="-14" width="34" height="28" rx="6" fill="${P.floor}" stroke="${P.primary}" stroke-width="2"/><text x="0" y="5" text-anchor="middle" fill="${P.ink}" font-size="14" font-weight="800">WC</text></g>`;}
+const restroomInfo=(floor=state.floor,day=currentDay())=>day.venue==='wwh'?{points:[[39,221]],description:'Adjacent to the snack machine.'}:RESTROOMS[floor];
+function restroomMarker(x,y,name='Restrooms'){return `<g class="restroom-marker${state.room==='restrooms'?' is-selected':''}" transform="translate(${x} ${y})" role="img" aria-label="${esc(name)}"><title>${esc(name)}</title><rect x="-17" y="-14" width="34" height="28" rx="6" fill="${P.floor}" stroke="${P.primary}" stroke-width="2"/><text x="0" y="5" text-anchor="middle" fill="${P.ink}" font-size="14" font-weight="800">WC</text></g>`;}
 function themed(markup){
  const old={'#493a55':P.ink,'#776b80':P.muted,'#706479':P.muted,'#776080':P.muted,'#6c4994':P.primary,'#fff':P.onPrimary,'#fffaf3':P.floor,'#fffaf4':P.floor,'#fff9ef':P.wall,'#c7bacd':P.line,'#c8becf':P.line,'#c7b9c8':P.line,'#c4b8c7':P.line,'#e4d9cb':P.sideN,'#eee5f0':P.closed,'#e9e1dc':P.closed,'#eee6f2':P.closed,'#e9e1ed':P.closed,'#ddd5df':P.closed,'#b9a4cc':P.stage,'#9e85b8':P.seats,'#ad9292':P.line,'#93b5aa':P.line,'#e6eddb':P.park,'#fff9e9':P.wall,'#b8a773':P.wood,'#c7b380':P.wood,'#d7c6c0':P.sideN,'#cbbdcf':P.sideE,'#d5cddd':P.shadow,'#e9e3df':P.walk,'#e5e0e5':P.road,'#d4e4cd':P.park,'#617b5b':P.ink,'#9e8e72':P.wood,'#a9c79d':P.tree,'#b5d3a9':P.treeLight,'#dce9d7':P.park};
  return markup.replace(/#[0-9a-f]{3,6}\b/gi,color=>old[color.toLowerCase()]||color);
@@ -217,7 +217,21 @@ function rooms(floor,day=currentDay()){
   }
  }
  const registration=registrationLocation(floor,day);if(registration)list.push({id:'registration',kind:'registration',title:'Registration',short:'Registration',subtitle:registration.subtitle,description:registration.description,mapPoint:registration.point,color:COLORS.entry});
+ const bathroom=restroomInfo(floor,day);if(bathroom)list.push({id:'restrooms',kind:'restrooms',title:venue==='wwh'?'All-gender restrooms':'Restrooms',short:venue==='wwh'?'All-gender restrooms':'Restrooms',subtitle:venue==='wwh'?'WWH · First floor':`Kimmel · Floor ${floor}`,description:bathroom.description,color:COLORS.neutral});
  return list.filter(room=>!room.obsolete&&!(ROOM_DATA.source&&room.service&&!room.hold));
+}
+function lunchDestination(day=currentDay()){
+ if(day.id==='sunday-late')return null;
+ const meals=PROGRAM_DATA?.days.find(item=>item.id===day.id)?.sessions.filter(session=>session.kind==='meal'&&/^Lunch\b/i.test(session.title))||[];
+ if(day.venue==='wwh'&&meals.length)return {floor:1,roomId:'crosshall',title:'Lunch',subtitle:'WWH · Crosshall',description:'Food is staged in the crosshall, outside room 109.'};
+ const meal=meals.find(session=>session.venueId==='kimmel'&&session.floor&&session.room);
+ if(!meal)return null;
+ const roomId=geometryRoom(meal.room);if(!roomId)return null;
+ return {floor:meal.floor,roomId,title:day.focs&&day.tcc&&meal.conference==='TCC'?'TCC lunch':'Lunch',subtitle:`${meal.room} · Floor ${meal.floor}`,description:`${holdTime(meal.start)}–${holdTime(meal.end)}${roomId==='solarium'?' · Boxed-lunch pickup.':''}`};
+}
+function restroomHighlights(floor){
+ if(state.room!=='restrooms')return '';
+ return (restroomInfo(floor)?.points||[]).map(([x,y])=>`<circle class="restroom-highlight" cx="${x}" cy="${y}" r="19" fill="${COLORS.entry}" stroke="${P.primary}" stroke-width="3"/>`).join('');
 }
 function registrationMarker(floor,{labels=true,day=currentDay()}={}){
  const location=registrationLocation(floor,day);if(!location)return '';
@@ -252,7 +266,7 @@ function wwhPlan(floor,{labels=true,outlines=true}={}){
  s+=`<path d="M42 300 H218" stroke="${P.wood}" stroke-width="7"/>`;
  for(const x of [10,219])s+=`<path d="M${x} 300 h32" stroke="${P.floor}" stroke-width="8"/><path class="wwh-109-doors" d="M${x} 300 v16 h16 v-16 m0 16 h16 v-16" fill="none" stroke="${P.primary}" stroke-width="1.5"/>`;
  if(labels)s+=text(124,187,'Lobby',14)+restroomMarker(39,221,'All-gender restrooms');
- s+=registrationMarker(1,{labels});
+ s+=registrationMarker(1,{labels});if(!labels)s+=restroomHighlights(1);
  return themed(s+(outlines?roomOutlines(s):''));
 }
 function wwhUpperStack(){
@@ -354,6 +368,7 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
  }
  if(floor===4)markup+=registrationMarker(floor,{labels,day});
  if(labels)markup+=(RESTROOMS[floor]?.points||[]).map(([x,y])=>restroomMarker(x,y)).join('');
+ else markup+=restroomHighlights(floor);
  return themed(markup+(outlines?roomOutlines(markup):''));
 }
 function p(x,y,base){return [488-.70*x-.70*y,base+.35*x-.35*y];}
@@ -533,7 +548,7 @@ function updateDiagramLabels(){
   const from={x:Math.max(box.left-frame.left+10,Math.min(box.right-frame.left-10,target.x)),y:box.top-frame.top+3};
   leaders+=`<path class="place-pointer" d="M${from.x} ${from.y} L${target.x} ${target.y}" fill="none" stroke="${P.ink}" stroke-width="1.2" stroke-linecap="round"/><circle cx="${target.x}" cy="${target.y}" r="2.4" fill="${P.ink}"/>`;
  }
- const amenity=overlay.querySelector('.diagram-amenity'),available=rooms(state.floor),serviceRoom=available.find(room=>room.service||room.amenities?.length),kind=serviceRoom?.service||serviceRoom?.amenities?.[0]||null;
+ const amenity=overlay.querySelector('.diagram-amenity'),available=rooms(state.floor),lunch=lunchDestination(),lunchSelected=state.lunch&&lunch?.floor===state.floor&&lunch.roomId===state.room,serviceRoom=available.find(room=>room.service||room.amenities?.length),kind=lunchSelected?'food':serviceRoom?.service||serviceRoom?.amenities?.[0]||null;
  const registration=available.find(room=>room.kind==='registration'),registrationBadge=overlay.querySelector('.diagram-registration-marker');
  registrationBadge.hidden=!registration;
  if(registration){
@@ -544,6 +559,7 @@ function updateDiagramLabels(){
  }
  const restroom=overlay.querySelector('.diagram-restroom-badge'),bathroom=restroomInfo();
  restroom.hidden=!bathroom?.points.length;
+ restroom.setAttribute('aria-pressed',String(state.room==='restrooms'));
  if(bathroom?.points.length){
   const layer=source.querySelector(`[data-level="${state.floor}"]`),shift=new DOMMatrix(getComputedStyle(layer).transform).m42;
   const center=bathroom.points.reduce((sum,point)=>[sum[0]+point[0]/bathroom.points.length,sum[1]+point[1]/bathroom.points.length],[0,0]);
@@ -553,9 +569,9 @@ function updateDiagramLabels(){
  }
  amenity.hidden=!kind;
  if(kind){
-  amenity.innerHTML=(serviceRoom.amenities||[kind]).map(item=>foodFriend(item)).join('');
+  amenity.innerHTML=(lunchSelected?[kind]:serviceRoom.amenities||[kind]).map(item=>foodFriend(item)).join('');
   const layer=source.querySelector(`[data-level="${state.floor}"]`),shift=new DOMMatrix(getComputedStyle(layer).transform).m42;
-  const[x,y]=p(...(venueId()==='wwh'?[210,262]:kind==='coffee'?[200,385]:[153,228]),baseFor(state.floor)+shift);
+  const[x,y]=p(...(venueId()==='wwh'?[210,262]:kind==='coffee'||(lunchSelected&&lunch.roomId==='solarium')?[200,385]:[153,228]),baseFor(state.floor)+shift);
   amenity.style.left=`${(x+45)*width/750}px`;amenity.style.top=`${(y+35)*height/965}px`;
  }
  const drawnRooms=[...source.querySelectorAll('.selected-floor .svg-room[data-room]')];
@@ -600,11 +616,12 @@ function detail(){
  const lobby=floor===1;
  return themed(`<svg viewBox="${lobby?'-70 -100 360 545':'-70 -65 360 510'}" role="group" aria-label="North-up schematic of Kimmel floor ${floor}. Washington Square South is at the top and LaGuardia Place is at the right."><rect x="-64" y="${lobby?-95:-60}" width="350" height="24" rx="9" fill="#dce9d7"/>${text(110,lobby?-79:-44,'Washington Square Park',12)}${text(110,lobby?-48:-14,'Washington Square South · north',12)}${plan(floor)}<text x="281" y="205" text-anchor="middle" font-size="12" fill="#776b80" transform="rotate(90 281 205)">LaGuardia Place · east</text>${floor!==1?text(120,428,'South · away from the park',11):''}</svg>`);
 }
-function chooseRoom(id){const found=rooms(state.floor).find(r=>r.id===id);if(found){const focus=rememberMapFocus();state.automaticLocation=false;state.room=id;renderSelection();$('floor-plan').innerHTML=detail();renderBuilding();updateMapUrl();restoreMapFocus(focus);}}
-function chooseFloor(floor){if(!activeFloors().includes(Number(floor)))return;state.automaticLocation=false;state.floor=Number(floor);state.room=rooms(state.floor)[0]?.id||null;render();}
+function chooseRoom(id){const found=rooms(state.floor).find(r=>r.id===id);if(found){const focus=rememberMapFocus();state.automaticLocation=false;state.lunch=false;state.room=id;renderSelection();$('floor-plan').innerHTML=detail();renderBuilding();updateMapUrl();restoreMapFocus(focus);}}
+function chooseLunch(){const lunch=lunchDestination();if(!lunch)return;state.automaticLocation=false;state.floor=lunch.floor;state.room=lunch.roomId;state.lunch=true;render();requestAnimationFrame(()=>$('building').scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'}));}
+function chooseFloor(floor){if(!activeFloors().includes(Number(floor)))return;state.automaticLocation=false;state.lunch=false;state.floor=Number(floor);state.room=rooms(state.floor)[0]?.id||null;render();}
 function renderSelection(){
- const available=rooms(state.floor);const chosen=available.find(r=>r.id===state.room)||available[0];
- $('room-list').innerHTML=available.map(r=>`<button type="button" class="room-button" data-choose-room="${r.id}" style="--room-color:${esc(r.color||P.floor)}" aria-pressed="${r.id===chosen?.id}">${r.service||r.amenities?foodFriend(r.service||'coffee'):''}<span>${esc(r.short)}</span></button>`).join('')+(restroomInfo()?`<button type="button" class="room-button restroom-shortcut" data-show-restrooms><span class="restroom-key">WC</span><span>${venueId()==='wwh'?'All-gender restrooms':'Restrooms'}</span></button>`:'');
+ const available=rooms(state.floor),lunch=lunchDestination(),lunchSelected=state.lunch&&lunch?.floor===state.floor&&lunch.roomId===state.room;const chosen=lunchSelected?{...lunch,id:lunch.roomId,color:COLORS.coffee}:available.find(r=>r.id===state.room)||available[0];
+ $('room-list').innerHTML=available.map(r=>`<button type="button" class="room-button" data-choose-room="${r.id}" style="--room-color:${esc(r.color||P.floor)}" aria-pressed="${r.id===chosen?.id}">${r.kind==='restrooms'?'<span class="restroom-key">WC</span>':r.service||r.amenities?foodFriend(r.service||'coffee'):''}<span>${esc(r.short)}</span></button>`).join('')+(lunch?`<button type="button" class="room-button lunch-shortcut" data-show-lunch style="--room-color:${COLORS.coffee}" aria-pressed="${lunchSelected}" aria-label="${esc(`${lunch.title} · ${lunch.subtitle}`)}">${foodFriend('food')}<span>${esc(lunch.title)}</span></button>`:'');
  $('selection-title').textContent=chosen?`${chosen.title} · ${chosen.subtitle}`:'No conference space today';
  $('selection-description').textContent=chosen?chosen.description:'No conference space is listed on this floor today.';
  $('selection-dot').style.background=chosen?.color||'#d0c5d7';
@@ -646,9 +663,10 @@ document.addEventListener('keydown',event=>{
  if(target&&(event.key==='Enter'||event.key===' ')){event.preventDefault();target.dispatchEvent(new MouseEvent('click',{bubbles:true}));}
 });
 document.addEventListener('click',event=>{
- if(event.target.closest('[data-show-restrooms]')){const guide=$('restroom-guide');if(guide){guide.focus({preventScroll:true});guide.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'nearest'});}return;}
+ if(event.target.closest('[data-show-restrooms]')){chooseRoom('restrooms');return;}
+ if(event.target.closest('[data-show-lunch]')){chooseLunch();return;}
  const day=event.target.closest('#days button[data-day]');if(day){
-  const before=venueId();state.automaticDay=false;state.automaticLocation=false;state.day=Number(day.dataset.day);const after=venueId();
+  const before=venueId();state.automaticDay=false;state.automaticLocation=false;state.lunch=false;state.day=Number(day.dataset.day);const after=venueId();
   if(before!==after){state.floor=after==='wwh'?1:4;$('building').innerHTML='';}
   if(!activeFloors().includes(state.floor)||!rooms(state.floor).length)state.floor=after==='wwh'?1:currentDay().tcc&&!currentDay().focs?9:4;
   state.room=rooms(state.floor).find(room=>room.id==='109')?.id||rooms(state.floor)[0]?.id||null;render();

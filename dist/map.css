@@ -91,3 +91,7 @@ body .room-fill.wwh-crosshall{stroke:none}
 .diagram-registration-marker[hidden] { display:none; }
 .diagram-registration-marker.is-selected { border-color:var(--teal); box-shadow:0 0 0 1px var(--teal); }
 .svg-room[data-room="registration"]:focus-visible .registration-table { stroke:var(--teal); stroke-width:3; }
+
+/* WC selects its location in place, like the other map destinations. */
+.diagram-restroom-badge[aria-pressed=true]>span{background:var(--teal);color:var(--paper);border-color:var(--teal);box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--teal)}
+.restroom-marker.is-selected>rect{stroke:var(--teal);stroke-width:3;fill:var(--mint)}
