@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-07T03:09:01-05:00",
+  "generatedAt": "2026-11-07T14:55:28-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -415,7 +415,13 @@
           "floor": 4,
           "venueId": "kimmel",
           "url": "https://focs.computer.org/2026/main-program/",
-          "papers": []
+          "papers": [],
+          "relatedLinks": [
+            {
+              "label": "Workshop website",
+              "url": "https://aaroth.github.io/tcs-ai-focs-2026/"
+            }
+          ]
         },
         {
           "id": "sunday-estimathon",
