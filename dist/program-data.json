@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-06T11:10:08-05:00",
+  "generatedAt": "2026-11-07T03:09:01-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -77,7 +77,7 @@
             },
             {
               "id": "sunday-subspace-1-talk-4",
-              "title": "Bipartite Matching in NC via Subspace Designs",
+              "title": "Bipartite Matching in NC",
               "authors": "Roshan Raj",
               "order": 4,
               "start": "11:00",
@@ -611,7 +611,8 @@
               "end": "09:48",
               "abstract": "We show that one-way functions suffice for constructing very efficient argument systems for proving the correctness of bounded-space computations. Taking k to be a cryptographic security parameter and n to be the input length, our argument system applies to general computations running in time T and space S. The protocol has polylog(T) rounds, the communication complexity is S · poly(log(T), k) and the verifier runtime is (S + n) · poly(log(T), k). In particular, the complexity of the verifier is only poly-logarithmic in the computation length. The honest prover runs in time poly(T, k), so the protocol is doubly-efficient. If the one-way function is secure against λ(k)-size adversaries, then the argument system is sound against cheating provers of size λ(k)/poly(T). Prior to this work, doubly-efficient argument systems with poly-logarithmic dependence on T required assuming (at least) the existence of collision-resistant hash functions [Kilian, STOC 1992]. For unconditionally sound doubly-efficient protocols, the RRR protocol for bounded-space computations [Reingold, Rothblum and Rothblum, STOC 2016] has communication and verification complexities that grow with T^σ for an arbitrarily small constant σ > 0.",
               "publicPaperUrl": "https://eccc.weizmann.ac.il/report/2026/111/",
-              "url": "https://eccc.weizmann.ac.il/report/2026/111/"
+              "url": "https://eccc.weizmann.ac.il/report/2026/111/",
+              "publicNote": "Presenter: Rohan Goyal."
             },
             {
               "id": "focs-1c-paper-2",
