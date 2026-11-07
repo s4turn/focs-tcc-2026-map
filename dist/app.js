@@ -2,12 +2,12 @@
 'use strict';
 const DAYS=[
  {id:'sunday-early',short:'Sun',period:'<3PM',date:8,title:'Sunday <3PM · November 8',conference:'FOCS workshops · WWH',venue:'wwh',focs:false,tcc:false,note:'WWH · Rooms 101, 102 and 109. Workshops through 3 p.m.; coffee break 3–3:30 p.m. Later events are at Kimmel.'},
- {id:'sunday-late',short:'Sun',period:'≥3PM',date:8,title:'Sunday ≥3PM · November 8',conference:'FOCS workshops · Kimmel',venue:'kimmel',focs:false,tcc:false,note:'Use the Kimmel main entrance on Washington Square South. AI and TCS · 3:30–5:30 p.m., Eisner & Lubin, floor 4. Estimathon · 6–7:30 p.m., Shorin 802, floor 8.'},
- {id:'monday',short:'Mon',date:9,title:'Monday, November 9',conference:'FOCS',focs:true,tcc:false,solarium:'9 a.m.–2:30 p.m.',rosenthal:'8 a.m.–4 p.m.',note:'Track D · Room 914 today. Coffee · Solarium 409, floor 4.'},
- {id:'tuesday',short:'Tue',date:10,title:'Tuesday, November 10',conference:'FOCS + TCC',focs:true,tcc:true,solarium:'9 a.m.–10 p.m.',rosenthal:null,note:'Joint reception · Eisner & Lubin Auditorium, 7:30–10 p.m. Coffee · Solarium 409, floor 4.'},
- {id:'wednesday',short:'Wed',date:11,title:'Wednesday, November 11',conference:'FOCS + TCC',focs:true,tcc:true,solarium:'9 a.m.–5 p.m.',rosenthal:'8 a.m.–3 p.m.',note:'Joint Knuth lecture · Eisner & Lubin Auditorium. Coffee · Solarium 409, floor 4.'},
- {id:'thursday',short:'Thu',date:12,title:'Thursday, November 12',conference:'TCC',focs:false,tcc:true,rosenthal:null,note:'TCC · Room 914, floor 9. Coffee / refreshments — see daily signs.'},
- {id:'friday',short:'Fri',date:13,title:'Friday, November 13',conference:'TCC',focs:false,tcc:true,rosenthal:'8 a.m.–2 p.m.',note:'TCC · Room 914, floor 9. Coffee / refreshments — see daily signs.'}
+ {id:'sunday-late',short:'Sun',period:'≥3PM',date:8,title:'Sunday ≥3PM · November 8',conference:'FOCS workshops · Kimmel',venue:'kimmel',focs:false,tcc:false,note:'Use the Kimmel main entrance on Washington Square South. AI and TCS · 3:30–5:30 p.m., Eisner & Lubin, floor 4. Estimathon · 6–7:30 p.m., Shorin 802, floor 8. Coffee · Solarium 409, floor 4.'},
+ {id:'monday',short:'Mon',date:9,title:'Monday, November 9',conference:'FOCS',focs:true,tcc:false,solarium:'9 a.m.–2:30 p.m.',rosenthal:'8 a.m.–4 p.m.',note:'Track D · Room 914 today. Coffee · 409 (floor 4) and 912 (floor 9).'},
+ {id:'tuesday',short:'Tue',date:10,title:'Tuesday, November 10',conference:'FOCS + TCC',focs:true,tcc:true,solarium:'9 a.m.–10 p.m.',rosenthal:null,note:'Joint reception · Eisner & Lubin Auditorium, 7:30–10 p.m. Coffee · 409 (floor 4) and 912 (floor 9).'},
+ {id:'wednesday',short:'Wed',date:11,title:'Wednesday, November 11',conference:'FOCS + TCC',focs:true,tcc:true,solarium:'9 a.m.–5 p.m.',rosenthal:'8 a.m.–3 p.m.',note:'Joint Knuth lecture · Eisner & Lubin Auditorium. Coffee · 409 (floor 4) and 912 (floor 9).'},
+ {id:'thursday',short:'Thu',date:12,title:'Thursday, November 12',conference:'TCC',focs:false,tcc:true,rosenthal:null,note:'TCC · Room 914, floor 9. Coffee · 409 (floor 4) and 912 (floor 9).'},
+ {id:'friday',short:'Fri',date:13,title:'Friday, November 13',conference:'TCC',focs:false,tcc:true,rosenthal:'8 a.m.–2 p.m.',note:'TCC · Room 914, floor 9. Coffee · 409 (floor 4) and 912 (floor 9).'}
 ];
 const PALETTES={
  soft:{paper:'#FFF9ED',ink:'#173F3D',muted:'#53675F',primary:'#2E7771',onPrimary:'#FFF9ED',floor:'#FFFCF5',closed:'#DDE6DA',wall:'#F4E9D6',line:'#B9CDBD',sideN:'#C8D6C5',sideE:'#9FBDAF',stage:'#84AD9D',seats:'#5D9587',road:'#D8DFDA',walk:'#F2E5D2',park:'#D8E7B3',tree:'#90B47A',treeLight:'#ABC98B',glass:'#B7D7D8',wood:'#D4A87D',shadow:'#748F82',rooms:{A:'#BBD8C9',B:'#F3C3A9',C:'#ACD5DC',D:'#E6BD91',TCC:'#E6BD91',coffee:'#F4D982',entry:'#B8DDD5',neutral:'#EEE9DB'}},
@@ -155,6 +155,12 @@ function registrationLocation(floor,day=currentDay()){
  if(day.venue!=='wwh'&&floor===4)return {point:[65,385],subtitle:'Kimmel · Solarium 409',description:'Solarium 409, fourth floor.'};
  return null;
 }
+function confirmedCoffeeLocations(day=currentDay()){
+ if(day.venue==='wwh')return [];
+ const sites=[{id:'solarium',room:'Solarium 409',number:'409',floor:4,mapPoint:[200,385],breakfastDays:['tuesday','wednesday']}];
+ if(day.id!=='sunday-late')sites.push({id:'912',room:'Room 912',number:'912',floor:9,mapPoint:[220,267.5],breakfastDays:['tuesday']});
+ return sites;
+}
 function baseRooms(floor,day=currentDay()){
  if(floor===1)return [{id:'entry',title:'Entrance',short:'Entrance',subtitle:'60 Washington Square South',description:(day.id==='sunday-late'?'Sunday: use the main entrance on Washington Square South, facing Washington Square Park. Follow the dotted path around the staircase to the elevators.':'Monday–Friday: use the event entrance on Washington Square South. Follow the dotted path around the staircase to the elevators.')+' Bring a valid government ID. The elevators serve the conference floors.',color:COLORS.entry}];
  if(floor===4){const a=[];if(day.focs){a.push({id:'A',title:'Track A',short:'Track A',subtitle:'Eisner & Lubin Auditorium',description:'Fourth floor · Eisner & Lubin Auditorium.',color:COLORS.A},{id:'B',title:'Track B',short:'Track B',subtitle:'Rooms 405/406',description:'Fourth floor · Rooms 405/406, along the Washington Square South side. A hallway separates these rooms from the auditorium.',color:COLORS.B});a.push({id:'solarium',service:'coffee',title:'Solarium 409',short:'Coffee · 409',subtitle:'Coffee / refreshments',description:'Fourth floor · Solarium 409. Coffee / refreshments.',color:COLORS.coffee});}return a;}
@@ -216,20 +222,24 @@ function rooms(floor,day=currentDay()){
    }
   }
  }
+ for(const site of confirmedCoffeeLocations(day).filter(site=>site.floor===floor)){
+  const details={id:site.id,service:'coffee',serviceConfirmed:true,title:site.room,short:`Coffee · ${site.number}`,subtitle:'Coffee / refreshments',description:`${site.room} · Floor ${site.floor}. Coffee / refreshments.${site.breakfastDays.includes(day.id)?' Breakfast is also served here.':''}`,color:COLORS.coffee,mapPoint:site.mapPoint};
+  const existing=list.find(room=>room.id===site.id);if(existing)Object.assign(existing,details);else list.push(details);
+ }
  const registration=registrationLocation(floor,day);if(registration)list.push({id:'registration',kind:'registration',title:'Registration',short:'Registration',subtitle:registration.subtitle,description:registration.description,mapPoint:registration.point,color:COLORS.entry});
  const bathroom=restroomInfo(floor,day);if(bathroom)list.push({id:'restrooms',kind:'restrooms',title:venue==='wwh'?'All-gender restrooms':'Restrooms',short:venue==='wwh'?'All-gender restrooms':'Restrooms',subtitle:venue==='wwh'?'WWH · First floor':`Kimmel · Floor ${floor}`,description:bathroom.description,color:COLORS.neutral});
- return list.filter(room=>!room.obsolete&&!(ROOM_DATA.source&&room.service&&!room.hold));
+ return list.filter(room=>!room.obsolete&&!(ROOM_DATA.source&&room.service&&!room.hold&&!room.serviceConfirmed));
 }
 function lunchDestination(day=currentDay()){
  if(day.id==='sunday-late')return null;
  const meals=PROGRAM_DATA?.days.find(item=>item.id===day.id)?.sessions.filter(session=>session.kind==='meal'&&/^Lunch\b/i.test(session.title))||[];
- if(day.venue==='wwh'&&meals.length)return {floor:1,roomId:'crosshall',title:'Lunch',subtitle:'WWH · Crosshall',description:'Food is staged in the crosshall, outside room 109.'};
+ if(day.venue==='wwh'&&meals.length)return {floor:1,roomId:'crosshall',title:'Breakfast / lunch',subtitle:'WWH · Crosshall',description:'Food is staged in the crosshall, outside room 109.'};
  const published=meals.find(session=>session.venueId==='kimmel'&&session.floor&&session.room);
  // Monday's missing location was confirmed by the organizer; keep public times.
  const meal=published||(day.id==='monday'&&meals[0]?{...meals[0],floor:10,room:'Rosenthal Pavilion'}:null);
  if(!meal)return null;
  const roomId=geometryRoom(meal.room);if(!roomId)return null;
- return {floor:meal.floor,roomId,title:'Lunch',subtitle:`${meal.room} · Floor ${meal.floor}`,description:`${holdTime(meal.start)}–${holdTime(meal.end)}${roomId==='solarium'?' · Boxed-lunch pickup.':''}`};
+ return {floor:meal.floor,roomId,title:'Breakfast / lunch',subtitle:`${meal.room} · Floor ${meal.floor}`,description:`Lunch: ${holdTime(meal.start)}–${holdTime(meal.end)}${roomId==='solarium'?' · Boxed-lunch pickup.':''}`};
 }
 function restroomHighlights(floor){
  if(state.room!=='restrooms')return '';
@@ -302,7 +312,7 @@ function foodFriend(kind='coffee',attributes=''){
 }
 function floorSummary(floor){
  if(venueId()==='wwh')return floor===1?['A · B · C','Reg · Food · Coffee']:[];
- if(currentDay().id==='sunday-late')return floor===4?['AI & TCS','Reg']:floor===8?['802']:[];
+ if(currentDay().id==='sunday-late')return floor===4?['AI & TCS','Coffee · Reg']:floor===8?['802']:[];
  const available=rooms(floor),tracks=[...new Set(available.flatMap(room=>room.programTracks||(['A','B','C','D','TCC'].includes(room.id)?[room.id]:[])))];
  const service=available.some(r=>r.id==='shorin')?'802':available.some(room=>room.service==='coffee')?'Coffee':available.some(room=>room.service==='food')?'Food':'';
  return [tracks.join(' · '),[service,available.some(room=>room.kind==='registration')?'Reg':''].filter(Boolean).join(' · ')].filter(Boolean);
@@ -351,8 +361,8 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   if(labels)markup+=text(24,28,'901',11)+text(234,40,'903',11)+text(124,40,'Lounge · north',12);
   markup+=selectable('C',rect(180,75,80,110,has('C')?roomColor('C','C'):'neutral')+(labels?labelLines(220,110,['905',has('C')?roomLabel('C','Track C'):'','907'],13):''));
   markup+=`<path d="M180 130 H260" stroke="#93b5aa" stroke-dasharray="5 4"/>`;
-  markup+=selectable('909',rect(180,185,80,55,has('909')?roomColor('909','entry'):'neutral'))+selectable('912',rect(180,240,80,55,has('912')?'entry':'neutral'));
-  if(labels)markup+=text(220,218,'909',12)+text(220,273,'912',12);
+  const coffee912=active.some(room=>room.id==='912'&&room.service==='coffee');
+  markup+=selectable('909',rect(180,185,80,55,has('909')?roomColor('909','entry'):'neutral')+(labels?text(220,218,'909',12):''))+selectable('912',rect(180,240,80,55,has('912')?roomColor('912','entry'):'neutral')+(labels?text(220,coffee912?255:273,'912',12)+(coffee912?foodFriend('coffee','x="205" y="260" width="30" height="30"'):''):''));
   [904,906,908,910].forEach((n,i)=>{markup+=selectable(String(n),rect(80,75+i*44,57,44,has(String(n))?roomColor(String(n),'entry'):'neutral'));if(labels)markup+=text(108,102+i*44,String(n),11);});
   const endId=day.tcc?'TCC':'D';markup+=selectable(endId,rect(100,310,160,90,has(endId)?roomColor(endId,COLORS[endId]):'neutral')+(labels?labelLines(180,345,[has(endId)?roomLabel(endId,day.tcc?'TCC':'Track D'):'Room','914'],16):''));
   markup+=elevator(labels)+rect(-35,220,63,50);
@@ -571,9 +581,11 @@ function updateDiagramLabels(){
  }
  amenity.hidden=!kind;
  if(kind){
+  amenity.dataset.serviceRoom=lunchSelected?lunch.roomId:serviceRoom.id;
   amenity.innerHTML=(lunchSelected?[kind]:serviceRoom.amenities||[kind]).map(item=>foodFriend(item)).join('');
   const layer=source.querySelector(`[data-level="${state.floor}"]`),shift=new DOMMatrix(getComputedStyle(layer).transform).m42;
-  const[x,y]=p(...(venueId()==='wwh'?[210,262]:kind==='coffee'||(lunchSelected&&lunch.roomId==='solarium')?[200,385]:[153,228]),baseFor(state.floor)+shift);
+  const point=venueId()==='wwh'?[210,262]:lunchSelected?(lunch.roomId==='solarium'?[200,385]:[153,228]):serviceRoom.mapPoint||(kind==='coffee'?[200,385]:[153,228]);
+  const[x,y]=p(...point,baseFor(state.floor)+shift);
   amenity.style.left=`${(x+45)*width/750}px`;amenity.style.top=`${(y+35)*height/965}px`;
  }
  const drawnRooms=[...source.querySelectorAll('.selected-floor .svg-room[data-room]')];

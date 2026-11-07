@@ -95,3 +95,6 @@ body .room-fill.wwh-crosshall{stroke:none}
 /* WC selects its location in place, like the other map destinations. */
 .diagram-restroom-badge[aria-pressed=true]>span{background:var(--teal);color:var(--paper);border-color:var(--teal);box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--teal)}
 .restroom-marker.is-selected>rect{stroke:var(--teal);stroke-width:3;fill:var(--mint)}
+
+/* A smaller centered coffee marker keeps912 clear of the neighboring track label. */
+.diagram-amenity[data-service-room="912"]{width:24px;height:24px;transform:translate(-50%,-25%)}
