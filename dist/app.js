@@ -224,10 +224,12 @@ function lunchDestination(day=currentDay()){
  if(day.id==='sunday-late')return null;
  const meals=PROGRAM_DATA?.days.find(item=>item.id===day.id)?.sessions.filter(session=>session.kind==='meal'&&/^Lunch\b/i.test(session.title))||[];
  if(day.venue==='wwh'&&meals.length)return {floor:1,roomId:'crosshall',title:'Lunch',subtitle:'WWH · Crosshall',description:'Food is staged in the crosshall, outside room 109.'};
- const meal=meals.find(session=>session.venueId==='kimmel'&&session.floor&&session.room);
+ const published=meals.find(session=>session.venueId==='kimmel'&&session.floor&&session.room);
+ // Monday's missing location was confirmed by the organizer; keep public times.
+ const meal=published||(day.id==='monday'&&meals[0]?{...meals[0],floor:10,room:'Rosenthal Pavilion'}:null);
  if(!meal)return null;
  const roomId=geometryRoom(meal.room);if(!roomId)return null;
- return {floor:meal.floor,roomId,title:day.focs&&day.tcc&&meal.conference==='TCC'?'TCC lunch':'Lunch',subtitle:`${meal.room} · Floor ${meal.floor}`,description:`${holdTime(meal.start)}–${holdTime(meal.end)}${roomId==='solarium'?' · Boxed-lunch pickup.':''}`};
+ return {floor:meal.floor,roomId,title:'Lunch',subtitle:`${meal.room} · Floor ${meal.floor}`,description:`${holdTime(meal.start)}–${holdTime(meal.end)}${roomId==='solarium'?' · Boxed-lunch pickup.':''}`};
 }
 function restroomHighlights(floor){
  if(state.room!=='restrooms')return '';
@@ -260,7 +262,7 @@ function wwhPlan(floor,{labels=true,outlines=true}={}){
  s+=rect(14,205,51,35,P.floor)+rect(76,216,15,24,P.closed)+rect(78,219,11,11,P.glass);
  // A feathered wash marks food/coffee in the open crosshall, not another room.
  const hallWash=`wwh-crosshall-${labels?'plan':'iso'}`;
- s+=`<defs><radialGradient id="${hallWash}"><stop offset="0" stop-color="${color('crosshall')}" stop-opacity=".36"/><stop offset=".65" stop-color="${color('crosshall')}" stop-opacity=".18"/><stop offset="1" stop-color="${color('crosshall')}" stop-opacity="0"/></radialGradient></defs>`;
+ s+=`<defs><radialGradient id="${hallWash}"><stop offset="0" stop-color="${color('crosshall')}" stop-opacity=".85"/><stop offset=".65" stop-color="${color('crosshall')}" stop-opacity=".55"/><stop offset="1" stop-color="${color('crosshall')}" stop-opacity="0"/></radialGradient></defs>`;
  s+=selectable('crosshall',`<path class="room-fill wwh-crosshall" d="M0 240 H238 V300 H0 Z" fill="url(#${hallWash})" fill-opacity="${state.room==='crosshall'?1:0}"/>`+(labels?text(130,260,'Crosshall',12)+text(130,282,'Food & coffee',14)+foodFriend('food','x="45" y="256" width="26" height="26"')+foodFriend('coffee','x="185" y="256" width="26" height="26"'):''));
  s+=room('109','M0 300 H260 V400 H0 Z',130,342,'A');
  s+=`<path d="M42 300 H218" stroke="${P.wood}" stroke-width="7"/>`;
