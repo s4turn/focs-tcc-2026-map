@@ -223,7 +223,7 @@ function rooms(floor,day=currentDay()){
   }
  }
  for(const site of confirmedCoffeeLocations(day).filter(site=>site.floor===floor)){
-  const details={id:site.id,service:'coffee',serviceConfirmed:true,title:site.room,short:`Coffee · ${site.number}`,subtitle:'Coffee / refreshments',description:`${site.room} · Floor ${site.floor}. Coffee / refreshments.${site.breakfastDays.includes(day.id)?' Breakfast is also served here.':''}`,color:COLORS.coffee,mapPoint:site.mapPoint};
+  const details={id:site.id,service:'coffee',serviceConfirmed:true,title:site.room,short:`Coffee · ${site.number}`,subtitle:'Coffee / refreshments',description:`${site.room} · Floor ${site.floor}. Coffee / refreshments.${site.breakfastDays.includes(day.id)?' Breakfast is also served here.':''}${day.id==='tuesday'?' Lunch is only in Solarium 409, floor 4.':''}`,color:COLORS.coffee,mapPoint:site.mapPoint};
   const existing=list.find(room=>room.id===site.id);if(existing)Object.assign(existing,details);else list.push(details);
  }
  const registration=registrationLocation(floor,day);if(registration)list.push({id:'registration',kind:'registration',title:'Registration',short:'Registration',subtitle:registration.subtitle,description:registration.description,mapPoint:registration.point,color:COLORS.entry});
@@ -254,7 +254,7 @@ function lunchDestination(day=currentDay()){
  const meal=published||(day.id==='monday'&&meals[0]?{...meals[0],floor:10,room:'Rosenthal Pavilion'}:null);
  if(!meal)return null;
  const roomId=geometryRoom(meal.room);if(!roomId)return null;
- return {floor:meal.floor,roomId,title:'Breakfast / lunch',subtitle:`${meal.room} · Floor ${meal.floor}`,description:`Lunch: ${holdTime(meal.start)}–${holdTime(meal.end)}${roomId==='solarium'?' · Boxed-lunch pickup.':''}`};
+ return {floor:meal.floor,roomId,title:'Breakfast / lunch',subtitle:`${meal.room} · Floor ${meal.floor}`,description:`Lunch: ${holdTime(meal.start)}–${holdTime(meal.end)}${roomId==='solarium'?' · Boxed-lunch pickup.':''}${day.id==='tuesday'?' Breakfast is in 409 (floor 4) and 912 (floor 9); lunch is only in 409.':''}`};
 }
 function restroomHighlights(floor){
  if(state.room!=='restrooms')return '';
