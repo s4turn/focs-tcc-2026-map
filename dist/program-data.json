@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-07T14:55:28-05:00",
+  "generatedAt": "2026-11-07T15:47:52-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -415,7 +415,26 @@
           "floor": 4,
           "venueId": "kimmel",
           "url": "https://focs.computer.org/2026/main-program/",
-          "papers": [],
+          "papers": [
+            {
+              "id": "sunday-ai-talk-1",
+              "title": "Keynote with Daniel Litt",
+              "authors": "Daniel Litt",
+              "order": 1,
+              "start": null,
+              "end": null,
+              "url": "https://aaroth.github.io/tcs-ai-focs-2026/#schedule"
+            },
+            {
+              "id": "sunday-ai-talk-2",
+              "title": "Panel: the future of TCS and AI",
+              "authors": "Daniel Litt; Nikhil Srivastava; Barna Saha; Dan Spielman; Pravesh Kothari",
+              "order": 2,
+              "start": null,
+              "end": null,
+              "url": "https://aaroth.github.io/tcs-ai-focs-2026/#schedule"
+            }
+          ],
           "relatedLinks": [
             {
               "label": "Workshop website",

@@ -54,6 +54,16 @@ body:is([data-style=pixel],[data-style=hacker],[data-style=apocalypse]) .program
 .program-paper-detail{grid-column:2;grid-row:1;position:sticky;top:18px;background:var(--surface);border:1px solid var(--line);padding:23px;border-radius:20px;min-width:0}
 .program-paper-detail h3{font-size:24px;line-height:1.28;overflow-wrap:anywhere}.program-paper-authors{font-size:16px;line-height:1.6;margin-top:15px;overflow-wrap:anywhere}.program-paper-where{margin-top:20px;display:grid;gap:7px;font-size:15px}.program-paper-where strong{font-weight:700}.program-paper-note{font-size:13px;line-height:1.5;color:var(--quiet);margin-top:16px}.program-paper-link{display:inline-flex;align-items:center;min-height:48px;font-weight:650;font-size:16px;margin-top:12px;overflow-wrap:anywhere}
 .program-paper-list{grid-column:1;grid-row:1;display:grid;gap:10px;min-width:0;position:relative}
+.program-workshop-detail{position:static}
+.program-workshop-list{position:relative;min-width:0}
+.program-workshop-agenda{list-style:decimal;padding-inline-start:1.6em;margin:0}
+.program-workshop-item{padding:16px 0;border-bottom:1px solid var(--line);min-width:0}
+.program-workshop-item:first-child{padding-top:0}.program-workshop-item:last-child{padding-bottom:0;border-bottom:0}
+.program-workshop-item::marker{color:var(--quiet);font-weight:650}
+.program-workshop-title{display:block;font-size:17px;line-height:1.45;overflow-wrap:anywhere}
+.program-workshop-speakers{font-size:15px;line-height:1.5;color:var(--quiet);margin:6px 0 0;overflow-wrap:anywhere}
+.program-workshop-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px;margin-top:18px}
+.program-workshop-actions .program-paper-link{margin-top:0}
 .program-paper-now-line{position:absolute;left:0;right:0;border-top:2px solid var(--now-color);pointer-events:none;z-index:3;transform:translateY(-1px)}
 .program-paper-now-line[hidden],.program-session-status[hidden]{display:none!important}
 .program-session-status{font-size:14px;color:var(--quiet);line-height:1.5;margin-top:11px}
