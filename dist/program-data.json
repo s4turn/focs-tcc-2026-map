@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-08T11:00:19-05:00",
+  "generatedAt": "2026-11-08T13:20:49-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -1438,7 +1438,7 @@
           "room": "405/406",
           "floor": 4,
           "venueId": "kimmel",
-          "chair": "Josh Alman",
+          "chair": "Or Zamir",
           "url": "https://focs.computer.org/2026/main-program/#monday",
           "papers": [
             {
@@ -3709,14 +3709,14 @@
           "url": "https://focs.computer.org/2026/main-program/#wednesday",
           "papers": [
             {
-              "id": "focs-10c-paper-1",
-              "title": "Fast Insertion for Bucketized Cuckoo Hashing",
-              "authors": "Tolson Bell, William Kuszmaul (Carnegie Mellon University)",
+              "id": "focs-10c-paper-3",
+              "title": "The communication complexity of distributed estimation",
+              "authors": "Parikshit Gopalan (Apple); Raghu Meka (UCLA); Prasad Raghavendra, Mihir Singhal (UC Berkeley); Avi Wigderson (Institute for Advanced Study)",
               "start": "17:32",
               "end": "17:50",
-              "abstract": "Bucketized cuckoo hashing is a practically efficient hash table scheme in which each object u is stored in one of two buckets h_1(u), h_2(u) of capacity ℓ. For any bucket size ℓ∊N, there is a threshold ε^*(ℓ)=(2/e)^ℓ poly(ℓ) for which there exists a way to fill the hash table to any load factor less than 1-ε^* with low probability of an error. Queries and deletions only need to check two buckets to find whether an object exists. Our contribution is to give a new insertion procedure for bucketized cuckoo hashing. For any δ∊[.99^ℓ,1], our algorithm can fill the hash table to load factor 1-ε=1-(1+δ)(ε^*) with an expected run time of O(δ^-1(ε^*)^-1) per insertion. This gives the first poly(ε^-1) insertion time bound, and the first f(ε^-1) time bound for load factors that are very close to the optimal threshold. Additionally, our algorithm (which can be viewed as a variation of the classic random-walk algorithm) comes with a very strong amortized guarantee: it performs O(1) amortized expected evictions per insertion. Furthermore, we show that the traditional random-walk algorithm cannot match this guarantee. Finally, our insertion protocol also comes with the feature that, for any key u in the hash table, the query algorithm can guess which of the two bins h_1(u), h_2(u) the key u is in with probability 1 - o(1) of being correct. Thus positive queries can complete in 1 + o(1) expected bin accesses.",
-              "publicPaperUrl": "https://arxiv.org/abs/2607.24545",
-              "url": "https://arxiv.org/abs/2607.24545"
+              "abstract": "We study an extension of the standard two-party communication model in which Alice and Bob hold probability distributions p and q over domains X and Y, respectively. Their goal is to estimate E[f(x, y)], where x ~ p and y ~ q, to within additive error ε for a bounded function f, known to both parties. We refer to this as the distributed estimation problem. Special cases of this problem arise in a variety of areas including sketching, databases and learning. Our goal is to understand how the required communication scales with the communication complexity of f and the error parameter ε. The naive random sampling approach-estimating the mean by averaging f over O(1/ε^2) random samples-requires O(R(f)/ε^2) total communication, where R(f) is the randomized communication complexity of f. We ask if and when one can do better. This question reveals a surprisingly rich landscape, requiring new techniques and with subtle connections to classical communication complexity. (1) Debiasing protocol. We design a new debiasing protocol for arbitrary bounded functions that gives better variance reduction than random sampling, and requires communication linear in 1/ε rather than quadratic. (2) Better protocols for specific functions. For the equality (EQ) and greater-than (GT) functions, we obtain an upper bound of Õ(R(f)/ε^(2/3)). (Õ notation hides polylogarithmic factors in 1/ε.) When f: [0,1]^2 → [0,1] is Lipschitz, the communication can be reduced to Õ(1/√ε), with even stronger bounds under higher smoothness assumptions. (3) Spectral lower bounds. We develop a novel spectral method to lower bound the ε-dependence for arbitrary f, which yields tight bounds for all the functions above. For any full-rank Boolean matrix, we show that the communication complexity is at least Ω(1/ε^(2/3)), showing that EQ is essentially the easiest full-rank Boolean function. (4) Discrepancy-based lower bounds. For any Boolean function f with sufficiently high discrepancy, we prove a lower bound of Ω(R(f)/ε), building on machinery from query-to-communication lifting. (5) Random sampling versus debiasing. Our debiasing protocol requires communication Õ(R^ow(f)/ε), where R^ow(f) bounds the one-way communication cost of f in either direction, compared to Õ(R(f)/ε^2) for random sampling. We construct a function where the upper bound min(R(f)/ε^2, R^ow(f)/ε) is tight, ruling out O(R(f)/ε) as an upper bound.",
+              "publicPaperUrl": "https://arxiv.org/abs/2511.21015",
+              "url": "https://arxiv.org/abs/2511.21015"
             },
             {
               "id": "focs-10c-paper-2",
@@ -3729,14 +3729,14 @@
               "url": "https://arxiv.org/abs/2604.04159"
             },
             {
-              "id": "focs-10c-paper-3",
-              "title": "The communication complexity of distributed estimation",
-              "authors": "Parikshit Gopalan (Apple); Raghu Meka (UCLA); Prasad Raghavendra, Mihir Singhal (UC Berkeley); Avi Wigderson (Institute for Advanced Study)",
+              "id": "focs-10c-paper-1",
+              "title": "Fast Insertion for Bucketized Cuckoo Hashing",
+              "authors": "Tolson Bell, William Kuszmaul (Carnegie Mellon University)",
               "start": "18:08",
               "end": "18:26",
-              "abstract": "We study an extension of the standard two-party communication model in which Alice and Bob hold probability distributions p and q over domains X and Y, respectively. Their goal is to estimate E[f(x, y)], where x ~ p and y ~ q, to within additive error ε for a bounded function f, known to both parties. We refer to this as the distributed estimation problem. Special cases of this problem arise in a variety of areas including sketching, databases and learning. Our goal is to understand how the required communication scales with the communication complexity of f and the error parameter ε. The naive random sampling approach-estimating the mean by averaging f over O(1/ε^2) random samples-requires O(R(f)/ε^2) total communication, where R(f) is the randomized communication complexity of f. We ask if and when one can do better. This question reveals a surprisingly rich landscape, requiring new techniques and with subtle connections to classical communication complexity. (1) Debiasing protocol. We design a new debiasing protocol for arbitrary bounded functions that gives better variance reduction than random sampling, and requires communication linear in 1/ε rather than quadratic. (2) Better protocols for specific functions. For the equality (EQ) and greater-than (GT) functions, we obtain an upper bound of Õ(R(f)/ε^(2/3)). (Õ notation hides polylogarithmic factors in 1/ε.) When f: [0,1]^2 → [0,1] is Lipschitz, the communication can be reduced to Õ(1/√ε), with even stronger bounds under higher smoothness assumptions. (3) Spectral lower bounds. We develop a novel spectral method to lower bound the ε-dependence for arbitrary f, which yields tight bounds for all the functions above. For any full-rank Boolean matrix, we show that the communication complexity is at least Ω(1/ε^(2/3)), showing that EQ is essentially the easiest full-rank Boolean function. (4) Discrepancy-based lower bounds. For any Boolean function f with sufficiently high discrepancy, we prove a lower bound of Ω(R(f)/ε), building on machinery from query-to-communication lifting. (5) Random sampling versus debiasing. Our debiasing protocol requires communication Õ(R^ow(f)/ε), where R^ow(f) bounds the one-way communication cost of f in either direction, compared to Õ(R(f)/ε^2) for random sampling. We construct a function where the upper bound min(R(f)/ε^2, R^ow(f)/ε) is tight, ruling out O(R(f)/ε) as an upper bound.",
-              "publicPaperUrl": "https://arxiv.org/abs/2511.21015",
-              "url": "https://arxiv.org/abs/2511.21015"
+              "abstract": "Bucketized cuckoo hashing is a practically efficient hash table scheme in which each object u is stored in one of two buckets h_1(u), h_2(u) of capacity ℓ. For any bucket size ℓ∊N, there is a threshold ε^*(ℓ)=(2/e)^ℓ poly(ℓ) for which there exists a way to fill the hash table to any load factor less than 1-ε^* with low probability of an error. Queries and deletions only need to check two buckets to find whether an object exists. Our contribution is to give a new insertion procedure for bucketized cuckoo hashing. For any δ∊[.99^ℓ,1], our algorithm can fill the hash table to load factor 1-ε=1-(1+δ)(ε^*) with an expected run time of O(δ^-1(ε^*)^-1) per insertion. This gives the first poly(ε^-1) insertion time bound, and the first f(ε^-1) time bound for load factors that are very close to the optimal threshold. Additionally, our algorithm (which can be viewed as a variation of the classic random-walk algorithm) comes with a very strong amortized guarantee: it performs O(1) amortized expected evictions per insertion. Furthermore, we show that the traditional random-walk algorithm cannot match this guarantee. Finally, our insertion protocol also comes with the feature that, for any key u in the hash table, the query algorithm can guess which of the two bins h_1(u), h_2(u) the key u is in with probability 1 - o(1) of being correct. Thus positive queries can complete in 1 + o(1) expected bin accesses.",
+              "publicPaperUrl": "https://arxiv.org/abs/2607.24545",
+              "url": "https://arxiv.org/abs/2607.24545"
             },
             {
               "id": "focs-10c-paper-4",
