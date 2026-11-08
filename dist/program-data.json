@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-08T03:00:25-05:00",
+  "generatedAt": "2026-11-08T11:00:19-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -342,36 +342,36 @@
               "url": "https://quasirandomness-focs2026.github.io/"
             },
             {
-              "id": "sunday-quasirandomness-talk-2",
-              "title": "Sparse Graph Counting and Applications to Systems of Linear Forms",
-              "authors": "Esty Kelman",
+              "id": "sunday-quasirandomness-talk-3",
+              "title": "Graph Quasirandomness for Hypothesis Testing of Stochastic Block Models",
+              "authors": "Kiril Bangachev",
               "order": 2,
               "start": "13:20",
               "end": "13:45",
               "url": "https://quasirandomness-focs2026.github.io/"
             },
             {
-              "id": "sunday-quasirandomness-talk-3",
-              "title": "Graph Quasirandomness for Hypothesis Testing of Stochastic Block Models",
-              "authors": "Kiril Bangachev",
+              "id": "sunday-quasirandomness-talk-4",
+              "title": "k-Coloring in Average Sublinear Time via Quasirandomness",
+              "authors": "Ted Pyne",
               "order": 3,
               "start": "13:45",
               "end": "14:10",
               "url": "https://quasirandomness-focs2026.github.io/"
             },
             {
-              "id": "sunday-quasirandomness-talk-4",
-              "title": "k-Coloring in Average Sublinear Time via Quasirandomness",
-              "authors": "Ted Pyne",
+              "id": "sunday-quasirandomness-talk-5",
+              "title": "Short cycle removal and applications in hardness of approximation",
+              "authors": "Or Zamir",
               "order": 4,
               "start": "14:10",
               "end": "14:35",
               "url": "https://quasirandomness-focs2026.github.io/"
             },
             {
-              "id": "sunday-quasirandomness-talk-5",
-              "title": "Short cycle removal and applications in hardness of approximation",
-              "authors": "Or Zamir",
+              "id": "sunday-quasirandomness-talk-2",
+              "title": "Sparse Graph Counting and Applications to Systems of Linear Forms",
+              "authors": "Esty Kelman",
               "order": 5,
               "start": "14:35",
               "end": "15:00",
