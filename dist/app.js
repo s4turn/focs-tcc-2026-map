@@ -667,6 +667,7 @@ function render(){
  if(state.room==='free-space'&&!validRoomSelection())state.room=rooms(state.floor)[0]?.id||null;
  document.body.dataset.venue=venueId();
  const wifi=$('wwh-wifi');if(wifi)wifi.hidden=venueId()!=='wwh';
+ const kimmelWifi=$('kimmel-wifi');if(kimmelWifi)kimmelWifi.hidden=venueId()!=='kimmel';
  document.body.dataset.dayIsAutomatic=String(state.automaticDay);
  document.querySelector('.brand-mark').textContent=venueId()==='wwh'?'w.':'k.';
  document.title=`${venueId()==='wwh'?'WWH':'Kimmel'} · Find your ${document.body.dataset.view==='program'?'session':'floor'}`;
