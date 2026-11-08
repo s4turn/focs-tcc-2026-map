@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-07T15:47:52-05:00",
+  "generatedAt": "2026-11-08T03:00:25-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -181,7 +181,7 @@
             },
             {
               "id": "sunday-performative-talk-4",
-              "title": "Performativity and Economics",
+              "title": "Performative Prediction beyond Optimization",
               "authors": "Celestine Mendler-Dünner",
               "order": 4,
               "start": "11:00",
@@ -3574,6 +3574,21 @@
           "floor": null,
           "venueId": "kimmel",
           "url": "https://focs.computer.org/2026/main-program/#wednesday",
+          "papers": []
+        },
+        {
+          "id": "tcc-session-110",
+          "conference": "TCC",
+          "kind": "plenary",
+          "track": "TCC",
+          "title": "Business Meeting",
+          "theme": "Business Meeting",
+          "start": "17:30",
+          "end": "18:00",
+          "room": "914 COMBO",
+          "floor": 9,
+          "venueId": "kimmel",
+          "url": "https://tcc.iacr.org/2026/program.php#day-2026-11-11",
           "papers": []
         },
         {
