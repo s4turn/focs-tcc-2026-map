@@ -125,9 +125,9 @@ const holdTime=value=>{const[h,m]=value.split(':').map(Number);return `${h%12||1
 const usesPixels=()=>state.style==='pixel'||state.style==='apocalypse';
 const RESTROOMS={
  1:{points:[],description:'Single-stall restroom behind the main elevators. NYU lists this restroom as not wheelchair accessible.'},
- 4:{points:[[-4,244]],description:'Restrooms just south of the main elevator bank, on the west side of the floor.'},
+ 4:{points:[[-20,205]],description:'Restrooms are west of the hallway, just south of the western elevator bank.'},
  8:{points:[[-4,244]],description:'Restrooms just south of the main elevator bank, on the west side of the floor.'},
- 9:{points:[[-4,244]],description:'Restrooms just south of the main elevator bank, on the west side of the floor.'},
+ 9:{points:[[-20,205]],description:'Restrooms are west of the hallway, just south of the western elevator bank.'},
  10:{points:[[-4,246],[68,246]],description:'Restrooms on both sides of the corridor just south of the main elevator bank, beside Rosenthal Pavilion.'}
 };
 const restroomInfo=(floor=state.floor,day=currentDay())=>day.venue==='wwh'?{points:[[39,221]],description:'Adjacent to the snack machine.'}:RESTROOMS[floor];
@@ -336,6 +336,38 @@ function rect(x,y,w,h,fill='neutral',extra=''){return `<rect x="${x}" y="${y}" w
 function text(x,y,label,size=14,extra=''){return `<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="#493a55" ${extra}>${esc(label)}</text>`;}
 function labelLines(x,y,lines,size=14){return `<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="#493a55" font-weight="650">${lines.map((line,i)=>`<tspan x="${x}" dy="${i?Math.round(size*1.35):0}">${esc(line)}</tspan>`).join('')}</text>`;}
 function elevator(topdown=true){return `<g>${rect(-37,82,65,83,'#e9e1ed')}${[[-29,91],[3,91],[-29,133],[3,133]].map(([x,y])=>rect(x,y,23,31,'#fffaf4')).join('')}${topdown?labelLines(-4,194,['Elevators'],12):''}</g>`;}
+// Floors 4 and 9 have opposing lift banks, with circulation between them.
+// The Global Center spur is schematic; its interior room geometry is not known.
+const FOURTH_FLOOR_OUTLINE='M0 0 H260 V400 H0 V275 H-115 V240 H-45 V65 H0 Z';
+function facingElevatorBanks(labels=true){
+ let s='<g class="facing-elevator-banks">';
+ for(const [x,facing] of [[-37,'east'],[24,'west']]){
+  s+=`<g class="opposing-elevator-bank" data-facing="${facing}" role="img" aria-label="Elevator bank facing ${facing}">${rect(x,82,35,83,'#e9e1ed')}`;
+  for(const y of [90,132])s+=rect(x+6,y,23,31,'#fffaf4')+`<path d="M${facing==='east'?x+30:x+5} ${y+8} v15" fill="none" stroke="${P.glass}" stroke-width="3"/>`;
+  s+='</g>';
+ }
+ if(labels)s+=text(11,124,'Elevators',11,'transform="rotate(-90 11 124)"');
+ return s+'</g>';
+}
+function mainCoreRestrooms(){return `<g class="main-core-restrooms">${rect(-37,175,35,60)}<path d="M-37 205 H-2" fill="none" stroke="${P.line}" stroke-width="1"/></g>`;}
+function fourthFloorCore(labels=true){
+ let s=`<g class="fourth-floor-core"><path class="fourth-main-corridor" d="M11 66 V237" fill="none" stroke="${P.line}" stroke-width="1.2" stroke-dasharray="3 5"/>`;
+ s+=facingElevatorBanks(labels);
+ s+=mainCoreRestrooms();
+ s+=`<path class="global-center-route" d="M11 237 V255 H-109 m7 -5 -7 5 7 5" fill="none" stroke="${P.primary}" stroke-width="1.6" stroke-dasharray="4 4" stroke-linecap="round" stroke-linejoin="round"/>`;
+ if(labels)s+=labelLines(-68,298,['Global Center','hallway'],11);
+ return s+'</g>';
+}
+function ninthFloorCore(labels=true){
+ // Open circulation wraps around the inner room/service column. Both sides
+ // join the north lounge and the crosshall in front of room 914.
+ let s=`<g class="ninth-floor-core"><path class="ninth-hallways" d="M11 65 H158 V285 H11 Z" fill="none" stroke="${P.line}" stroke-width="1.2" stroke-dasharray="3 5"/>`;
+ // The east bank backs onto the inner room/service block, not another passage.
+ s+=`<path class="room-fill core-service-block" d="M59 75 H80 V251 H24 V166 H59 Z" fill="${P.wall}"/><path d="M24 207 H80" fill="none" stroke="${P.line}" stroke-width="1"/>`;
+ s+=facingElevatorBanks(labels)+mainCoreRestrooms();
+ if(labels)s+=text(158,186,'Hallway',11,'transform="rotate(-90 158 186)"')+text(91,284,'Hallway',11);
+ return s+'</g>';
+}
 function selectable(id,body){
  // The first fill is the room footprint; later fills may be furniture or a stage.
  const marked=body.replace(/<(?:path|rect)\b[^>]*class="[^"]*\broom-fill\b[^"]*"[^>]*\/>/,shape=>shape.replace(/\/>$/,` data-room-boundary="${esc(id)}"/>`));
@@ -354,7 +386,7 @@ function roomOutlines(markup){
 function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
  if((day.venue||'kimmel')==='wwh')return wwhPlan(floor,{labels,outlines});
  const active=rooms(floor,day);const has=id=>active.some(r=>r.id===id);const roomLabel=(id,fallback)=>active.find(r=>r.id===id)?.planLabel||fallback;const roomColor=(id,fallback)=>active.find(r=>r.id===id)?.color||fallback;
- let markup=`<path class="floor-slab" d="${floor===1?'M0 0 H260 V400 H0 Z':'M0 0 H260 V400 H0 V270 H-45 V65 H0 Z'}" fill="#fffaf3" stroke="#c7bacd" stroke-width="2"/>`;
+ let markup=`<path class="floor-slab" d="${floor===1?'M0 0 H260 V400 H0 Z':floor===4?FOURTH_FLOOR_OUTLINE:'M0 0 H260 V400 H0 V270 H-45 V65 H0 Z'}" fill="#fffaf3" stroke="#c7bacd" stroke-width="2"/>`;
  if(floor===4){
   markup+=selectable('B',rect(0,0,260,55,has('B')?roomColor('B','B'):'neutral')+(labels?`${text(63,22,'406',13)}${text(195,22,'405',13)}${text(130,44,has('B')?roomLabel('B','Track B'):'405 / 406',15,'font-weight="700"')}`:''));
   markup+=`<path d="M130 0 V55" stroke="#ad9292" stroke-dasharray="5 4"/>`;
@@ -362,7 +394,7 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   markup+=rect(67,304,166,49,has('A')?'#b9a4cc':'#ddd5df');
   if(labels){markup+=labelLines(150,172,has('A')?[roomLabel('A',day.id==='sunday-late'?'AI & TCS':'Track A'),'Eisner & Lubin','Auditorium']:['Eisner & Lubin','Auditorium'],14)+text(150,334,'Stage · south',12);markup+=text(130,72,'Hallway',11);}
   for(let row=0;row<5;row++)for(let col=0;col<6;col++)markup+=`<rect x="${71+col*27}" y="${220+row*13}" width="16" height="6" rx="3" fill="#9e85b8" opacity=".6"/>`;
-  markup+=elevator(labels)+rect(0,215,25,80);
+  markup+=fourthFloorCore(labels);
   markup+=selectable('solarium',`<path class="room-fill" d="M240 250 H260 V400 H35 V375 H240 Z" fill="${active.some(room=>room.service==='coffee')?COLORS.coffee:has('solarium')?COLORS.entry:COLORS.neutral}"/>`+(labels?text(155,393,'Solarium 409',13,'font-weight="700"')+(active.some(room=>room.service==='coffee')?foodFriend('coffee','x="215" y="366" width="30" height="30"'):''):''));
  }else if(floor===8){
   markup+=rect(0,0,260,45,'#e6eddb');
@@ -381,7 +413,7 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   markup+=selectable('909',rect(180,185,80,55,has('909')?roomColor('909','entry'):'neutral')+(labels?text(220,218,'909',12):''))+selectable('912',rect(180,240,80,55,has('912')?roomColor('912','entry'):'neutral')+(labels?text(220,coffee912?255:273,'912',12)+(coffee912?foodFriend('coffee','x="205" y="260" width="30" height="30"'):''):''));
   [904,906,908,910].forEach((n,i)=>{markup+=selectable(String(n),rect(80,75+i*44,57,44,has(String(n))?roomColor(String(n),'entry'):'neutral')+(labels?text(108,102+i*44,String(n),11):''));});
   const endId=day.tcc?'TCC':'D';markup+=selectable(endId,rect(100,310,160,90,has(endId)?roomColor(endId,COLORS[endId]):'neutral')+(labels?labelLines(180,345,[has(endId)?roomLabel(endId,day.tcc?'TCC':'Track D'):'Room','914'],16):''));
-  markup+=elevator(labels)+rect(-35,220,63,50);
+  markup+=ninthFloorCore(labels);
  }else if(floor===10){
   const meals=active.some(room=>room.id==='rosenthal'&&room.service==='food'),catering=active.some(room=>room.id==='rosenthal'&&room.hold?.role==='catering');
   markup+=rect(95,0,165,25,'#e6eddb');
@@ -492,7 +524,7 @@ function floorContents(floor){
    }
   }
  }
- s+=`<g class="projection" transform="${projection(b)}">${open?floorPlan:`<path class="floor-slab" d="${floor===1?'M0 0 H260 V400 H0 Z':OUTLINE}" fill="${floor===10?'#eee5f0':'#e9e1dc'}" stroke="#c7bacd" stroke-width="1.5"/>`}</g>`;
+ s+=`<g class="projection" transform="${projection(b)}">${open?floorPlan:`<path class="floor-slab" d="${floor===1?'M0 0 H260 V400 H0 Z':floor===4?FOURTH_FLOOR_OUTLINE:OUTLINE}" fill="${floor===10?'#eee5f0':'#e9e1dc'}" stroke="#c7bacd" stroke-width="1.5"/>`}</g>`;
  if(!open&&floor===10&&state.style==='kawaii'){
   const[cx,cy]=p(130,190,b);s+=buildingSmile(cx,cy);
  }
@@ -644,7 +676,7 @@ function detail(){
  const floor=state.floor;
  if(venueId()==='wwh')return themed(`<svg viewBox="-55 -45 370 475" role="group" aria-label="WWH first-floor schematic, not to scale. Track A: room 109, Track B: 101, Track C: 102. Enter from Mercer Street, east; Gould Plaza is west.">${text(130,-20,'North · West 4th Street',12)}${wwhPlan(1)}<text x="-29" y="170" text-anchor="middle" font-size="12" fill="${P.ink}" transform="rotate(-90 -29 170)">Gould Plaza · west</text><text x="289" y="170" text-anchor="middle" font-size="12" fill="${P.ink}" transform="rotate(90 289 170)">Mercer Street · east</text></svg>`);
  const lobby=floor===1;
- return themed(`<svg viewBox="${lobby?'-70 -100 360 545':'-70 -65 360 510'}" role="group" aria-label="North-up schematic of Kimmel floor ${floor}. Washington Square South is at the top and LaGuardia Place is at the right."><rect x="-64" y="${lobby?-95:-60}" width="350" height="24" rx="9" fill="#dce9d7"/>${text(110,lobby?-79:-44,'Washington Square Park',12)}${text(110,lobby?-48:-14,'Washington Square South · north',12)}${plan(floor)}<text x="281" y="205" text-anchor="middle" font-size="12" fill="#776b80" transform="rotate(90 281 205)">LaGuardia Place · east</text>${floor!==1?text(120,428,'South · away from the park',11):''}</svg>`);
+ return themed(`<svg viewBox="${lobby?'-70 -100 360 545':floor===4?'-145 -65 435 510':'-70 -65 360 510'}" role="group" aria-label="North-up schematic of Kimmel floor ${floor}. Washington Square South is at the top and LaGuardia Place is at the right."><rect x="-64" y="${lobby?-95:-60}" width="350" height="24" rx="9" fill="#dce9d7"/>${text(110,lobby?-79:-44,'Washington Square Park',12)}${text(110,lobby?-48:-14,'Washington Square South · north',12)}${plan(floor)}<text x="281" y="205" text-anchor="middle" font-size="12" fill="#776b80" transform="rotate(90 281 205)">LaGuardia Place · east</text>${floor!==1?text(120,428,'South · away from the park',11):''}</svg>`);
 }
 function chooseRoom(id){const found=roomChoices().find(r=>r.id===id)||rooms(state.floor).find(r=>r.id===id);if(found){const focus=rememberMapFocus();state.automaticLocation=false;state.lunch=false;state.room=id;renderSelection();$('floor-plan').innerHTML=detail();renderBuilding();updateMapUrl();restoreMapFocus(focus);}}
 function chooseLunch(){const lunch=lunchDestination();if(!lunch)return;state.automaticLocation=false;state.floor=lunch.floor;state.room=lunch.roomId;state.lunch=true;render();requestAnimationFrame(()=>$('building').scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'}));}
