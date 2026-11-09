@@ -125,10 +125,10 @@ const holdTime=value=>{const[h,m]=value.split(':').map(Number);return `${h%12||1
 const usesPixels=()=>state.style==='pixel'||state.style==='apocalypse';
 const RESTROOMS={
  1:{points:[],description:'Single-stall restroom behind the main elevators. NYU lists this restroom as not wheelchair accessible.'},
- 4:{points:[[-20,205]],description:'Restrooms are west of the hallway, just south of the western elevator bank.'},
+ 4:{points:[[-20,205],[-70,263]],labels:['Restrooms beside the elevators','Restrooms in the Global Center hallway'],description:'Restrooms are west of the hallway, just south of the western elevator bank. A second set is in the hallway to the Global Center.'},
  8:{points:[[-4,244]],description:'Restrooms just south of the main elevator bank, on the west side of the floor.'},
  9:{points:[[-20,205]],description:'Restrooms are west of the hallway, just south of the western elevator bank.'},
- 10:{points:[[-4,246],[68,246]],description:'Restrooms on both sides of the corridor just south of the main elevator bank, beside Rosenthal Pavilion.'}
+ 10:{points:[[-20,222],[68,222]],labels:['Restrooms west of the hallway','Restrooms beside Rosenthal Pavilion'],description:'Restrooms on both sides of the hallway, south of the opposing elevator banks. The eastern set is beside Rosenthal Pavilion.'}
 };
 const restroomInfo=(floor=state.floor,day=currentDay())=>day.venue==='wwh'?{points:[[39,221]],description:'Adjacent to the snack machine.'}:RESTROOMS[floor];
 function restroomMarker(x,y,name='Restrooms'){return `<g class="restroom-marker${state.room==='restrooms'?' is-selected':''}" transform="translate(${x} ${y})" role="img" aria-label="${esc(name)}"><title>${esc(name)}</title><rect x="-17" y="-14" width="34" height="28" rx="6" fill="${P.floor}" stroke="${P.primary}" stroke-width="2"/><text x="0" y="5" text-anchor="middle" fill="${P.ink}" font-size="14" font-weight="800">WC</text></g>`;}
@@ -336,9 +336,10 @@ function rect(x,y,w,h,fill='neutral',extra=''){return `<rect x="${x}" y="${y}" w
 function text(x,y,label,size=14,extra=''){return `<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="#493a55" ${extra}>${esc(label)}</text>`;}
 function labelLines(x,y,lines,size=14){return `<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="#493a55" font-weight="650">${lines.map((line,i)=>`<tspan x="${x}" dy="${i?Math.round(size*1.35):0}">${esc(line)}</tspan>`).join('')}</text>`;}
 function elevator(topdown=true){return `<g>${rect(-37,82,65,83,'#e9e1ed')}${[[-29,91],[3,91],[-29,133],[3,133]].map(([x,y])=>rect(x,y,23,31,'#fffaf4')).join('')}${topdown?labelLines(-4,194,['Elevators'],12):''}</g>`;}
-// Floors 4 and 9 have opposing lift banks, with circulation between them.
+// Floors 4, 9 and 10 have opposing lift banks, with circulation between them.
 // The Global Center spur is schematic; its interior room geometry is not known.
 const FOURTH_FLOOR_OUTLINE='M0 0 H260 V400 H0 V275 H-115 V240 H-45 V65 H0 Z';
+const TENTH_FLOOR_OUTLINE='M0 11 H24 V0 H238 V11 H260 V400 H0 V270 H-45 V65 H0 Z';
 function facingElevatorBanks(labels=true){
  let s='<g class="facing-elevator-banks">';
  for(const [x,facing] of [[-37,'east'],[24,'west']]){
@@ -351,10 +352,9 @@ function facingElevatorBanks(labels=true){
 }
 function mainCoreRestrooms(){return `<g class="main-core-restrooms">${rect(-37,175,35,60)}<path d="M-37 205 H-2" fill="none" stroke="${P.line}" stroke-width="1"/></g>`;}
 function fourthFloorCore(labels=true){
- let s=`<g class="fourth-floor-core"><path class="fourth-main-corridor" d="M11 66 V237" fill="none" stroke="${P.line}" stroke-width="1.2" stroke-dasharray="3 5"/>`;
+ let s='<g class="fourth-floor-core">';
  s+=facingElevatorBanks(labels);
  s+=mainCoreRestrooms();
- s+=`<path class="global-center-route" d="M11 237 V255 H-109 m7 -5 -7 5 7 5" fill="none" stroke="${P.primary}" stroke-width="1.6" stroke-dasharray="4 4" stroke-linecap="round" stroke-linejoin="round"/>`;
  if(labels)s+=labelLines(-68,298,['Global Center','hallway'],11);
  return s+'</g>';
 }
@@ -366,6 +366,14 @@ function ninthFloorCore(labels=true){
  s+=`<path class="room-fill core-service-block" d="M59 75 H80 V251 H24 V166 H59 Z" fill="${P.wall}"/><path d="M24 207 H80" fill="none" stroke="${P.line}" stroke-width="1"/>`;
  s+=facingElevatorBanks(labels)+mainCoreRestrooms();
  if(labels)s+=text(158,186,'Hallway',11,'transform="rotate(-90 158 186)"')+text(91,284,'Hallway',11);
+ return s+'</g>';
+}
+function tenthFloorCore(labels=true){
+ // The east lift bank backs onto the pavilion. Both restroom areas open
+ // from the same west-side spine, with pavilion entrances between them.
+ let s='<g class="tenth-floor-core">'+rect(59,82,36,83,P.wall)+facingElevatorBanks(labels);
+ s+=`<g class="west-core-restrooms">${rect(-37,195,35,60)}</g><g class="east-core-restrooms">${rect(24,195,62,60)}</g>`;
+ if(labels)s+=text(11,285,'Hallway',11,'transform="rotate(-90 11 285)"');
  return s+'</g>';
 }
 function selectable(id,body){
@@ -386,7 +394,7 @@ function roomOutlines(markup){
 function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
  if((day.venue||'kimmel')==='wwh')return wwhPlan(floor,{labels,outlines});
  const active=rooms(floor,day);const has=id=>active.some(r=>r.id===id);const roomLabel=(id,fallback)=>active.find(r=>r.id===id)?.planLabel||fallback;const roomColor=(id,fallback)=>active.find(r=>r.id===id)?.color||fallback;
- let markup=`<path class="floor-slab" d="${floor===1?'M0 0 H260 V400 H0 Z':floor===4?FOURTH_FLOOR_OUTLINE:'M0 0 H260 V400 H0 V270 H-45 V65 H0 Z'}" fill="#fffaf3" stroke="#c7bacd" stroke-width="2"/>`;
+ let markup=`<path class="floor-slab" d="${floor===1?'M0 0 H260 V400 H0 Z':floor===4?FOURTH_FLOOR_OUTLINE:floor===10?TENTH_FLOOR_OUTLINE:'M0 0 H260 V400 H0 V270 H-45 V65 H0 Z'}" fill="#fffaf3" stroke="#c7bacd" stroke-width="2"/>`;
  if(floor===4){
   markup+=selectable('B',rect(0,0,260,55,has('B')?roomColor('B','B'):'neutral')+(labels?`${text(63,22,'406',13)}${text(195,22,'405',13)}${text(130,44,has('B')?roomLabel('B','Track B'):'405 / 406',15,'font-weight="700"')}`:''));
   markup+=`<path d="M130 0 V55" stroke="#ad9292" stroke-dasharray="5 4"/>`;
@@ -416,18 +424,19 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   markup+=ninthFloorCore(labels);
  }else if(floor===10){
   const meals=active.some(room=>room.id==='rosenthal'&&room.service==='food'),catering=active.some(room=>room.id==='rosenthal'&&room.hold?.role==='catering');
-  markup+=rect(95,0,165,25,'#e6eddb');
-  if(labels)markup+=text(177,17,'Balcony · north',11);
-  markup+=selectable('rosenthal',rect(95,30,165,280,meals?'coffee':has('rosenthal')?'entry':'neutral')+(labels?labelLines(178,125,['Rosenthal','Pavilion'],18):''));
+  markup+=rect(76,0,130,20,'#e6eddb');
+  if(labels)markup+=text(141,14,'Balcony · north',11)+text(49,39,'Alcove',11);
+  markup+=selectable('rosenthal',`<path class="room-fill" d="M76 20 H206 V0 H238 V11 H260 V290 H229 V276 H95 L86 272 V248 L95 246 V64 L76 63 Z" fill="${meals?COLORS.coffee:has('rosenthal')?COLORS.entry:COLORS.neutral}"/>`+(labels?labelLines(178,112,['Rosenthal','Pavilion'],18):''));
   if(meals){for(const[x,y]of [[132,200],[211,200],[171,257]])markup+=`<circle cx="${x}" cy="${y}" r="14" fill="#fff9e9" stroke="#b8a773"/><circle cx="${x}" cy="${y}" r="3" fill="#c7b380"/>`;}
-  if(labels){markup+=labelLines(178,165,meals?['Meals /','gathering']:catering?['Catering /','staging']:has('rosenthal')?['Free space']:['No conference','space today'],13);if(meals)markup+=foodFriend('food','x="117" y="182" width="30" height="30"');}
-  markup+=elevator(labels)+rect(-35,220,70,65)+rect(95,330,165,70);
-  if(labels)markup+=text(175,371,'Kitchen / service',12);
+  if(labels){markup+=labelLines(178,160,meals?['Meals /','gathering']:catering?['Catering /','staging']:has('rosenthal')?['Free space']:['No conference','space today'],13);if(meals)markup+=foodFriend('food','x="117" y="182" width="30" height="30"');}
+  markup+=tenthFloorCore(labels);
+  markup+=`<path class="room-fill kitchen-service" d="M95 276 H229 V290 H260 V400 H95 Z" fill="${COLORS.neutral}"/><path d="M229 290 V400 M229 328 H260 M229 365 H260" fill="none" stroke="${P.line}" stroke-width="1.2"/>`;
+  if(labels)markup+=labelLines(163,334,['Kitchen /','service'],12)+text(244,345,'Storage',10,'transform="rotate(-90 244 345)"');
  }else{
   markup+=kimmelLobby({labels,day});
  }
  if(floor===4)markup+=registrationMarker(floor,{labels,day});
- if(labels)markup+=(RESTROOMS[floor]?.points||[]).map(([x,y])=>restroomMarker(x,y)).join('');
+ if(labels)markup+=(RESTROOMS[floor]?.points||[]).map(([x,y],index)=>restroomMarker(x,y,RESTROOMS[floor]?.labels?.[index]||'Restrooms')).join('');
  else markup+=restroomHighlights(floor);
  return themed(markup+(outlines?roomOutlines(markup):''));
 }
@@ -524,7 +533,7 @@ function floorContents(floor){
    }
   }
  }
- s+=`<g class="projection" transform="${projection(b)}">${open?floorPlan:`<path class="floor-slab" d="${floor===1?'M0 0 H260 V400 H0 Z':floor===4?FOURTH_FLOOR_OUTLINE:OUTLINE}" fill="${floor===10?'#eee5f0':'#e9e1dc'}" stroke="#c7bacd" stroke-width="1.5"/>`}</g>`;
+ s+=`<g class="projection" transform="${projection(b)}">${open?floorPlan:`<path class="floor-slab" d="${floor===1?'M0 0 H260 V400 H0 Z':floor===4?FOURTH_FLOOR_OUTLINE:floor===10?TENTH_FLOOR_OUTLINE:OUTLINE}" fill="${floor===10?'#eee5f0':'#e9e1dc'}" stroke="#c7bacd" stroke-width="1.5"/>`}</g>`;
  if(!open&&floor===10&&state.style==='kawaii'){
   const[cx,cy]=p(130,190,b);s+=buildingSmile(cx,cy);
  }
@@ -587,7 +596,7 @@ function updateDiagramLabels(){
  let overlay=map.querySelector('.diagram-overlays');
  if(!overlay){
   overlay=document.createElement('div');overlay.className='diagram-overlays';
-  overlay.innerHTML=`<svg class="badge-leaders" aria-hidden="true"></svg><svg class="vector-place-labels" viewBox="-45 -35 750 965" aria-hidden="true"></svg><div class="map-place map-place--laguardia"><span>LaGuardia</span><span>Place</span></div><div class="map-place map-place--south"><span>Washington</span><span>Square South</span></div><div class="map-place map-place--park"><span>Washington</span><span>Square Park</span></div><button type="button" class="diagram-restroom-badge" data-show-restrooms aria-label="Find restrooms"><span aria-hidden="true">WC</span></button><div class="diagram-track-labels" aria-hidden="true"></div><div class="diagram-amenity" aria-hidden="true"></div><div class="diagram-registration-marker" aria-hidden="true" hidden>Reg.</div>${activeFloors().map(f=>`<button type="button" class="diagram-floor-badge" data-choose-floor="${f}" aria-label="Open floor ${f}">${f}</button>`).join('')}`;map.append(overlay);
+  overlay.innerHTML=`<svg class="badge-leaders" aria-hidden="true"></svg><svg class="vector-place-labels" viewBox="-45 -35 750 965" aria-hidden="true"></svg><div class="map-place map-place--laguardia"><span>LaGuardia</span><span>Place</span></div><div class="map-place map-place--south"><span>Washington</span><span>Square South</span></div><div class="map-place map-place--park"><span>Washington</span><span>Square Park</span></div><button type="button" class="diagram-restroom-badge" data-show-restrooms aria-label="Find restrooms"><span aria-hidden="true">WC</span></button><button type="button" class="diagram-restroom-badge diagram-restroom-badge-secondary" data-show-restrooms="secondary" aria-label="Find additional restrooms" hidden><span aria-hidden="true">WC</span></button><div class="diagram-track-labels" aria-hidden="true"></div><div class="diagram-amenity" aria-hidden="true"></div><div class="diagram-registration-marker" aria-hidden="true" hidden>Reg.</div>${activeFloors().map(f=>`<button type="button" class="diagram-floor-badge" data-choose-floor="${f}" aria-label="Open floor ${f}">${f}</button>`).join('')}`;map.append(overlay);
   const labels=overlay.querySelector('.vector-place-labels');source.querySelectorAll(':scope > text').forEach(node=>labels.append(node.cloneNode(true)));
  }
  const items=activeFloors().map(floor=>{const layer=source.querySelector(`[data-level="${floor}"]`),shift=new DOMMatrix(getComputedStyle(layer).transform).m42,[x,y]=p(5,10,baseFor(floor)+shift);return {floor,x:(x+45)*width/750,y:(y+35)*height/965};}).sort((a,b)=>a.y-b.y);
@@ -617,15 +626,23 @@ function updateDiagramLabels(){
   registrationBadge.style.left=`${(x+45)*width/750}px`;registrationBadge.style.top=`${(y+35)*height/965}px`;
   registrationBadge.classList.toggle('is-selected',state.room==='registration');
  }
- const restroom=overlay.querySelector('.diagram-restroom-badge'),bathroom=restroomInfo();
- restroom.hidden=!bathroom?.points.length;
- restroom.setAttribute('aria-pressed',String(state.room==='restrooms'));
+ const restroom=overlay.querySelector('.diagram-restroom-badge'),secondary=overlay.querySelector('.diagram-restroom-badge-secondary'),bathroom=restroomInfo();
+ const separate=venueId()==='kimmel'&&bathroom?.points.length===2&&bathroom.labels?.length===2;
+ restroom.hidden=!bathroom?.points.length;secondary.hidden=!separate;
+ for(const button of [restroom,secondary])button.setAttribute('aria-pressed',String(state.room==='restrooms'));
  if(bathroom?.points.length){
   const layer=source.querySelector(`[data-level="${state.floor}"]`),shift=new DOMMatrix(getComputedStyle(layer).transform).m42;
-  const center=bathroom.points.reduce((sum,point)=>[sum[0]+point[0]/bathroom.points.length,sum[1]+point[1]/bathroom.points.length],[0,0]);
-  const[x,y]=p(...center,baseFor(state.floor)+shift);
-  restroom.style.left=`${(x+45)*width/750}px`;restroom.style.top=`${(y+35)*height/965}px`;
-  restroom.setAttribute('aria-label',venueId()==='wwh'?'All-gender restrooms, adjacent to the snack machine':`Restrooms on floor ${state.floor}`);
+  const center=separate?bathroom.points[0]:bathroom.points.reduce((sum,point)=>[sum[0]+point[0]/bathroom.points.length,sum[1]+point[1]/bathroom.points.length],[0,0]);
+  const position=(button,point)=>{const[x,y]=p(...point,baseFor(state.floor)+shift);button.style.left=`${(x+45)*width/750}px`;button.style.top=`${(y+35)*height/965}px`;};
+  position(restroom,center);
+  if(separate){
+   position(secondary,bathroom.points[1]);
+   // Keep the small WC labels separate on narrow screens; both share the WC action.
+   const primaryTop=parseFloat(restroom.style.top),secondTop=parseFloat(secondary.style.top),dy=secondTop-primaryTop;
+   if(Math.abs(parseFloat(restroom.style.left)-parseFloat(secondary.style.left))<28&&Math.abs(dy)<24)secondary.style.top=`${primaryTop+(dy<0?-24:24)}px`;
+   secondary.setAttribute('aria-label',bathroom.labels[1]);
+  }
+  restroom.setAttribute('aria-label',venueId()==='wwh'?'All-gender restrooms, adjacent to the snack machine':separate?bathroom.labels[0]:`Restrooms on floor ${state.floor}`);
  }
  amenity.hidden=!kind;
  if(kind){
