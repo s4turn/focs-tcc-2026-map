@@ -352,5 +352,17 @@ body[data-style=hacker] :is(.address,.selection p,.day-note) { font-size:16px; }
 .venue-wifi .wifi-help { color:var(--quiet); font-size:13px; }
 .venue-wifi a { display:inline-flex; align-items:center; gap:4px; min-height:44px; padding:6px 0; }
 .venue-wifi a:focus-visible { outline:3px solid var(--teal); outline-offset:3px; border-radius:4px; }
+.wifi-credentials-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; max-width:760px; margin-top:16px; }
+.wifi-credential { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:end; }
+.wifi-credential-value { min-width:0; }
+.wifi-credential-label { display:block; margin-bottom:5px; color:var(--quiet); font-size:13px; }
+.venue-wifi .wifi-credential code { display:block; padding:8px 10px; font-size:17px; overflow-wrap:anywhere; user-select:all; -webkit-user-select:all; }
+.wifi-copy-button { min-width:78px; min-height:44px; padding:8px 12px; border:1px solid var(--line); border-radius:10px; background:var(--paper); color:var(--ink); font:inherit; font-size:14px; font-weight:650; line-height:1.5; cursor:pointer; }
+.wifi-copy-button:hover { border-color:var(--teal); }
+.wifi-copy-button:focus-visible { outline:3px solid var(--teal); outline-offset:3px; }
+.wifi-copy-status { min-height:24px; margin-top:8px; color:var(--teal); font-size:13px; }
+#kimmel-wifi-validity { margin-top:12px; }
+#kimmel-wifi-credentials[hidden], #kimmel-wifi-expired[hidden] { display:none; }
 body:is([data-style=pixel],[data-style=apocalypse],[data-style=hacker]) .venue-wifi { border-radius:6px; }
-@media(max-width:700px) { .venue-wifi { padding:18px; } }
+body:is([data-style=pixel],[data-style=apocalypse],[data-style=hacker]) .wifi-copy-button { border-radius:4px; }
+@media(max-width:700px) { .venue-wifi { padding:18px; } .wifi-credentials-grid { grid-template-columns:minmax(0,1fr); gap:14px; } }

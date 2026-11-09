@@ -113,6 +113,7 @@ function renderConferenceClock(now=nowInNewYork()){
 }
 function syncConferenceTime(){
  const instant=new Date(),now=nowInNewYork(instant),before=venueId();let changed=syncAutomaticMood(instant);
+ syncWifiCredentials(now);
  if(state.automaticDay){
   const next=automaticDayIndex(now);
   if(next!==state.day){state.day=next;state.automaticLocation=true;state.floor=defaultFloor(now);state.room=rooms(state.floor)[0]?.id||null;if(before!==venueId()){pendingMapFocus=rememberMapFocus()||pendingMapFocus;$('building').innerHTML='';}changed=true;}
@@ -711,12 +712,45 @@ function renderRestroomGuide(){
  const info=restroomInfo();guide.hidden=!info;
  if(info)guide.innerHTML=`<strong><span class="restroom-key">WC</span> ${venueId()==='wwh'?'All-gender restrooms':'Restrooms'}</strong><span>${esc(info.description)}</span>`;
 }
+// Availability follows the real New York date, even when another day is selected.
+function syncWifiCredentials(now=nowInNewYork()){
+ const credentials=$('kimmel-wifi-credentials'),through=credentials?.dataset.validThrough;
+ if(!credentials||!/^\d{4}-\d{2}-\d{2}$/.test(through||''))return null;
+ const date=new Date(`${through}T12:00:00Z`);
+ if(!Number.isFinite(date.getTime())||date.toISOString().slice(0,10)!==through)return null;
+ const expired=now.date>through,notice=$('kimmel-wifi-expired');
+ credentials.hidden=expired;if(notice)notice.hidden=!expired;
+ if(expired){const status=$('wifi-copy-status');if(status)status.textContent='';}
+ return !expired;
+}
+const wifiCopyFeedback=new WeakMap();
+async function copyWifi(button){
+ const field=button?.dataset.copyWifi,credentials=$('kimmel-wifi-credentials');
+ if(!['username','password'].includes(field)||venueId()!=='kimmel'||syncWifiCredentials()!==true||!credentials.contains(button))return;
+ const value=$(`kimmel-wifi-${field}`),status=$('wifi-copy-status');
+ if(!value||!credentials.contains(value)||!value.textContent)return;
+ const previous=wifiCopyFeedback.get(button),label=previous?.label??button.textContent;
+ if(previous)clearTimeout(previous.timer);
+ wifiCopyFeedback.delete(button);button.textContent=label;if(status)status.textContent='';
+ try{
+  await navigator.clipboard.writeText(value.textContent);
+  if(syncWifiCredentials()!==true)return;
+  const message=`${field==='username'?'Username':'Password'} copied.`;
+  button.textContent='Copied';if(status)status.textContent=message;
+  const timer=setTimeout(()=>{button.textContent=label;wifiCopyFeedback.delete(button);if(status?.textContent===message)status.textContent='';},1800);
+  wifiCopyFeedback.set(button,{label,timer});
+ }catch{
+  if(syncWifiCredentials()!==true)return;
+  if(status)status.textContent=`Couldn't copy. Select or long-press the ${field} above to copy it.`;
+ }
+}
 function render(){
  const day=currentDay(),focus=pendingMapFocus||rememberMapFocus();pendingMapFocus=null;
  if(state.room==='free-space'&&!validRoomSelection())state.room=rooms(state.floor)[0]?.id||null;
  document.body.dataset.venue=venueId();
  const wifi=$('wwh-wifi');if(wifi)wifi.hidden=venueId()!=='wwh';
  const kimmelWifi=$('kimmel-wifi');if(kimmelWifi)kimmelWifi.hidden=venueId()!=='kimmel';
+ syncWifiCredentials();
  document.body.dataset.dayIsAutomatic=String(state.automaticDay);
  document.querySelector('.brand-mark').textContent=venueId()==='wwh'?'w.':'k.';
  document.title=`${venueId()==='wwh'?'WWH':'Kimmel'} · Find your ${document.body.dataset.view==='program'?'session':'floor'}`;
@@ -744,6 +778,7 @@ document.addEventListener('keydown',event=>{
  if(target&&(event.key==='Enter'||event.key===' ')){event.preventDefault();target.dispatchEvent(new MouseEvent('click',{bubbles:true}));}
 });
 document.addEventListener('click',event=>{
+ const copy=event.target.closest('[data-copy-wifi]');if(copy){void copyWifi(copy);return;}
  if(event.target.closest('[data-show-restrooms]')){chooseRoom('restrooms');return;}
  if(event.target.closest('[data-show-lunch]')){chooseLunch();return;}
  const day=event.target.closest('#days button[data-day]');if(day){
