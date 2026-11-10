@@ -112,7 +112,7 @@ function sessionRelatedLinks(session){
 }
 function presenterOrder(session){
  if(!Array.isArray(session.presenters)||!session.presenters.length)return '';
- return `<section class="program-presenter-order" aria-label="Graduating Bits presentation order"><h4>Presentation order</h4><p class="program-inline-note">Signup order. Two minutes per presenter.</p><ol class="program-workshop-agenda">${session.presenters.map(p=>`<li class="program-workshop-item"><strong class="program-workshop-title">${esc(p.name)}</strong>${p.affiliation?`<p class="program-workshop-speakers">${esc(p.affiliation)}</p>`:''}</li>`).join('')}</ol><p class="program-inline-note">Some names are not publicly listed, in accordance with presenters’ signup preferences.</p></section>`;
+ return `<section class="program-presenter-order" aria-label="Graduating Bits presentation order"><h4>Presentation order</h4><p class="program-inline-note">Two minutes per presenter.</p><ol class="program-workshop-agenda">${session.presenters.map(p=>`<li class="program-workshop-item"><strong class="program-workshop-title">${esc(p.name)}</strong>${p.affiliation?`<p class="program-workshop-speakers">${esc(p.affiliation)}</p>`:''}</li>`).join('')}</ol><p class="program-inline-note">Some names are not publicly listed, in accordance with presenters’ signup preferences.</p></section>`;
 }
 function sessionContents(session){
  const papers=session.papers||[],url=safeUrl(session.url),location=sessionLocation(session);
