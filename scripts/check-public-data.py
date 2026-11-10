@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Reject non-runtime data before exporting or pushing the public app."""
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -14,7 +15,7 @@ SCHEMAS = {
     'source': {'id', 'url'},
     'day': set('id date title venueId sessions'.split()),
     'session': set('id conference kind track title theme start end room floor venueId chair url papers relatedLinks timingConflict'.split()),
-    'paper': set('id title authors order start end abstract publicPaperUrl url publicNote'.split()),
+    'paper': set('id title authors order start end abstract publicPaperUrl url publicNote slidesUrl'.split()),
     'link': {'label', 'url'},
     'conflict': {'note'},
     'inventory': {'source', 'rooms'},
@@ -26,6 +27,7 @@ def check_keys(value, schema, path):
         raise ValueError(f'Unexpected fields at {path}')
 
 def validate(program, inventory):
+    slide_paths = set()
     check_keys(program, 'program', 'program')
     for source in program.get('sources', []):
         check_keys(source, 'source', 'program.sources')
@@ -39,6 +41,13 @@ def validate(program, inventory):
             check_keys(session, 'session', 'program.days.sessions')
             for paper in session.get('papers', []):
                 check_keys(paper, 'paper', 'program.days.sessions.papers')
+                if 'slidesUrl' in paper:
+                    url = paper['slidesUrl']
+                    if (session.get('conference') != 'TCC' or not isinstance(url, str)
+                            or not re.fullmatch(r'assets/slides/tcc-(?:paper|talk)-[1-9][0-9]*\.pdf', url, re.ASCII)
+                            or url in slide_paths):
+                        raise ValueError('Unreviewed or duplicate slide PDF destination')
+                    slide_paths.add(url)
             for link in session.get('relatedLinks', []):
                 check_keys(link, 'link', 'program.days.sessions.relatedLinks')
             if 'timingConflict' in session:
@@ -52,17 +61,26 @@ def validate(program, inventory):
         check_keys(room, 'room', 'inventory.rooms')
         if 'purpose' in room and room['purpose'] != 'break':
             raise ValueError('Inventory purpose must be a display category')
+    return slide_paths
 
 def check(revision=None):
-    args = ['ls-tree', '-r', '--name-only', revision] if revision else ['ls-files']
+    args = ['ls-tree', '-r', '--name-only', revision] if revision else ['ls-files', '--cached', '--others', '--exclude-standard']
     paths = set(subprocess.check_output(['git', '-C', str(ROOT), *args], text=True).splitlines())
-    if paths - PUBLIC_PATHS:
-        raise ValueError('Unexpected public repository paths; review the export before committing')
     def read(name):
         if revision:
             return json.loads(subprocess.check_output(['git', '-C', str(ROOT), 'show', f'{revision}:dist/{name}']))
         return json.loads((ROOT / 'dist' / name).read_text())
-    validate(read('program-data.json'), read('room-data.json'))
+    slides = validate(read('program-data.json'), read('room-data.json'))
+    slide_paths = {'dist/' + url for url in slides}
+    if paths - (PUBLIC_PATHS | slide_paths):
+        raise ValueError('Unexpected public repository paths; review the export before committing')
+    if slide_paths - paths:
+        raise ValueError('Referenced slide PDF is missing from the reviewed public commit')
+    for path in sorted(slide_paths):
+        raw = (subprocess.check_output(['git', '-C', str(ROOT), 'show', f'{revision}:{path}'])
+               if revision else (ROOT / path).read_bytes())
+        if not raw.startswith(b'%PDF-') or b'%%EOF' not in raw[-4096:]:
+            raise ValueError('Public slide asset is not a complete PDF')
 
 if __name__ == '__main__':
     try:

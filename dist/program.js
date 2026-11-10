@@ -20,6 +20,7 @@ const selectedSession=()=>sessions().find(session=>session.id===state.session)||
 const WWH_TRACKS=Object.freeze({'109':'A','101':'B','102':'C'});
 const displayTrack=session=>state.day==='sunday-early'?(WWH_TRACKS[String(session.room)]||({'1':'A','2':'B','3':'C'})[String(session.track)]||session.track):session.track;
 const safeUrl=value=>{try{const url=new URL(value);return /^https?:$/.test(url.protocol)?url.href:null;}catch{return null;}};
+const safeSlidesUrl=value=>typeof value==='string'&&/^assets\/slides\/tcc-(?:paper|talk)-[1-9][0-9]*\.pdf$/.exec(value)?.[0]===value?value:null;
 // The three proceedings abstracts containing TeX need readable plain text,
 // not an HTML/TeX interpreter. Keep citation keys and unknown command names.
 function readableAbstract(value){
@@ -203,9 +204,10 @@ function paperTime(paper,session){
 function paperDetail(paper,session){
  const url=safeUrl(paper.publicPaperUrl)||safeUrl(paper.url)||safeUrl(session.url),isPaper=url&&url!==safeUrl(session.url)&&!url.includes('focs.computer.org/2026/main-program');
  const linkLabel=isPaper?(/https:\/\/doi\.org\//.test(url)?'Publisher page':'Read the paper'):'Published program';
+ const slides=safeSlidesUrl(paper.slidesUrl);
  const location=sessionLocation(session);
  const abstract=paper.abstract?`<section class="program-paper-abstract" aria-label="Abstract"><h4>Abstract</h4><p>${esc(readableAbstract(paper.abstract))}</p></section>`:'';
- return `<h3 id="program-selected-title" tabindex="-1">${esc(paper.title)}</h3><p class="program-paper-authors">${esc(authors(paper))}</p>${paper.publicNote?`<p class="program-paper-note">${esc(paper.publicNote)}</p>`:''}<div class="program-paper-where"><strong>${esc(paperTime(paper,session))} ET</strong>${location?`<span>${esc(location)}</span>`:''}<span>${esc(session.conference)}${displayTrack(session)&&!['TCC','Plenary','Joint'].includes(displayTrack(session))?` · Track ${esc(displayTrack(session))}`:''}</span></div>${url?`<a class="program-paper-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${linkLabel} ↗</a>`:''}${abstract}${session.floor?`<div>${floorLink(session)}</div>`:''}`;
+ return `<h3 id="program-selected-title" tabindex="-1">${esc(paper.title)}</h3><p class="program-paper-authors">${esc(authors(paper))}</p>${paper.publicNote?`<p class="program-paper-note">${esc(paper.publicNote)}</p>`:''}<div class="program-paper-where"><strong>${esc(paperTime(paper,session))} ET</strong>${location?`<span>${esc(location)}</span>`:''}<span>${esc(session.conference)}${displayTrack(session)&&!['TCC','Plenary','Joint'].includes(displayTrack(session))?` · Track ${esc(displayTrack(session))}`:''}</span></div>${url?`<a class="program-paper-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${linkLabel} ↗</a>`:''}${slides?` <a class="program-paper-link" href="${esc(slides)}" target="_blank" rel="noopener noreferrer">Slides (PDF) ↗</a>`:''}${abstract}${session.floor?`<div>${floorLink(session)}</div>`:''}`;
 }
 function workshopDetail(session){
  const url=safeUrl(session.url);

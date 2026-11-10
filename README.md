@@ -19,6 +19,7 @@ Open <http://localhost:8765/>. Query parameters preserve the selected day, floor
 - `dist/app.js` and the map styles render the venue guide.
 - `dist/program.js` and `dist/program-data.json` provide the program and session expansion.
 - `dist/room-data.json` supplies the attendee room inventory.
+- `dist/assets/slides/` contains available TCC presentations as PDFs; their links appear beside papers in Fine-grained view and open in a new tab.
 - Neighborhood and venue-flight files provide the transition between venues.
 
 The schedule is a reviewed snapshot of the attendee program. Runtime data retains the fields needed for existing program and map displays. Floor plans are schematic and not to scale.
