@@ -2336,6 +2336,198 @@
               "label": "Graduating Bits details & location",
               "url": "https://focs.computer.org/2026/graduating-bits/"
             }
+          ],
+          "presenters": [
+            {
+              "order": 1,
+              "name": "Pachara Sawettamalya",
+              "affiliation": "Princeton"
+            },
+            {
+              "order": 2,
+              "name": "Aditi Partap",
+              "affiliation": "Stanford University"
+            },
+            {
+              "order": 3,
+              "name": "Ziyi Guan",
+              "affiliation": "MIT, NYU"
+            },
+            {
+              "order": 4,
+              "name": "Yan Zhong",
+              "affiliation": "Johns Hopkins University"
+            },
+            {
+              "order": 5,
+              "name": "Cassandra Marcussen",
+              "affiliation": "Harvard University"
+            },
+            {
+              "order": 6,
+              "name": "Mingchen Ma",
+              "affiliation": "University of Wisconsin-Madison"
+            },
+            {
+              "order": 7,
+              "name": "Miryam Mi-Ying Huang",
+              "affiliation": "Carnegie Mellon University"
+            },
+            {
+              "order": 8,
+              "name": "Joseph Dorfer",
+              "affiliation": "Graz University of Technology"
+            },
+            {
+              "order": 9,
+              "name": "Asaf Etgar",
+              "affiliation": "Yale University"
+            },
+            {
+              "order": 10,
+              "name": "Louis Golowich",
+              "affiliation": "UC Berkeley"
+            },
+            {
+              "order": 11,
+              "name": "Siddhartha Jain",
+              "affiliation": "UT Austin"
+            },
+            {
+              "order": 12,
+              "name": "Esty Kelman",
+              "affiliation": "MIT"
+            },
+            {
+              "order": 13,
+              "name": "Mustafa Ibrahim Alnajjar",
+              "affiliation": "De Montfort University, UK"
+            },
+            {
+              "order": 14,
+              "name": "Anastasia Sofronova",
+              "affiliation": "EPFL"
+            },
+            {
+              "order": 15,
+              "name": "Ron Mosenzon",
+              "affiliation": "Toyota Technological Institute at Chicago"
+            },
+            {
+              "order": 16,
+              "name": "Yuxin Zhang",
+              "affiliation": "HUN-REN RAMKI"
+            },
+            {
+              "order": 17,
+              "name": "Rama Krishnamurthy",
+              "affiliation": "New York University"
+            },
+            {
+              "order": 18,
+              "name": "Yu-Hsuan Huang",
+              "affiliation": "Max Planck Institute for Security and Privacy"
+            },
+            {
+              "order": 19,
+              "name": "Vihan Shah",
+              "affiliation": "University of Birmingham"
+            },
+            {
+              "order": 20,
+              "name": "Archishna Bhattacharyya",
+              "affiliation": "University of Ottawa"
+            },
+            {
+              "order": 21,
+              "name": "Presenter (name not publicly listed)",
+              "affiliation": ""
+            },
+            {
+              "order": 22,
+              "name": "Deepak Bhati",
+              "affiliation": "CISPA"
+            },
+            {
+              "order": 23,
+              "name": "Dorsa Fathollahi",
+              "affiliation": "Stanford University"
+            },
+            {
+              "order": 24,
+              "name": "Xizhi Tan",
+              "affiliation": "Stanford University"
+            },
+            {
+              "order": 25,
+              "name": "Brian Hu Zhang",
+              "affiliation": "MIT"
+            },
+            {
+              "order": 26,
+              "name": "Eli Goldin",
+              "affiliation": "Princeton University"
+            },
+            {
+              "order": 27,
+              "name": "Hanwen Zhang",
+              "affiliation": "University of Copenhagen"
+            },
+            {
+              "order": 28,
+              "name": "David Miloschewsky",
+              "affiliation": "Stony Brook University"
+            },
+            {
+              "order": 29,
+              "name": "Bhaskar Roberts",
+              "affiliation": "NTT Research"
+            },
+            {
+              "order": 30,
+              "name": "Elena Gribelyuk",
+              "affiliation": "Princeton University"
+            },
+            {
+              "order": 31,
+              "name": "Xifan Yu",
+              "affiliation": "Yale University"
+            },
+            {
+              "order": 32,
+              "name": "Victor Youdom Kemmoe",
+              "affiliation": "Brown University"
+            },
+            {
+              "order": 33,
+              "name": "Michael Menart",
+              "affiliation": "University of Toronto, Vector Institute"
+            },
+            {
+              "order": 34,
+              "name": "Surya Mathialagan",
+              "affiliation": "NTT Research"
+            },
+            {
+              "order": 35,
+              "name": "Venkata Naga Sreenivasulu Karnati",
+              "affiliation": "Indian Institute of Science"
+            },
+            {
+              "order": 36,
+              "name": "Christopher Ye",
+              "affiliation": "UC San Diego"
+            },
+            {
+              "order": 37,
+              "name": "Ria Stevens",
+              "affiliation": "Rice University"
+            },
+            {
+              "order": 38,
+              "name": "Presenter (name not publicly listed)",
+              "affiliation": ""
+            }
           ]
         },
         {
@@ -2356,6 +2548,198 @@
             {
               "label": "Graduating Bits details & location",
               "url": "https://focs.computer.org/2026/graduating-bits/"
+            }
+          ],
+          "presenters": [
+            {
+              "order": 1,
+              "name": "Pachara Sawettamalya",
+              "affiliation": "Princeton"
+            },
+            {
+              "order": 2,
+              "name": "Aditi Partap",
+              "affiliation": "Stanford University"
+            },
+            {
+              "order": 3,
+              "name": "Ziyi Guan",
+              "affiliation": "MIT, NYU"
+            },
+            {
+              "order": 4,
+              "name": "Yan Zhong",
+              "affiliation": "Johns Hopkins University"
+            },
+            {
+              "order": 5,
+              "name": "Cassandra Marcussen",
+              "affiliation": "Harvard University"
+            },
+            {
+              "order": 6,
+              "name": "Mingchen Ma",
+              "affiliation": "University of Wisconsin-Madison"
+            },
+            {
+              "order": 7,
+              "name": "Miryam Mi-Ying Huang",
+              "affiliation": "Carnegie Mellon University"
+            },
+            {
+              "order": 8,
+              "name": "Joseph Dorfer",
+              "affiliation": "Graz University of Technology"
+            },
+            {
+              "order": 9,
+              "name": "Asaf Etgar",
+              "affiliation": "Yale University"
+            },
+            {
+              "order": 10,
+              "name": "Louis Golowich",
+              "affiliation": "UC Berkeley"
+            },
+            {
+              "order": 11,
+              "name": "Siddhartha Jain",
+              "affiliation": "UT Austin"
+            },
+            {
+              "order": 12,
+              "name": "Esty Kelman",
+              "affiliation": "MIT"
+            },
+            {
+              "order": 13,
+              "name": "Mustafa Ibrahim Alnajjar",
+              "affiliation": "De Montfort University, UK"
+            },
+            {
+              "order": 14,
+              "name": "Anastasia Sofronova",
+              "affiliation": "EPFL"
+            },
+            {
+              "order": 15,
+              "name": "Ron Mosenzon",
+              "affiliation": "Toyota Technological Institute at Chicago"
+            },
+            {
+              "order": 16,
+              "name": "Yuxin Zhang",
+              "affiliation": "HUN-REN RAMKI"
+            },
+            {
+              "order": 17,
+              "name": "Rama Krishnamurthy",
+              "affiliation": "New York University"
+            },
+            {
+              "order": 18,
+              "name": "Yu-Hsuan Huang",
+              "affiliation": "Max Planck Institute for Security and Privacy"
+            },
+            {
+              "order": 19,
+              "name": "Vihan Shah",
+              "affiliation": "University of Birmingham"
+            },
+            {
+              "order": 20,
+              "name": "Archishna Bhattacharyya",
+              "affiliation": "University of Ottawa"
+            },
+            {
+              "order": 21,
+              "name": "Presenter (name not publicly listed)",
+              "affiliation": ""
+            },
+            {
+              "order": 22,
+              "name": "Deepak Bhati",
+              "affiliation": "CISPA"
+            },
+            {
+              "order": 23,
+              "name": "Dorsa Fathollahi",
+              "affiliation": "Stanford University"
+            },
+            {
+              "order": 24,
+              "name": "Xizhi Tan",
+              "affiliation": "Stanford University"
+            },
+            {
+              "order": 25,
+              "name": "Brian Hu Zhang",
+              "affiliation": "MIT"
+            },
+            {
+              "order": 26,
+              "name": "Eli Goldin",
+              "affiliation": "Princeton University"
+            },
+            {
+              "order": 27,
+              "name": "Hanwen Zhang",
+              "affiliation": "University of Copenhagen"
+            },
+            {
+              "order": 28,
+              "name": "David Miloschewsky",
+              "affiliation": "Stony Brook University"
+            },
+            {
+              "order": 29,
+              "name": "Bhaskar Roberts",
+              "affiliation": "NTT Research"
+            },
+            {
+              "order": 30,
+              "name": "Elena Gribelyuk",
+              "affiliation": "Princeton University"
+            },
+            {
+              "order": 31,
+              "name": "Xifan Yu",
+              "affiliation": "Yale University"
+            },
+            {
+              "order": 32,
+              "name": "Victor Youdom Kemmoe",
+              "affiliation": "Brown University"
+            },
+            {
+              "order": 33,
+              "name": "Michael Menart",
+              "affiliation": "University of Toronto, Vector Institute"
+            },
+            {
+              "order": 34,
+              "name": "Surya Mathialagan",
+              "affiliation": "NTT Research"
+            },
+            {
+              "order": 35,
+              "name": "Venkata Naga Sreenivasulu Karnati",
+              "affiliation": "Indian Institute of Science"
+            },
+            {
+              "order": 36,
+              "name": "Christopher Ye",
+              "affiliation": "UC San Diego"
+            },
+            {
+              "order": 37,
+              "name": "Ria Stevens",
+              "affiliation": "Rice University"
+            },
+            {
+              "order": 38,
+              "name": "Presenter (name not publicly listed)",
+              "affiliation": ""
             }
           ]
         },

@@ -14,8 +14,9 @@ SCHEMAS = {
     'program': set('schemaVersion timezone generatedAt sources reviewHolds days'.split()),
     'source': {'id', 'url'},
     'day': set('id date title venueId sessions'.split()),
-    'session': set('id conference kind track title theme start end room floor venueId chair url papers relatedLinks timingConflict'.split()),
+    'session': set('id conference kind track title theme start end room floor venueId chair url papers relatedLinks timingConflict presenters'.split()),
     'paper': set('id title authors order start end abstract publicPaperUrl url publicNote slidesUrl'.split()),
+    'presenter': {'order', 'name', 'affiliation'},
     'link': {'label', 'url'},
     'conflict': {'note'},
     'inventory': {'source', 'rooms'},
@@ -39,6 +40,12 @@ def validate(program, inventory):
         check_keys(day, 'day', 'program.days')
         for session in day['sessions']:
             check_keys(session, 'session', 'program.days.sessions')
+            for index, presenter in enumerate(session.get('presenters', []), 1):
+                check_keys(presenter, 'presenter', 'program.days.sessions.presenters')
+                if (presenter.get('order') != index or not isinstance(presenter.get('name'), str)
+                        or not isinstance(presenter.get('affiliation'), str)
+                        or '@' in presenter['name'] + presenter['affiliation']):
+                    raise ValueError('Presenter display fields must have consecutive order and no email addresses')
             for paper in session.get('papers', []):
                 check_keys(paper, 'paper', 'program.days.sessions.papers')
                 if 'slidesUrl' in paper:
