@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-10T11:43:23-05:00",
+  "generatedAt": "2026-11-10T15:17:23-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -3250,7 +3250,8 @@
               "end": null,
               "abstract": "Synchronous protocols are a fundamental and widely studied model in distributed computing and cryptography. \nIn this model, protocols proceed in rounds: at the beginning of each round, parties send messages, and all messages are guaranteed to be delivered before the round ends.\n\nThe standard communication complexity of a synchronous protocol measures the total number of bits transmitted throughout the execution. However, this metric does not accurately reflect the protocol’s actual running time, since it ignores the inherent parallelism of synchronous communication. In particular, multiple parties may transmit simultaneously within the same round, and the duration of a round is determined not by the total communication volume, but by the longest transmission that must occur sequentially.\nTo capture this aspect of synchronous computation, we introduce \\emph{communication-depth}, a new complexity measure for synchronous protocols. Informally, communication-depth quantifies the amount of communication that lies on the protocol’s critical path, namely, the number of bits that must be transmitted sequentially and therefore determine the protocol’s execution time. The communication-depth of a protocol is defined as the sum, over all rounds, of the  cost of each round.\n\nWe consider two variants of round-cost capturing different types of parallel communication the network allows. In the \\emph{simultaneous-parties} model, the cost of a round is the maximum number of bits any party sends or receives during that round. In the \\emph{simultaneous-channels} model, the cost of a round is the maximum number of bits transmitted over any single channel during the round.\n\nWe demonstrate the usefulness of communication-depth by fully characterizing the asymptotic complexity of multivalued synchronous broadcast. Perhaps surprisingly, while protocols for $\\ell$-bit inputs with asymptotic optimal communication $O(\\ell n)$ have been known for a long time, current protocols only achieve communication-depth $\\Theta(\\ell n)$ in the simultaneous-parties model and $\\Theta(\\ell)$ in the simultaneous-channels model.\n\nOur results provide a complete characterization of multivalued broadcast under communication-depth for both variants. On the negative side, we show that when $n - t = \\O(1)$, any protocol tolerating up to $t$ corrupt parties requires communication-depth $\\Omega(\\ell n)$ in the simultaneous-parties model and $\\Omega(\\ell)$ in the simultaneous-channels model. On the positive side, we show that when $n - t = \\Theta(n)$, multivalued broadcast can be achieved with communication-depth $\\Theta(\\ell)$ in the simultaneous-parties model and $\\Theta(\\ell/n)$ in the simultaneous-channels model.",
               "publicPaperUrl": "https://eprint.iacr.org/2025/931",
-              "url": "https://eprint.iacr.org/2025/931"
+              "url": "https://eprint.iacr.org/2025/931",
+              "slidesUrl": "assets/slides/tcc-paper-178.pdf"
             },
             {
               "id": "tcc-talk-47",
@@ -3567,7 +3568,8 @@
               "end": null,
               "abstract": "Cryptographic combiners take n candidate schemes for some primitive P, and realize it securely provided that at least k candidates are secure. Intuitively, we expect that if we plug n independent instances of a δ-weak candidate for P into the combiner, assuming δ ≪ (n − k)/n, security should be amplified and the resulting candidate should exhibit a significantly smaller weakness. This intuition relies on the implicit “all-or-nothing” assumption that each candidate fails with probability δ and is otherwise perfectly secure, allowing us to bound the failure probability of the combiner using a simple binomial tail bound. However, this intuition often fails for standard security notions where, for example, a weak candidate may consistently leak partial information rather than exhibit a clean all-or-nothing failure.\n\nRecently, Applebaum, Bitansky and Geier (CRYPTO 2026) showed that indistinguishability combiners inherently act as security amplifiers. However, this general result incurs a multiplicative loss of roughly 2ⁿ⁻ᵏ in the error parameter relative to the natural all-or-nothing bound. Moreover, the combiner-is-amplifier approach is fundamentally restricted to the regime δ < 0.5. Consequently, both the resulting error rate and the amplification threshold δ₀ are suboptimal.\n\nIn this work, we overcome these limitations by establishing a new specialized framework of bias-resilient indistinguishability combiners. This formulation allows us to achieve the optimal all-or-nothing bound without the exponential penalty. We observe that bias-resilience provides a unifying abstraction for security amplification across different primitives, neatly capturing prior ad-hoc results such as those for weak PRGs and weak NIZK.\n\nAs our main application, we use this framework to establish a generalized XOR lemma over prime fields Fₚ, showing that the sum modulo p of independent weakly pseudorandom elements becomes computationally indistinguishable from uniform. This improves upon a recent work by Shimizu and Yasunaga (STOC 2026) by achieving a sample complexity that is independent of the field size.\n\nFinally, we explore the idealized notion of an all-or-nothing amplifier. We establish a tight characterization of the multiplicative penalty incurred when applying such an amplifier to candidate schemes that only guarantee standard weak indistinguishability error.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/2025",
-              "url": "https://eprint.iacr.org/2026/2025"
+              "url": "https://eprint.iacr.org/2026/2025",
+              "slidesUrl": "assets/slides/tcc-paper-183.pdf"
             },
             {
               "id": "tcc-talk-83",
@@ -3952,7 +3954,8 @@
               "end": null,
               "abstract": "Depth-robust directed acyclic graphs (DAGs) are an important combinatorial primitive in cryptography, with applications to memory-hard functions, proofs of space, and proofs of sequential work. These applications require node depth-robustness, yet constructing sparse graphs with strong concrete guarantees remains a longstanding challenge. By contrast, edge depth-robust graphs are easier to construct explicitly and achieve better parameters, motivating the problem of efficiently transforming edge-depth-robust graphs into node-depth-robust graphs. We give a new and substantially more efficient transformation from edge-depth-robust graphs to node-depth-robust graphs. We give a new and substantially more efficient transformation from edge-depth-robust graphs to node-depth-robust graphs. Prior work of Blocki and Cinkoske (ITCS 2021) gave a general transformation by replacing each node with an ST-robust graph, resulting in extraordinarily large overhead and relying on non-explicit components. In contrast, our transformation replaces each node with a single superconcentrator rather than an ST-robust graph, yielding an explicit construction whenever the input graph is explicit, with dramatically improved concrete efficiency.\n\nFormally, given an $(e,d)$-edge-depth-robust graph $G$ with $N$ nodes and $m$ edges, our transformation generates a graph $G'=Transform(G_N)$ with $N' = O(m)$ nodes, constant indegree, and $(e/3,\\, 2d-1)$-node depth-robustness. We also show that the transformation preserves fractional depth-robustness. Moreover, when $m=\\omega(N)$, we show that our transformation can amplify depth --- overcoming a key limitation of prior work. In particular, for any parameter $d'$, we can obtain a constant-indegree graph $G'$ with $N' = O(m+d'N)$ nodes and $(e/3,\\, (d-e)d')$-node depth-robustness, yielding asymptotically tighter results in the important setting where $m = \\omega(N)$ and $e \\geq d$ by setting $d' \\sim m/N$. As an application, We provide a novel analysis of Schnitger's edge-depth-robust graph construction (FOCS 1983). We show that the graph $G_n$, which has $N=2^{n+1}-1$ nodes and $m \\leq n2^{n}$ edges, is $(e,2d-1)$-edge-depth robust for all $e + d \\leq 2^n$. Applying our transformation yields an explicit DAG on $N'$ nodes with maximum indegree $2$ and depth-robustness parameters $e = \\Omega(N'/\\log N')$ and $d = \\Omega(N')$, matching the best known asymptotic trade-offs—even compared with non-explicit constructions—while improving the best previously known concrete ed-product lower bound by a multiplicative factor of 6.6.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/1220",
-              "url": "https://eprint.iacr.org/2026/1220"
+              "url": "https://eprint.iacr.org/2026/1220",
+              "slidesUrl": "assets/slides/tcc-paper-75.pdf"
             },
             {
               "id": "tcc-talk-97",
@@ -4198,7 +4201,8 @@
               "end": null,
               "abstract": "Batch arguments (BARGs) are non-interactive arguments for conjunctions of NP statements, with proof size that is sublinear in the number of statements. Several previous works studied the communication complexity of BARGs, focusing both on the CRS size and on the additive overhead of the proof, defined as the difference between the proof size and the size $m$ of a single NP witness: \n\n1. Devadas et al. [FOCS 22] constructed BARGs with additive overhead that is independent of $m$, however, their CRS size is polynomial in $m$.\n\n2. Paneth and Pass [FOCS 22] constructed BARGs where the CRS size is independent of $m$, but with higher additive overhead $m^{1-\\epsilon}$.  \n\nUnder the hardness of LWE, we construct BARGs where both the CRS size the additive overhead of the proof are independent of $m$. Such BARGs can be recursively composed an unbounded polynomial number of times without losing succinctness. Along the way, we also considerably simplify the construction of fully local somewhere extractable hash functions used in the construction of Devadas et al.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/003",
-              "url": "https://eprint.iacr.org/2026/003"
+              "url": "https://eprint.iacr.org/2026/003",
+              "slidesUrl": "assets/slides/tcc-paper-113.pdf"
             },
             {
               "id": "tcc-talk-40",
@@ -4572,7 +4576,8 @@
               "end": null,
               "abstract": "Foundational results in theoretical computer science have established that \n\\emph{everything provable, is provable in zero knowledge}. However, this assertion fundamentally assumes a classical interpretation of computation and many interesting physical statements that one can hope to prove are not characterized. \n\nIn this work, we consider decision problems, where the problem instance itself is specified by a (pure) quantum state. We discuss several motivating applications for this notion and, as our main technical result, we show that every quantum problem that is provable with an interactive protocol, is also provable in zero-knowledge. Our protocol achieves unconditional soundness and computational zero-knowledge, assuming the existence of EFI pairs, which is known to be also necessary. In addition, we show how our techniques yield a protocol for UHLMANN, a central problem in the complexity theory of unitary transformations, that for the first time achieves a meaningful notion of zero-knowledge also in the presence of a malicious verifier.",
               "publicPaperUrl": "https://doi.org/10.1007/978-3-032-43624-5_10",
-              "url": "https://doi.org/10.1007/978-3-032-43624-5_10"
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_10",
+              "slidesUrl": "assets/slides/tcc-paper-114.pdf"
             }
           ]
         },
@@ -4797,7 +4802,8 @@
               "end": null,
               "abstract": "The subset sum problem is one of the oldest problems in cryptography and has a long history of cryptanalysis and algorithms. In this work, we show how to construct homomorphic encryption for all (bounded depth) circuits, whose security can be reduced directly to solving subset sum. Additionally making a circularity assumption, we obtain a fully-homomorphic encryption scheme.\n\nWe then show how to improve the rate of the scheme to be asymptotically optimal, and we extend the scheme to the homomorphic evaluation of quantum circuits.",
               "publicPaperUrl": "https://doi.org/10.1007/978-3-032-43630-6_17",
-              "url": "https://doi.org/10.1007/978-3-032-43630-6_17"
+              "url": "https://doi.org/10.1007/978-3-032-43630-6_17",
+              "slidesUrl": "assets/slides/tcc-paper-130.pdf"
             },
             {
               "id": "tcc-talk-76",
