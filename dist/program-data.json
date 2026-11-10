@@ -2350,181 +2350,176 @@
             },
             {
               "order": 3,
-              "name": "Ziyi Guan",
-              "affiliation": "MIT, NYU"
-            },
-            {
-              "order": 4,
               "name": "Yan Zhong",
               "affiliation": "Johns Hopkins University"
             },
             {
-              "order": 5,
+              "order": 4,
               "name": "Cassandra Marcussen",
               "affiliation": "Harvard University"
             },
             {
-              "order": 6,
+              "order": 5,
               "name": "Mingchen Ma",
               "affiliation": "University of Wisconsin-Madison"
             },
             {
-              "order": 7,
+              "order": 6,
               "name": "Joseph Dorfer",
               "affiliation": "Graz University of Technology"
             },
             {
-              "order": 8,
+              "order": 7,
               "name": "Asaf Etgar",
               "affiliation": "Yale University"
             },
             {
-              "order": 9,
+              "order": 8,
               "name": "Louis Golowich",
               "affiliation": "UC Berkeley"
             },
             {
-              "order": 10,
+              "order": 9,
               "name": "Siddhartha Jain",
               "affiliation": "UT Austin"
             },
             {
-              "order": 11,
+              "order": 10,
               "name": "Esty Kelman",
               "affiliation": "MIT"
             },
             {
-              "order": 12,
+              "order": 11,
               "name": "Mustafa Ibrahim Alnajjar",
               "affiliation": "De Montfort University, UK"
             },
             {
-              "order": 13,
+              "order": 12,
               "name": "Anastasia Sofronova",
               "affiliation": "EPFL"
             },
             {
-              "order": 14,
+              "order": 13,
               "name": "Ron Mosenzon",
               "affiliation": "Toyota Technological Institute at Chicago"
             },
             {
-              "order": 15,
+              "order": 14,
               "name": "Yuxin Zhang",
               "affiliation": "HUN-REN RAMKI"
             },
             {
-              "order": 16,
+              "order": 15,
               "name": "Rama Krishnamurthy",
               "affiliation": "New York University"
             },
             {
-              "order": 17,
+              "order": 16,
               "name": "Yu-Hsuan Huang",
               "affiliation": "Max Planck Institute for Security and Privacy"
             },
             {
-              "order": 18,
+              "order": 17,
               "name": "Vihan Shah",
               "affiliation": "University of Birmingham"
             },
             {
-              "order": 19,
+              "order": 18,
               "name": "Archishna Bhattacharyya",
               "affiliation": "University of Ottawa"
             },
             {
-              "order": 20,
-              "name": "Presenter (name not publicly listed)",
+              "order": 19,
+              "name": "Guy Blanc",
               "affiliation": ""
             },
             {
-              "order": 21,
+              "order": 20,
               "name": "Deepak Bhati",
               "affiliation": "CISPA"
             },
             {
-              "order": 22,
+              "order": 21,
               "name": "Dorsa Fathollahi",
               "affiliation": "Stanford University"
             },
             {
-              "order": 23,
+              "order": 22,
               "name": "Xizhi Tan",
               "affiliation": "Stanford University"
             },
             {
-              "order": 24,
+              "order": 23,
               "name": "Brian Hu Zhang",
               "affiliation": "MIT"
             },
             {
-              "order": 25,
+              "order": 24,
               "name": "Miryam Mi-Ying Huang",
               "affiliation": "Carnegie Mellon University"
             },
             {
-              "order": 26,
+              "order": 25,
               "name": "Eli Goldin",
               "affiliation": "Princeton University"
             },
             {
-              "order": 27,
+              "order": 26,
               "name": "Hanwen Zhang",
               "affiliation": "University of Copenhagen"
             },
             {
-              "order": 28,
+              "order": 27,
               "name": "David Miloschewsky",
               "affiliation": "Stony Brook University"
             },
             {
-              "order": 29,
+              "order": 28,
               "name": "Bhaskar Roberts",
               "affiliation": "NTT Research"
             },
             {
-              "order": 30,
+              "order": 29,
               "name": "Elena Gribelyuk",
               "affiliation": "Princeton University"
             },
             {
-              "order": 31,
+              "order": 30,
               "name": "Xifan Yu",
               "affiliation": "Yale University"
             },
             {
-              "order": 32,
+              "order": 31,
               "name": "Victor Youdom Kemmoe",
               "affiliation": "Brown University"
             },
             {
-              "order": 33,
+              "order": 32,
               "name": "Michael Menart",
               "affiliation": "University of Toronto, Vector Institute"
             },
             {
-              "order": 34,
+              "order": 33,
               "name": "Surya Mathialagan",
               "affiliation": "NTT Research"
             },
             {
-              "order": 35,
+              "order": 34,
               "name": "Venkata Naga Sreenivasulu Karnati",
               "affiliation": "Indian Institute of Science"
             },
             {
-              "order": 36,
+              "order": 35,
               "name": "Christopher Ye",
               "affiliation": "UC San Diego"
             },
             {
-              "order": 37,
+              "order": 36,
               "name": "Ria Stevens",
               "affiliation": "Rice University"
             },
             {
-              "order": 38,
+              "order": 37,
               "name": "Presenter (name not publicly listed)",
               "affiliation": ""
             }
@@ -2563,181 +2558,176 @@
             },
             {
               "order": 3,
-              "name": "Ziyi Guan",
-              "affiliation": "MIT, NYU"
-            },
-            {
-              "order": 4,
               "name": "Yan Zhong",
               "affiliation": "Johns Hopkins University"
             },
             {
-              "order": 5,
+              "order": 4,
               "name": "Cassandra Marcussen",
               "affiliation": "Harvard University"
             },
             {
-              "order": 6,
+              "order": 5,
               "name": "Mingchen Ma",
               "affiliation": "University of Wisconsin-Madison"
             },
             {
-              "order": 7,
+              "order": 6,
               "name": "Joseph Dorfer",
               "affiliation": "Graz University of Technology"
             },
             {
-              "order": 8,
+              "order": 7,
               "name": "Asaf Etgar",
               "affiliation": "Yale University"
             },
             {
-              "order": 9,
+              "order": 8,
               "name": "Louis Golowich",
               "affiliation": "UC Berkeley"
             },
             {
-              "order": 10,
+              "order": 9,
               "name": "Siddhartha Jain",
               "affiliation": "UT Austin"
             },
             {
-              "order": 11,
+              "order": 10,
               "name": "Esty Kelman",
               "affiliation": "MIT"
             },
             {
-              "order": 12,
+              "order": 11,
               "name": "Mustafa Ibrahim Alnajjar",
               "affiliation": "De Montfort University, UK"
             },
             {
-              "order": 13,
+              "order": 12,
               "name": "Anastasia Sofronova",
               "affiliation": "EPFL"
             },
             {
-              "order": 14,
+              "order": 13,
               "name": "Ron Mosenzon",
               "affiliation": "Toyota Technological Institute at Chicago"
             },
             {
-              "order": 15,
+              "order": 14,
               "name": "Yuxin Zhang",
               "affiliation": "HUN-REN RAMKI"
             },
             {
-              "order": 16,
+              "order": 15,
               "name": "Rama Krishnamurthy",
               "affiliation": "New York University"
             },
             {
-              "order": 17,
+              "order": 16,
               "name": "Yu-Hsuan Huang",
               "affiliation": "Max Planck Institute for Security and Privacy"
             },
             {
-              "order": 18,
+              "order": 17,
               "name": "Vihan Shah",
               "affiliation": "University of Birmingham"
             },
             {
-              "order": 19,
+              "order": 18,
               "name": "Archishna Bhattacharyya",
               "affiliation": "University of Ottawa"
             },
             {
-              "order": 20,
-              "name": "Presenter (name not publicly listed)",
+              "order": 19,
+              "name": "Guy Blanc",
               "affiliation": ""
             },
             {
-              "order": 21,
+              "order": 20,
               "name": "Deepak Bhati",
               "affiliation": "CISPA"
             },
             {
-              "order": 22,
+              "order": 21,
               "name": "Dorsa Fathollahi",
               "affiliation": "Stanford University"
             },
             {
-              "order": 23,
+              "order": 22,
               "name": "Xizhi Tan",
               "affiliation": "Stanford University"
             },
             {
-              "order": 24,
+              "order": 23,
               "name": "Brian Hu Zhang",
               "affiliation": "MIT"
             },
             {
-              "order": 25,
+              "order": 24,
               "name": "Miryam Mi-Ying Huang",
               "affiliation": "Carnegie Mellon University"
             },
             {
-              "order": 26,
+              "order": 25,
               "name": "Eli Goldin",
               "affiliation": "Princeton University"
             },
             {
-              "order": 27,
+              "order": 26,
               "name": "Hanwen Zhang",
               "affiliation": "University of Copenhagen"
             },
             {
-              "order": 28,
+              "order": 27,
               "name": "David Miloschewsky",
               "affiliation": "Stony Brook University"
             },
             {
-              "order": 29,
+              "order": 28,
               "name": "Bhaskar Roberts",
               "affiliation": "NTT Research"
             },
             {
-              "order": 30,
+              "order": 29,
               "name": "Elena Gribelyuk",
               "affiliation": "Princeton University"
             },
             {
-              "order": 31,
+              "order": 30,
               "name": "Xifan Yu",
               "affiliation": "Yale University"
             },
             {
-              "order": 32,
+              "order": 31,
               "name": "Victor Youdom Kemmoe",
               "affiliation": "Brown University"
             },
             {
-              "order": 33,
+              "order": 32,
               "name": "Michael Menart",
               "affiliation": "University of Toronto, Vector Institute"
             },
             {
-              "order": 34,
+              "order": 33,
               "name": "Surya Mathialagan",
               "affiliation": "NTT Research"
             },
             {
-              "order": 35,
+              "order": 34,
               "name": "Venkata Naga Sreenivasulu Karnati",
               "affiliation": "Indian Institute of Science"
             },
             {
-              "order": 36,
+              "order": 35,
               "name": "Christopher Ye",
               "affiliation": "UC San Diego"
             },
             {
-              "order": 37,
+              "order": 36,
               "name": "Ria Stevens",
               "affiliation": "Rice University"
             },
             {
-              "order": 38,
+              "order": 37,
               "name": "Presenter (name not publicly listed)",
               "affiliation": ""
             }
