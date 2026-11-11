@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-11T11:22:37-05:00",
+  "generatedAt": "2026-11-11T15:33:58-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -4317,7 +4317,8 @@
               "end": null,
               "abstract": "Zero knowledge is formalized via a simulator --- i.e., an efficient computation which simulates the view of a (malicious) verifier. The foundational results in zero knowledge [GMW86, FS90, GK96] have all used expected polynomial-time (EPT) simulators, and there is evidence that strict poly-time simulators do not exist for these protocols. In the post-quantum setting, we must upgrade the simulator to at least quantum polynomial time (QPT) in order to properly simulate quantum verifiers. Chia et al. [CCLY22] proved a surprising negative result which precludes non-trivial black-box simulation for constant-round protocols by both QPT and a natural model for expected quantum polynomial-time (EQPT) simulators. In light of this, Lombardi, Spooner, and Ma [LMS22] introduced a second EQPT notion, coherent-runtime EQPT or EQPTc, and showed that the [GMW86, FS90, GK96] protocols all allow for EQPTc simulation.\n\nIn this work, we identify and propose a resolution for a fundamental issue with the definition of EQPTc simulation. In particular, we demonstrate that EQPTc computation is not necessarily efficient and can, in fact, decide any classical decision problem. This is possible through a freedom of choice in selecting a unitary dilation for an efficient quantum channel. We propose an updated definition which surgically restricts this choice, and prove that the definition preserves the zero knowledge of the [GMW86, FS90, GK96] protocols. Additionally, by upgrading the [GK96] framework to the fully quantum setting, we construct for the first time a contant-round zero knowledge proof system for QMA.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/1500",
-              "url": "https://eprint.iacr.org/2026/1500"
+              "url": "https://eprint.iacr.org/2026/1500",
+              "slidesUrl": "assets/slides/tcc-paper-107.pdf"
             },
             {
               "id": "tcc-talk-82",
@@ -4470,7 +4471,8 @@
               "end": null,
               "abstract": "Permutation and lookup arguments are at the core of most deployed SNARK protocols today.\nMost modern techniques for performing them require a grand product check. This requires either committing to large field elements (E.g. in Plonk) or using GKR (E.g. in Spartan) which has worse verifier cost and proof size. Moreover, both have a soundness error that grows linearly with the input size.\n\nWe reduce permutation argument to sumcheck argument and present two permutation arguments that have $\\polylog(n)/|\\FF|$ soundness error. BiPerm only requires the prover to perform $O(n)$ field operations on top of committing to the witness, but at the cost of limiting the choices of PCS. \nWe show a general construction, MulPerm, which has no restriction on the PCS choice and its prover performs essentially linear field operations, $n \\cdot \\tilde O(\\sqrt{\\log(n)})$. Both permutation arguments generalize to lookups.\nWe demonstrate how our arguments can be used to improve SNARK systems such as HyperPlonk (Eurocrypt 2023) and Spartan (Crypto 2020), and build a GKR-based protocol for proving non-uniform circuits.\n\nFurther, MulPerm enables the fastest succinct argument with sublinear verification for arbitrary circuits over \\emph{small} fields. Plugging MulPerm into prior small field constructions overcomes the previous lack of an efficient permutation argument with sufficiently small soundness error.",
               "publicPaperUrl": "https://eprint.iacr.org/2025/1850",
-              "url": "https://eprint.iacr.org/2025/1850"
+              "url": "https://eprint.iacr.org/2025/1850",
+              "slidesUrl": "assets/slides/tcc-paper-35.pdf"
             },
             {
               "id": "tcc-talk-53",
