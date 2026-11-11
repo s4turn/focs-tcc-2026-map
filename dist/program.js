@@ -102,6 +102,23 @@ function lanes(){
  return [...found.values()].sort((a,b)=>a.id.localeCompare(b.id));
 }
 function sessionLocation(session){return session.room?`${session.venueId==='wwh'?'WWH':'Kimmel'} · ${session.room}${session.floor?` · Floor ${session.floor}`:''}`:'';}
+// Display estimates never change the source snapshot or its unpublished times.
+function paperTiming(paper,session){
+ const clock=value=>typeof value==='string'&&/^(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?$/.test(value)?minutes(value):null;
+ const start=clock(paper?.start),end=clock(paper?.end??session.end);
+ if(start!==null&&end!==null&&end>start)return {start,end,estimated:false};
+ const papers=session.papers||[],index=papers.indexOf(paper),from=clock(session.start),to=clock(session.end);
+ if(session.conference!=='TCC'||session.kind==='workshop'||index<0||from===null||to===null||to<=from||papers.some(p=>p.start!=null||p.end!=null))return null;
+ const duration=(to-from)/papers.length;
+ return {start:from+index*duration,end:from+(index+1)*duration,estimated:true};
+}
+function slotTime(value){
+ const seconds=Math.round(value*60),hour=Math.floor(seconds/3600),minute=Math.floor(seconds%3600/60),second=seconds%60;
+ return `${hour%12||12}:${String(minute).padStart(2,'0')}${second?`:${String(second).padStart(2,'0')}`:''} ${hour>=12?'p.m.':'a.m.'}`;
+}
+function estimatedSlotsNote(session){
+ return paperTiming(session.papers?.[0],session)?.estimated?'<p class="program-inline-note">≈ Equal estimated talk slots</p>':'';
+}
 function floorLink(session){return session.floor?`<button type="button" class="program-button" data-show-floor="${session.floor}" data-show-venue="${esc(session.venueId||'kimmel')}" data-show-room="${esc(session.room||'')}" data-show-day="${esc(state.day)}">Show ${session.venueId==='wwh'?'WWH':'Kimmel'} floor ${session.floor}</button>`:'';}
 function sessionRelatedLinks(session){
  if(!Array.isArray(session.relatedLinks))return '';
@@ -118,7 +135,11 @@ function sessionContents(session){
  const papers=session.papers||[],url=safeUrl(session.url),location=sessionLocation(session);
  const workshopTrack=state.day==='sunday-early'&&displayTrack(session)?`<span>Track ${esc(displayTrack(session))}</span>`:'';
  const conflict=session.timingConflict?.note?`<p class="program-conflict">${esc(session.timingConflict.note)}</p>`:'';
- return `<div class="program-inline-meta">${location?`<strong>${esc(location)}</strong>`:''}${workshopTrack}<span>${esc(range(session.start,session.end))} ET</span></div>${conflict}${session.chair?`<p class="program-inline-note">Chair: ${esc(session.chair)}</p>`:''}${papers.length?`<ol class="program-inline-papers">${papers.map((paper,i)=>`<li class="program-inline-paper" ${paper.start?`data-talk-start="${minutes(paper.start)}" data-talk-end="${minutes(paper.end||session.end)}"`:''}><span class="program-inline-time">${paper.start?esc(paperTime(paper,session)):`Talk ${paper.order||i+1}`}</span><strong>${esc(paper.title)}</strong><p>${esc(authors(paper))}</p>${paper.publicNote?`<p class="program-paper-note">${esc(paper.publicNote)}</p>`:''}</li>`).join('')}</ol>`:`<p class="program-inline-note">${esc(session.title)}</p>`}${presenterOrder(session)}<div class="program-inline-actions">${papers.length?`<button type="button" class="program-button" data-session="${esc(session.id)}">${session.kind==='workshop'?'View agenda':'Focus on papers'}</button>`:''}${floorLink(session)}${url?`<a class="program-paper-link" href="${esc(url)}" target="_blank" rel="noopener">Published program ↗</a>`:''}${sessionRelatedLinks(session)}<button type="button" class="program-button program-collapse" data-collapse-session>Collapse session ↑</button></div>`;
+ const rows=papers.map((paper,i)=>{
+  const timing=paperTiming(paper,session);
+  return `<li class="program-inline-paper" ${timing?`data-talk-start="${timing.start}" data-talk-end="${timing.end}"${timing.estimated?' data-time-estimated="true"':''}`:''}><span class="program-inline-time">${timing?esc(paperTime(paper,session)):`Talk ${paper.order||i+1}`}</span><strong>${esc(paper.title)}</strong><p>${esc(authors(paper))}</p>${paper.publicNote?`<p class="program-paper-note">${esc(paper.publicNote)}</p>`:''}</li>`;
+ }).join('');
+ return `<div class="program-inline-meta">${location?`<strong>${esc(location)}</strong>`:''}${workshopTrack}<span>${esc(range(session.start,session.end))} ET</span></div>${conflict}${session.chair?`<p class="program-inline-note">Chair: ${esc(session.chair)}</p>`:''}${estimatedSlotsNote(session)}${papers.length?`<ol class="program-inline-papers">${rows}</ol>`:`<p class="program-inline-note">${esc(session.title)}</p>`}${presenterOrder(session)}<div class="program-inline-actions">${papers.length?`<button type="button" class="program-button" data-session="${esc(session.id)}">${session.kind==='workshop'?'View agenda':'Focus on papers'}</button>`:''}${floorLink(session)}${url?`<a class="program-paper-link" href="${esc(url)}" target="_blank" rel="noopener">Published program ↗</a>`:''}${sessionRelatedLinks(session)}<button type="button" class="program-button program-collapse" data-collapse-session>Collapse session ↑</button></div>`;
 }
 function sessionButton(session,b,lane){
  const start=minutes(session.start),end=minutes(session.end),duration=end-start;
@@ -203,7 +224,8 @@ function observeTimeline(){
  });timelineObserver.observe(timeline);
 }
 function paperTime(paper,session){
- return paper.start?range(paper.start,paper.end||session.end):`Session ${range(session.start,session.end)}`;
+ const timing=paperTiming(paper,session);
+ return timing?timing.estimated?`≈ ${slotTime(timing.start)}–${slotTime(timing.end)}`:range(timing.start,timing.end):`Session ${range(session.start,session.end)}`;
 }
 function paperDetail(paper,session){
  const url=safeUrl(paper.publicPaperUrl)||safeUrl(paper.url)||safeUrl(session.url),isPaper=url&&url!==safeUrl(session.url)&&!url.includes('focs.computer.org/2026/main-program');
@@ -224,13 +246,17 @@ function workshopDetail(session){
 function detail(){
  const session=selectedSession();if(!session)return '<p>No sessions are listed for this day.</p>';
  state.session=session.id;
- const papers=session.papers||[],current=activeTime();let paper=papers.find(p=>p.id===state.paper)||(current.mode==='live'?papers.find(p=>p.start&&minutes(p.start)<=current.minutes&&current.minutes<minutes(p.end||session.end)):null)||papers[0];state.paper=paper?.id||null;
+ const papers=session.papers||[],current=activeTime();let paper=papers.find(p=>p.id===state.paper)||(current.mode==='live'?papers.find(p=>{const timing=paperTiming(p,session);return timing&&timing.start<=current.minutes&&current.minutes<timing.end;}):null)||papers[0];state.paper=paper?.id||null;
  const options=sessions().map(s=>`<option value="${esc(s.id)}" ${s.id===session.id?'selected':''}>${esc(time(s.start))} · ${esc(s.conference)}${displayTrack(s)&&!['TCC','Plenary','Joint'].includes(displayTrack(s))?` ${esc(displayTrack(s))}`:''} · ${esc(s.theme||s.title)}</option>`).join('');
  const conflict=session.timingConflict?.note?`<p class="program-conflict">${esc(session.timingConflict.note)}</p>`:'';
- const header=`<label class="program-session-select-label" for="program-session-selector">Theme / event</label><select id="program-session-selector" class="program-session-select">${options}</select><div class="program-theme-header"><h3>${esc(session.theme||session.title)}</h3><div class="program-theme-meta"><strong>${esc(range(session.start,session.end))} ET</strong><span>${esc(session.conference)}${displayTrack(session)&&!['TCC','Plenary','Joint'].includes(displayTrack(session))?` · Track ${esc(displayTrack(session))}`:''}</span>${session.room?`<span>${esc(sessionLocation(session))}</span>`:''}${session.chair?`<span>Chair: ${esc(session.chair)}</span>`:''}</div><p id="program-session-status" class="program-session-status" hidden></p>${conflict}</div>`;
+ const header=`<label class="program-session-select-label" for="program-session-selector">Theme / event</label><select id="program-session-selector" class="program-session-select">${options}</select><div class="program-theme-header"><h3>${esc(session.theme||session.title)}</h3><div class="program-theme-meta"><strong>${esc(range(session.start,session.end))} ET</strong><span>${esc(session.conference)}${displayTrack(session)&&!['TCC','Plenary','Joint'].includes(displayTrack(session))?` · Track ${esc(displayTrack(session))}`:''}</span>${session.room?`<span>${esc(sessionLocation(session))}</span>`:''}${session.chair?`<span>Chair: ${esc(session.chair)}</span>`:''}</div>${estimatedSlotsNote(session)}<p id="program-session-status" class="program-session-status" hidden></p>${conflict}</div>`;
  if(!papers.length)return header+`<div class="program-event-only"><p>${esc(session.title)}</p>${presenterOrder(session)}${session.room?`<p class="program-paper-note">${esc(session.room)}</p>`:''}${safeUrl(session.url)?`<a class="program-paper-link" href="${esc(safeUrl(session.url))}" target="_blank" rel="noopener">Published program ↗</a>`:''}${sessionRelatedLinks(session)}${session.floor?`<div>${floorLink(session)}</div>`:''}</div>`;
  if(session.kind==='workshop')return header+workshopDetail(session);
- return header+`<div class="program-paper-grid"><article id="program-paper-detail" class="program-paper-detail" aria-label="Selected talk">${paperDetail(paper,session)}</article><div id="program-paper-list" class="program-paper-list" aria-label="Papers in program order">${papers.map((p,i)=>`<button type="button" class="program-paper-button" data-paper="${esc(p.id)}" ${p.start?`data-start="${minutes(p.start)}" data-end="${minutes(p.end||session.end)}"`:''} aria-pressed="${p.id===paper.id}"><span>${p.start?`<b>${esc(time(p.start))}</b>`:`Talk ${p.order||i+1} · Session ${esc(range(session.start,session.end))}`}</span><strong>${esc(p.title)}</strong></button>`).join('')}<div id="program-paper-now-line" class="program-paper-now-line" hidden><span class="program-now-label" id="program-paper-now-label"></span></div></div></div>`;
+ const buttons=papers.map((p,i)=>{
+  const timing=paperTiming(p,session);
+  return `<button type="button" class="program-paper-button" data-paper="${esc(p.id)}" ${timing?`data-start="${timing.start}" data-end="${timing.end}"${timing.estimated?' data-time-estimated="true"':''}`:''} aria-pressed="${p.id===paper.id}"><span>${timing?`<b>${timing.estimated?'≈ ':''}${esc(timing.estimated?slotTime(timing.start):time(timing.start))}</b>`:`Talk ${p.order||i+1} · Session ${esc(range(session.start,session.end))}`}</span><strong>${esc(p.title)}</strong></button>`;
+ }).join('');
+ return header+`<div class="program-paper-grid"><article id="program-paper-detail" class="program-paper-detail" aria-label="Selected talk">${paperDetail(paper,session)}</article><div id="program-paper-list" class="program-paper-list" aria-label="Papers in program order">${buttons}<div id="program-paper-now-line" class="program-paper-now-line" hidden><span class="program-now-label" id="program-paper-now-label"></span></div></div></div>`;
 }
 function clockMarkup(){return '<div class="program-clock"><div class="program-time-status"><span id="program-time-badge" class="program-time-badge"></span><span id="program-clock-value" class="program-clock-value"></span></div><p id="program-actual-clock" class="program-actual-clock"></p></div>';}
 function sourcesMarkup(){
@@ -281,7 +307,7 @@ function focusCurrentTime(){
 function tickPaperLine(current){
  const line=$('program-paper-now-line'),status=$('program-session-status'),session=selectedSession();
  if(!session)return;
- const timed=session.papers?.some(p=>p.start),start=minutes(session.start),end=minutes(session.end),at=current.minutes;
+ const timed=session.papers?.some(p=>paperTiming(p,session)),start=minutes(session.start),end=minutes(session.end),at=current.minutes;
  if(status){
   status.hidden=current.mode==='off'&&Boolean(timed);
   const progress=at===null?'':at<start?'Before this session':at>=end?'After this session':'Session in progress';
