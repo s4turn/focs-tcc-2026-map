@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-12T07:22:02-05:00",
+  "generatedAt": "2026-11-12T11:49:00-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -4550,7 +4550,8 @@
               "end": null,
               "abstract": "In the common reference quantum state (CRQS) model, introduced by Morimae, Nehoran and Yamakawa (CRYPTO '24) and Qian (CRYPTO '24), all parties have access to an oracle providing copies of a pure quantum state $\\ket{\\psi_k}$ derived efficiently from a classical secret $k$. Morimae et al. and Qian show that statistically secure quantum bit commitments exist unconditionally in the bounded CRQS model, in which the adversary can obtain only an \\emph{a priori bounded} number of copies of the state $\\ket{\\psi_k}$.\n\nIn this work, we introduce a classical variant of the CRQS model called the common reference distribution (CRD) model. In the CRD model, all parties have access to a sampling oracle that yields independent samples from an efficiently samplable distribution $D_k$. We show that statistically secure (classical) noninteractive bit commitments exist unconditionally in the bounded CRD (bCRD) model, where the adversary can obtain only a bounded number of samples from $D_k$. Additionally, we show how to build statistically secure signature schemes, NIZKs, and key agreement in this model. We complement our positive results by showing that without the a priori sample bound, cryptography in this model implies one-way functions.\n\nWe then show how to transform a scheme in the bCRD model into a scheme in the bCRQS model. We thus obtain statistically-secure commitment schemes, signature schemes, key agreement, and NIZKs with classical communication in the bCRQS model. In particular, we improve on the bCRQS commitment schemes of Morimae et al. and Qian, which require quantum communication. This reveals a separation between the bCRQS model and a bounded variant of the common Haar-random state (CHRS) model, in which statistically secure bit commitments with classical communication do not exist by a result of Ananth, Gulati and Lin (TCC '24).",
               "publicPaperUrl": "https://doi.org/10.1007/978-3-032-43630-6_3",
-              "url": "https://doi.org/10.1007/978-3-032-43630-6_3"
+              "url": "https://doi.org/10.1007/978-3-032-43630-6_3",
+              "slidesUrl": "assets/slides/tcc-paper-108.pdf"
             },
             {
               "id": "tcc-talk-65",
@@ -4850,7 +4851,8 @@
               "end": null,
               "abstract": "We design decentralized multi-authority functional encryption (MAFE) for P/Poly circuits from minimal assumptions in both the bounded-collusion and fully collusion-resistant models, i.e., from public-key encryption and from functional encryption, respectively. Prior constructions required sub-exponentially hard public-key encryption with random oracles (bounded collusion) or sub-exponentially-hard obfuscation (collusion-resistant).\n\nUnder the additional assumption of SXDH or LWE, our constructions remain secure against an adversary that corrupts any k of the n local authorities, provided $\\binom{n}{k} = poly(\\lambda)$, covering, for example, $k = O(1)$ and $n = poly(\\lambda)$ or $k = O(log \\lambda)$ and $n = O(log \\lambda)$. Complementing this, we show that any MAFE scheme that tolerates corruption of more than $\\chi = O(log \\lambda)$ authorities and remains non-trivially compact (i.e., parameter sizes scale sub-linearly in $2^{\\chi}$) implies indistinguishability obfuscation. Thus, our scheme is essentially optimal across a wide parameter regime.\n\nAlong the way, we introduce two abstractions, MAFE with synchronous setup and synchronous key generation that provide a path to constructing multi-authority encryption schemes from their centralized counterparts, and may be useful for designing other multi-authority encryption systems.",
               "publicPaperUrl": "https://eprint.iacr.org/2025/412",
-              "url": "https://eprint.iacr.org/2025/412"
+              "url": "https://eprint.iacr.org/2025/412",
+              "slidesUrl": "assets/slides/tcc-paper-125.pdf"
             },
             {
               "id": "tcc-talk-48",
@@ -4872,7 +4874,8 @@
               "end": null,
               "abstract": "In secret-key private information retrieval (SK-PIR), the client in an offline phase processes the database using a short secret key. In the online phase the client could then use the secret key to make queries to the server, without revealing the entries accessed, and using only sublinear communication o(N) in the database size N. While (non-SK) PIR requires public-key cryptography, recent work provides evidence that SK-PIR may not. In particular, Chen, Ishai, Mour, and Rosen (STOC 26) construct SK-PIR with communication $N^{\\varepsilon}$, for any $\\varepsilon$, from high-noise LPN, which is not known to imply public-key cryptography.   \n\nWe construct SK-PIR with online communication $\\tilde{O}(\\sqrt{N)}$, under the minimal assumption of one-way functions. More generally we can achieve client-to-server communication $\\tilde{O}(N_c)$ and server-to-client communication $\\tilde{O}(N_s)$ as long as $N_c \\cdot N_s \\geq N$. \n\nOur construction is simple and is based on garbled circuits with an uncorrelated input encoding property, which is satisfied by schemes from the literature.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/865",
-              "url": "https://eprint.iacr.org/2026/865"
+              "url": "https://eprint.iacr.org/2026/865",
+              "slidesUrl": "assets/slides/tcc-paper-119.pdf"
             }
           ]
         }
