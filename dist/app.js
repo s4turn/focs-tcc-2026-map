@@ -6,8 +6,8 @@ const DAYS=[
  {id:'monday',short:'Mon',date:9,title:'Monday, November 9',conference:'FOCS',focs:true,tcc:false,solarium:'9 a.m.–2:30 p.m.',rosenthal:'8 a.m.–4 p.m.',note:'Track D · Room 914 today. Coffee · 409 (floor 4) and 912 (floor 9).'},
  {id:'tuesday',short:'Tue',date:10,title:'Tuesday, November 10',conference:'FOCS + TCC',focs:true,tcc:true,solarium:'9 a.m.–10 p.m.',rosenthal:null,note:'Joint reception · Eisner & Lubin Auditorium, 7:30–10 p.m. Coffee · 409 (floor 4) and 912 (floor 9).'},
  {id:'wednesday',short:'Wed',date:11,title:'Wednesday, November 11',conference:'FOCS + TCC',focs:true,tcc:true,solarium:'9 a.m.–5 p.m.',rosenthal:'8 a.m.–3 p.m.',note:'Joint Knuth lecture · Eisner & Lubin Auditorium. Coffee · 409 (floor 4) and 912 (floor 9).'},
- {id:'thursday',short:'Thu',date:12,title:'Thursday, November 12',conference:'TCC',focs:false,tcc:true,rosenthal:null,registrationAtEntrance:true,coffeeOnFourth:false,note:'TCC · Room 914, floor 9. Registration · just inside the entrance, floor 1. Coffee · 912, floor 9 only.'},
- {id:'friday',short:'Fri',date:13,title:'Friday, November 13',conference:'TCC',focs:false,tcc:true,rosenthal:'8 a.m.–2 p.m.',registrationAtEntrance:true,coffeeOnFourth:false,note:'TCC · Room 914, floor 9. Registration · just inside the entrance, floor 1. Coffee · 912, floor 9 only.'}
+ {id:'thursday',short:'Thu',date:12,title:'Thursday, November 12',conference:'TCC',focs:false,tcc:true,rosenthal:null,floors:[10,9,1],registrationAtEntrance:true,coffeeOnFourth:false,mealsOnTen:true,note:'TCC · Room 914, floor 9. Registration · just inside the entrance, floor 1. Coffee · 912, floor 9 only. Breakfast / lunch · Rosenthal Pavilion, floor 10.'},
+ {id:'friday',short:'Fri',date:13,title:'Friday, November 13',conference:'TCC',focs:false,tcc:true,rosenthal:'8 a.m.–2 p.m.',floors:[10,9,1],registrationAtEntrance:true,coffeeOnFourth:false,mealsOnTen:true,note:'TCC · Room 914, floor 9. Registration · just inside the entrance, floor 1. Coffee · 912, floor 9 only. Breakfast / lunch · Rosenthal Pavilion, floor 10.'}
 ];
 const PALETTES={
  soft:{paper:'#FFF9ED',ink:'#173F3D',muted:'#53675F',primary:'#2E7771',onPrimary:'#FFF9ED',floor:'#FFFCF5',closed:'#DDE6DA',wall:'#F4E9D6',line:'#B9CDBD',sideN:'#C8D6C5',sideE:'#9FBDAF',stage:'#84AD9D',seats:'#5D9587',road:'#D8DFDA',walk:'#F2E5D2',park:'#D8E7B3',tree:'#90B47A',treeLight:'#ABC98B',glass:'#B7D7D8',wood:'#D4A87D',shadow:'#748F82',rooms:{A:'#BBD8C9',B:'#F3C3A9',C:'#ACD5DC',D:'#E6BD91',TCC:'#E6BD91',coffee:'#F4D982',entry:'#B8DDD5',neutral:'#EEE9DB'}},
@@ -28,7 +28,7 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const currentDay=()=>DAYS[state.day];
 const venueId=()=>currentDay().venue||'kimmel';
 const currentDate=()=>`2026-11-${String(currentDay().date).padStart(2,'0')}`;
-const activeFloors=()=>venueId()==='wwh'?[1]:currentDay().id==='sunday-late'?[10,9,8,4,1]:FLOORS;
+const activeFloors=()=>venueId()==='wwh'?[1]:currentDay().id==='sunday-late'?[10,9,8,4,1]:currentDay().floors||FLOORS;
 const venueName=()=>venueId()==='wwh'?'Warren Weaver Hall':'Kimmel Center';
 // Conference defaults use New York dates, independent of the visitor's timezone.
 function nowInNewYork(now=new Date()){
@@ -229,6 +229,10 @@ function rooms(floor,day=currentDay()){
   const details={id:site.id,service:'coffee',serviceConfirmed:true,title:site.room,short:`Coffee · ${site.number}`,subtitle:'Coffee / refreshments',description:`${site.room} · Floor ${site.floor}. Coffee / refreshments.${site.breakfastDays.includes(day.id)?' Breakfast is also served here.':''}${day.id==='tuesday'?' Lunch is only in Solarium 409, floor 4.':''}`,color:COLORS.coffee,mapPoint:site.mapPoint};
   const existing=list.find(room=>room.id===site.id);if(existing)Object.assign(existing,details);else list.push(details);
  }
+ if(day.mealsOnTen&&floor===10){
+  const meals={id:'rosenthal',service:'food',serviceConfirmed:true,title:'Rosenthal Pavilion',short:'Rosenthal',subtitle:'Breakfast / lunch',description:'Breakfast and lunch are in Rosenthal Pavilion, floor 10.',color:COLORS.coffee};
+  const existing=list.find(room=>room.id==='rosenthal');if(existing)Object.assign(existing,meals);else list.push(meals);
+ }
  const registration=registrationLocation(floor,day);if(registration)list.push({id:'registration',kind:'registration',title:'Registration',short:'Registration',subtitle:registration.subtitle,description:registration.description,mapPoint:registration.point,color:COLORS.entry});
  const bathroom=restroomInfo(floor,day);if(bathroom)list.push({id:'restrooms',kind:'restrooms',title:venue==='wwh'?'All-gender restrooms':'Restrooms',short:venue==='wwh'?'All-gender restrooms':'Restrooms',subtitle:venue==='wwh'?'WWH · First floor':`Kimmel · Floor ${floor}`,description:bathroom.description,color:COLORS.neutral});
  return list.filter(room=>!room.obsolete&&!(ROOM_DATA.source&&room.service&&!room.hold&&!room.serviceConfirmed));
@@ -253,11 +257,11 @@ function lunchDestination(day=currentDay()){
  const meals=PROGRAM_DATA?.days.find(item=>item.id===day.id)?.sessions.filter(session=>session.kind==='meal'&&/^Lunch\b/i.test(session.title))||[];
  if(day.venue==='wwh'&&meals.length)return {floor:1,roomId:'crosshall',title:'Breakfast / lunch',subtitle:'WWH · Crosshall',description:'Food is staged in the crosshall, outside room 109.'};
  const published=meals.find(session=>session.venueId==='kimmel'&&session.floor&&session.room);
- // Monday's missing location was confirmed by the organizer; keep public times.
- const meal=published||(day.id==='monday'&&meals[0]?{...meals[0],floor:10,room:'Rosenthal Pavilion'}:null);
+ // Reviewed meal destinations retain the published lunch times.
+ const meal=day.mealsOnTen&&meals[0]?{...meals[0],floor:10,room:'Rosenthal Pavilion'}:published||(day.id==='monday'&&meals[0]?{...meals[0],floor:10,room:'Rosenthal Pavilion'}:null);
  if(!meal)return null;
  const roomId=geometryRoom(meal.room);if(!roomId)return null;
- return {floor:meal.floor,roomId,title:'Breakfast / lunch',subtitle:`${meal.room} · Floor ${meal.floor}`,description:`Lunch: ${holdTime(meal.start)}–${holdTime(meal.end)}${roomId==='solarium'?' · Boxed-lunch pickup.':''}${day.id==='tuesday'?' Breakfast is in 409 (floor 4) and 912 (floor 9); lunch is only in 409.':''}`};
+ return {floor:meal.floor,roomId,title:'Breakfast / lunch',subtitle:`${meal.room} · Floor ${meal.floor}`,description:`Lunch: ${holdTime(meal.start)}–${holdTime(meal.end)}${roomId==='solarium'?' · Boxed-lunch pickup.':''}${day.id==='tuesday'?' Breakfast is in 409 (floor 4) and 912 (floor 9); lunch is only in 409.':''}${day.mealsOnTen?' Breakfast and lunch are in Rosenthal Pavilion, floor 10.':''}`};
 }
 function restroomHighlights(floor){
  if(state.room!=='restrooms')return '';
@@ -431,7 +435,7 @@ function plan(floor,{labels=true,day=currentDay(),outlines=true}={}){
   if(labels)markup+=text(141,14,'Balcony · north',11)+text(49,39,'Alcove',11);
   markup+=selectable('rosenthal',`<path class="room-fill" d="M76 20 H206 V0 H238 V11 H260 V290 H229 V276 H95 L86 272 V248 L95 246 V64 L76 63 Z" fill="${meals?COLORS.coffee:has('rosenthal')?COLORS.entry:COLORS.neutral}"/>`+(labels?labelLines(178,112,['Rosenthal','Pavilion'],18):''));
   if(meals){for(const[x,y]of [[132,200],[211,200],[171,257]])markup+=`<circle cx="${x}" cy="${y}" r="14" fill="#fff9e9" stroke="#b8a773"/><circle cx="${x}" cy="${y}" r="3" fill="#c7b380"/>`;}
-  if(labels){markup+=labelLines(178,160,meals?['Meals /','gathering']:catering?['Catering /','staging']:has('rosenthal')?['Free space']:['No conference','space today'],13);if(meals)markup+=foodFriend('food','x="117" y="182" width="30" height="30"');}
+  if(labels){markup+=labelLines(178,160,meals?(day.mealsOnTen?['Breakfast /','lunch']:['Meals /','gathering']):catering?['Catering /','staging']:has('rosenthal')?['Free space']:['No conference','space today'],13);if(meals)markup+=foodFriend('food','x="117" y="182" width="30" height="30"');}
   markup+=tenthFloorCore(labels);
   markup+=`<path class="room-fill kitchen-service" d="M95 276 H229 V290 H260 V400 H95 Z" fill="${COLORS.neutral}"/><path d="M229 290 V400 M229 328 H260 M229 365 H260" fill="none" stroke="${P.line}" stroke-width="1.2"/>`;
   if(labels)markup+=labelLines(163,334,['Kitchen /','service'],12)+text(244,345,'Storage',10,'transform="rotate(-90 244 345)"');
@@ -803,7 +807,7 @@ document.addEventListener('conference:locate',event=>{
  state.automaticDay=false;state.automaticLocation=false;
  const dayIndex=DAYS.findIndex(day=>day.id===target.day);if(dayIndex>=0)state.day=dayIndex;
  if(target.venueId&&target.venueId!==venueId())state.day=DAYS.findIndex(day=>day.id===(target.venueId==='wwh'?'sunday-early':'sunday-late'));
- state.floor=activeFloors().includes(Number(target.floor))?Number(target.floor):venueId()==='wwh'?1:4;
+ state.floor=activeFloors().includes(Number(target.floor))?Number(target.floor):activeFloors().includes(4)?4:defaultFloor();
  state.room=rooms(state.floor).find(room=>room.id===target.room||room.id===resolveMapRoom(target.room)||room.hold?.room===target.room)?.id||rooms(state.floor)[0]?.id||null;
  if(before!==venueId()){pendingMapFocus=rememberMapFocus()||pendingMapFocus;$('building').innerHTML='';}
  render();
