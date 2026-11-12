@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-11T15:33:58-05:00",
+  "generatedAt": "2026-11-12T03:21:43-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -4194,7 +4194,8 @@
               "end": null,
               "abstract": "We revisit Interactive Oracle Reductions (IORs), introduced by Ben-Sasson et al.~(TCC'19), and argue that they serve as a natural modular framework for the study of proof systems.\n\nOur first contribution is a clean and general formalization of IORs that unifies prior formulations, subsuming the notion of Reductions of Knowledge introduced by Kothapalli and Parno (CRYPTO'23), along with a general composition theorem.\nThis yields a systematic method for constructing complex IORs from simpler components while retaining a modular soundness analysis.\nWe also introduce a notion of soundness, which we refer to as \\emph{partial knowledge soundness}, that captures the standard notion of soundness and of knowledge soundness as special cases.\n\nOur second contribution concerns the compilation of IORs into succinct arguments, following the seminal works of Kilian (STOC'92) and Ben-Sasson et al. (TCC'16), in which each oracle is instantiated via a functional commitment and each query via an evaluation proof. \n\nWe provide a general soundness theorem for arbitrary IORs, identifying two alternative sufficient conditions.\n\nConcretely, we show that soundness of the resulting argument follows from extractability of the functional commitment together with either\n\n  (i) public-query soundness of the underlying IOR (i.e., soundness even if the prover learns the verifier’s queries), or\n  (ii) plain soundness of the underlying IOR and a new notion of \\emph{oblivious evaluation} of the functional commitment.\n\nFunctional commitments with oblivious evaluation are a notion we introduce, for which we provide a first instantiation.",
               "publicPaperUrl": "https://doi.org/10.1007/978-3-032-43624-5_1",
-              "url": "https://doi.org/10.1007/978-3-032-43624-5_1"
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_1",
+              "slidesUrl": "assets/slides/tcc-paper-104.pdf"
             },
             {
               "id": "tcc-talk-71",
@@ -4240,7 +4241,8 @@
               "end": null,
               "abstract": "Distributed certification is a method for monitoring the correctness of a distributed system. The model\nconsists of a centralized prover in addition to multiple verifiers lying on the nodes of a communication network, where the goal is to assert that the network satisfies a desired property. In doing so, the prover generates certificates for each verifier; the verifiers can then communicate in a small number of rounds, and accordingly accept or reject. The prover’s assertion is accepted if all verifiers accept.\n\nA significant body of work has gone toward developing and understanding limitations of distributed\ncertification schemes, predominantly in the setting of information-theoretic soundness, and recently with computational soundness, achieving a form of distributed (locally verifiable) Succinct Non-interactive Arguments (SNARGs) (Aldema Tshuva et al, TCC 2023). As is standard in the model, soundness holds in existing constructions assuming that all verifiers in the network are honest.\n\nIn this work, we introduce and explore the notion of robust distributed SNARGs (rdSNARGs) which\nretain (computational) soundness guarantees even when the cheating prover can collude with some nodes in the network. Addressing cheating verifiers presents several challenges. We construct rdSNARGs for any distributed language in P with succinct certificate size and communication from extended versions of RAM SNARGs (Kalai et al, STOC 2023), where the level of succinctness scales with the threshold of corrupt nodes. Complementarily, we demonstrate a lower bound showing that an rdSNARG with significantly smaller certificates and communication implies a SNARG for NP.",
               "publicPaperUrl": "https://doi.org/10.1007/978-3-032-43624-5_5",
-              "url": "https://doi.org/10.1007/978-3-032-43624-5_5"
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_5",
+              "slidesUrl": "assets/slides/tcc-paper-126.pdf"
             },
             {
               "id": "tcc-talk-79",
@@ -4251,7 +4253,8 @@
               "end": null,
               "abstract": "Collaborative zkSNARKs allow multiple mutually distrustful parties to jointly prove the correctness of a computation without revealing their private inputs. This enables a new class of exciting secure\napplications, such as privacy-preserving healthcare data aggregation, privacy-preserving audits, and jointly trained machine learning models. Unfortunately, existing collaborative zkSNARKs still struggle to support many target applications in practice, which operate over large-scale datasets. This is due to prohibitive memory and communication overheads, both of which may be orders of magnitude larger than the original datasets, as well as the lack of updatability: If a dataset is updated, then the computation must be proved again from scratch.\n\nAs any one of these limitations can be a bottleneck, we address them simultaneously with\ncollaborative incrementally verifiable computation, which enables multiple mutually distrustful parties, each with its own private inputs, to jointly update a running succinct proof alongside each step of a repeating computation. For each step of computation, our construction features only constant communication overhead per party (assuming a broadcast channel), and memory overhead that only scales with the memory costs of a single step.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/410",
-              "url": "https://eprint.iacr.org/2026/410"
+              "url": "https://eprint.iacr.org/2026/410",
+              "slidesUrl": "assets/slides/tcc-paper-127.pdf"
             }
           ]
         },
@@ -4306,7 +4309,8 @@
               "end": null,
               "abstract": "We construct a unitary oracle relative to which BQP = QCMA but quantum-\ncomputation-classical-communication (QCCC) commitments and QCCC multiparty\nnon-interactive key exchange exist. We also construct a unitary oracle relative to\nwhich BQP = QMA, but quantum lightning exists. This extends previous work\nby Kretschmer [Kretschmer, TQC22], which showed that there is a quantum oracle\nrelative to which BQP = QMA but pseudorandom unitaries exist.\nWe also show that (poly-round) QCCC key exchange, QCCC commitments, and\ntwo-round quantum key distribution can all be used to build one-way puzzles. One-\nway puzzles are a version of “quantum samplable” one-wayness and are an interme-\ndiate primitive between pseudorandom state generators and EFI pairs, the minimal\nquantum primitive. In particular, one-way puzzles cannot exist if BQP = PP.\nOur results together imply that aside from pseudorandom state generators, there\nis a large class of quantum cryptographic primitives which can exist even if BQP =\nQCMA, but are broken if BQP = PP. Furthermore, one-way puzzles are a minimal\nprimitive for this class. We denote this class “CountCrypt”.",
               "publicPaperUrl": "https://eprint.iacr.org/2024/1707",
-              "url": "https://eprint.iacr.org/2024/1707"
+              "url": "https://eprint.iacr.org/2024/1707",
+              "slidesUrl": "assets/slides/tcc-paper-154.pdf"
             },
             {
               "id": "tcc-talk-67",
@@ -4329,7 +4333,8 @@
               "end": null,
               "abstract": "For a permutation $\\pi:\\{0,1\\}^n \\to \\{0,1\\}^n$, a parameter $1 \\leq r \\leq n$, and a gating function $F: \\{0,1\\}^n \\to \\{0,1\\}^m$, the gated permutation $G_{\\pi,F}:\\{0,1\\}^n \\to \\{0,1\\}^{r+m}$ works as follows:\n    \\begin{align*}  \\mbox{Letting $\\pi(x)= y \\ ||\\ z \\in \\{0,1\\}^r \\times \\{0,1\\}^{n-r}$, define } G_{\\pi,F}(x) = y \\ || \\ F(y,z).\n    \\end{align*}\n    A hash function $H_{\\pi} : \\bit^n \\rightarrow \\bit^r$ can be constructed from a gated permutation by truncating the output to the first $r$ bits. We show that this hash function is quantumly one-way and collision resistant for random permutations $\\pi$ and a wide choice of gating function families $F$, {\\em even given inverse queries to the gated permutation}. In particular:\n    \\begin{itemize}\n        \\item When $F$ is independent over the first $r$ bits of input (namely, for every $y_1\\neq y_2$, $F(y_1,\\cdot)$ and $F(y_2,\\cdot)$ are independent functions) and has a sufficiently unpredictable range, the corresponding hash is preimage-resistant (and also one-way).\n        \\item When $F$ satisfies the above condition, and is approximately pairwise independent and one-wise universal, the corresponding hash is collision-resistant.\n    \\end{itemize}\n    As applications, we show that existing constructions of one-shot signatures and non-collapsing hash functions (Shmueli and Zhandry, CRYPTO 2025) and quantum fire (\\c{C}akan, Goyal and Shmueli, e-print 2025/726) can be modified to have optimal parameters in the classical oracle model. In comparison, prior constructions of any of these objects incur a quadratic blow-up in key size and/or runtime.\n\n    We show these results using the compressed oracle and its recent generalization to permutations. Along the way, we develop new tools for analyzing oracles built by composition, as well as a generalization of the compressed oracle fundamental lemma to general formulas rather than input-output pairs.",
               "publicPaperUrl": "https://doi.org/10.1007/978-3-032-43630-6_6",
-              "url": "https://doi.org/10.1007/978-3-032-43630-6_6"
+              "url": "https://doi.org/10.1007/978-3-032-43630-6_6",
+              "slidesUrl": "assets/slides/tcc-paper-147.pdf"
             },
             {
               "id": "tcc-talk-41",
@@ -4340,7 +4345,8 @@
               "end": null,
               "abstract": "Classical non-interactive secure computation, despite being extensive studied, suffers from an inherent barrier: adversaries can learn the entire residual function via resetting attacks. We investigate whether quantum resources can circumvent this barrier and restrict adversarial leakage. Our results are as follows:\n\n1. Definitions: We introduce new security definitions for the one-message MPC and 2PC settings that restrict the amount of adversarial leakage compared to prior classical definitions.\n2. MPC: There exist information-theoretically secure one-message multi-party computation protocols in the oracle model in both the  quantum pre-processing and classical pre-processing settings.\n3. 2PC: There exist semi-honest secure one-message two-party computation for (randomized) pseudorandom functionalities in the plain model based on LWE and maliciously secure one-message two-party computation for (randomized) constrained functionalities in the CRS model based on iO. Prior work by [Gupte, Liu, Raizes, Roberts and, Vaikuntanathan STOC 2025] achieved semi-honest security based on iO.\n\nOur results demonstrate the power of quantum information to circumvent barriers in classical secure computation.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/302",
-              "url": "https://eprint.iacr.org/2026/302"
+              "url": "https://eprint.iacr.org/2026/302",
+              "slidesUrl": "assets/slides/tcc-paper-38.pdf"
             }
           ]
         },
@@ -4460,7 +4466,8 @@
               "end": null,
               "abstract": "\\emph{Modular Polynomial Commitment Schemes (Mod-PCS)} extend standard PCSs by enabling provable evaluation of integer polynomials modulo a random modulus, providing a natural foundation for SNARKs that operate directly over large integers without emulating arithmetic in finite fields. Only two Mod-PCS constructions are known. The first (Campanelli and Hall-Andersen, IACR ePrint 2024) is not post-quantum secure due to its reliance on groups of unknown order. The second (Garreta et al., CRYPTO 2025) introduces the weaker notion of \\emph{relaxed} Mod-PCS, but is not fully succinct: committing to a multilinear polynomial with $N$ terms and $B$-bit coefficients requires $O(\\sqrt{N}B)$ proof size and verification time.\n\nWe present the first black-box information theoretic transformation that builds relaxed Mod-PCS from any standard PCS, enabling new constructions. Instantiating our transformation with a tensor-code PCS yields the first relaxed Mod-PCS with $O(\\log (N+B))$ proof size and verifier time, which is transparent and plausibly post-quantum secure. Using this scheme within the framework of Garreta et al., we obtain the first fully succinct SNARK for the Customizable Constraint System over $\\Z_B$, achieving $O(B\\log N + N\\log N \\log B)$ prover time and $O(\\log (N+B))$ verifier time and proof size.\n\nOur approach relies on a novel modulus-switching technique for integer polynomials and a new batched integer commitment scheme from any PCS. We further introduce improved arguments for integer addition and multiplication, correctness of the number-theoretic transform, and general Diophantine relations over committed integers which can be of independent interest.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/347",
-              "url": "https://eprint.iacr.org/2026/347"
+              "url": "https://eprint.iacr.org/2026/347",
+              "slidesUrl": "assets/slides/tcc-paper-27.pdf"
             },
             {
               "id": "tcc-talk-39",
@@ -4494,7 +4501,8 @@
               "end": null,
               "abstract": "Field-agnostic proof systems are an emerging paradigm in which, loosely speaking, one can prove correctness of any computation using the same type of arithmetic as the underlying computation.\nThis goal stands at odds with recent ``query-packing'' techniques, which maximize the \\emph{succinctness} of proof systems by packing two or more field elements into a single element of a larger field.\nWe show that the above tension is not inherent if one settles for an inverse polynomial soundness error. \nOur main technical contribution is the construction of the first field-agnostic {\\em dot-product proof} (DPP) for arithmetic circuit satisfiability over any finite field $\\F$, namely a one-query fully linear PCP in which the prover is implemented by a fixed arithmetic circuit, independent of $\\F$. \nThe core building block is a proofless DPP for the powers language: $\\{(x, x^2, \\dots, x^d) : x \\in \\F\\}.$\nBy combining our DPP with existing compilers, we obtain field-agnostic arguments with input-independent preprocessing in the generic group model, in which  an arithmetic statement over $\\F_p$ requires the prover to communicate one element in a group of order $p$ along with one $\\F_p$ element.\nFurthermore, the verifier is extremely efficient, performing only {\\em one} group exponentiation. The soundness error $\\epsilon$ can be made as small as inverse polynomial, provided a mild assumption on the relation between $p$ and $\\epsilon$.\nThis gives a field-agnostic alternative to similar DPP-based arguments of Bitansky et al.~(FOCS 2024), and further improves on them by improving concrete parameters and achieving zero knowledge essentially for free. As a separate application, our DPP for powers improves the concrete parameters of (non-field-agnostic) designated-verifier SNARGs in the generic group model as well as to hardness of approximating a generalized variant of MAXLIN.",
               "publicPaperUrl": "https://doi.org/10.1007/978-3-032-43624-5_16",
-              "url": "https://doi.org/10.1007/978-3-032-43624-5_16"
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_16",
+              "slidesUrl": "assets/slides/tcc-paper-152.pdf"
             }
           ]
         }
@@ -4529,7 +4537,8 @@
               "end": null,
               "abstract": "We show that \\emph{any} quantum pseudorandom state that is secure against single-copy distinguishers, i.e.\\ a $1$-PRS, can be amplified to $t$-copy security, i.e.\\ to a $t$-PRS, without additional assumptions, for any polynomial $t$ in the security parameter. Prior work (Ananth and Goldin, CRYPTO 2026) was only able to show this for a restricted class of $1$-PRS constructions, namely ones whose generators only use a small number of ancilla qubits.\n\t\nTechnically, we show that by carefully accounting for the randomness that is used in the construction, and using quantum extractors, it is possible to eliminate an ancilla register of any length and obtain a meaningful $t$-PRS outcome.",
               "publicPaperUrl": "https://arxiv.org/abs/2606.29325",
-              "url": "https://arxiv.org/abs/2606.29325"
+              "url": "https://arxiv.org/abs/2606.29325",
+              "slidesUrl": "assets/slides/tcc-paper-91.pdf"
             },
             {
               "id": "tcc-talk-68",
@@ -4640,7 +4649,8 @@
               "end": null,
               "abstract": "Targeted hitting-set generators (HSGs) are primitives that have recently attracted attention in the study of pseudorandomness and derandomization. Recent works have shown that sufficiently strong targeted HSGs can be used to soundly instantiate the Fiat--Shamir transformation, yielding non-interactive protocols against uniform PPT adversaries in the plain model (i.e., without any setup phase for selecting a cryptographic hash function). In particular, Chen et al. (STOC 2025) combined this paradigm with the MPC-in-the-head technique to construct a non-interactive witness-indistinguishable argument for NP from a non-interactive commitment scheme and a targeted HSG.\n\nInspired by these results, we explore other cryptographic applications of this paradigm. Our main result is a black-box construction of a non-interactive witness-indistinguishable commit-and-prove scheme against uniform PPT adversaries in the plain model. Following Chen et al., we obtain our construction by combining the MPC-in-the-head technique with the targeted-HSG-based Fiat--Shamir paradigm. The construction relies on an injective one-way function with efficiently recognizable range and a sufficiently strong targeted HSG. The latter is the same targeted HSG used by Chen et al. and can be instantiated under a very strong but plausible complexity-theoretic assumption.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/2286",
-              "url": "https://eprint.iacr.org/2026/2286"
+              "url": "https://eprint.iacr.org/2026/2286",
+              "slidesUrl": "assets/slides/tcc-paper-24.pdf"
             },
             {
               "id": "tcc-talk-55",
@@ -4651,7 +4661,8 @@
               "end": null,
               "abstract": "Understanding the minimal assumptions necessary for constructing non-interactive zero-knowledge arguments (NIZKs) for NP and placing it within the hierarchy of cryptographic primitives has been a central goal in cryptography. Unfortunately, there are very few examples of ``generic'' constructions of NIZKs or any of its natural relaxations.\n\nIn this work, we consider the relaxation of NIZKs to the designated-verifier model (DV-NIZK) and present a new framework for  constructing (reusable) DV-NIZKs for NP generically from length-parameterized lossy trapdoor functions and PRFs computable by polynomial-size branching programs (a class that includes NC1). Previous ``generic'' constructions  of DV-NIZK for NP from standard primitives relied either on doubly-enhanced trapdoor permutations or on a public-key encryption scheme plus a KDM-secure secret key encryption scheme. Along the way, we achieve a novel construction of a weak function-hiding, single key attribute based encryption scheme.\n\nAdditionally, our DV-NIZK framework achieves statistical zero-knowledge. To our knowledge, this is the first DV-NIZK construction from any ``generic\" standard assumption with statistical zero-knowledge that does not already yield a NIZK. \n\nA key technical component of our construction is an efficient, unconditionally secure secret sharing scheme for non-monotone functions with randomness recovery for all polynomial-size branching programs. As an independent contribution we present an incomparable randomness recoverable (monotone) secret sharing for NC1 in a model with trusted setup that guarantees computational privacy assuming one-way functions. We believe that these primitives will be useful in related contexts in the future.",
               "publicPaperUrl": "https://eprint.iacr.org/2025/1125",
-              "url": "https://eprint.iacr.org/2025/1125"
+              "url": "https://eprint.iacr.org/2025/1125",
+              "slidesUrl": "assets/slides/tcc-paper-80.pdf"
             },
             {
               "id": "tcc-talk-62",
@@ -4769,7 +4780,8 @@
               "end": null,
               "abstract": "Threshold traitor tracing [Boneh et al., Crypto’24] enhances threshold decryption with anti-collusion guarantees via a tracing mechanism. In this model, a set of colluders constructs a decryption box, called a decoder, and sells it to an external buyer. Collusion-resilience is guaranteed by a tracing algorithm that, given only black-box access to the decoder, can identify at least one of the colluders.\n\n\nSince its introduction, threshold traitor tracing has attracted significant attention, leading to a number of new constructions that have been proven secure within this model [Asiacrypt'25, CiC'25, CCS’25, Eurocrypt’26], focusing on optimizing parameter sizes and removing trusted authority.\nHowever, in this paper, we argue that the state-of-the-art definition and constructions are not resilient against natural attacks where the decoder is sold to an insider, i.e., a member of the decryption committee. \n\n\nMotivated by this gap, we introduce new definitions to model decoder boxes that are sold to insiders. We show that existing threshold traitor tracing techniques are inherently vulnerable to insider attacks. Then, we introduce a novel approach to achieve insider resilience through multi-traitor tracing, i.e., identifying multiple traitors.\nWe present compilers that amplify the number of traitors that can be found, thereby achieving insider-resilience with efficient parameters, in particular, sublinear ciphertext size. These compilers may also be of independent interest.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/422",
-              "url": "https://eprint.iacr.org/2026/422"
+              "url": "https://eprint.iacr.org/2026/422",
+              "slidesUrl": "assets/slides/tcc-paper-34.pdf"
             }
           ]
         },
