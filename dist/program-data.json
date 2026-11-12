@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-12T11:49:00-05:00",
+  "generatedAt": "2026-11-12T15:22:29-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -4491,7 +4491,8 @@
               "end": null,
               "abstract": "Succinct arguments are often built by combining a functional interactive oracle proof with a functional commitment scheme. We focus on non-interactive lattice-based linear commitments, whose algebraic structure enables better efficiency and fewer rounds compared to the hash-based approaches, while still offering plausible post-quantum security and recursion-friendly verification.\n\nIt is unclear whether existing lattice-based non-interactive LCs suffice for constructing succinct arguments with current techniques: these applications typically require strong guarantees such as extractability, whereas known constructions satisfy only weaker notions such as evaluation binding.\n\nIn this work, we show that lattice-based non-interactive LCs can indeed be used to construct succinct arguments under falsifiable assumptions. Our main contributions are as follows.\n\n- We show that any linear commitment scheme that is both evaluation binding and homomorphic satisfies a notion called coordinate-wise function binding. We instantiate this framework with two constructions, capturing two prominent families of lattice-based non-interactive LCs: one based on the k-MISIS uber-assumption (Albrecht, Cini, Lai, Malavolta, and Thyagarajan, CRYPTO'22; Fisch, Liu, and Vesely, CRYPTO'23), and one inspired by a recent SIS-based construction of Wee (CRYPTO'25).\n\n- We construct a holographic linear interactive oracle proof (LIOP) for NP that is compatible with these linear commitments. Our LIOP asymptotically improves the information-theoretic proof underlying the LaBRADOR argument of Beullens and Seiler (CRYPTO'23).\n\n- We give a new compiler, adapted from the Funky protocol (Chiesa, Guan, Knabenhans, and Yu, CRYPTO'26), that combines functional interactive oracle proofs with functional commitments. Our compiler supports query predicates, norm-bounded IOP provers, and holography, and relies on weaker security notions from the underlying commitments that are better aligned with known lattice-based constructions.",
               "publicPaperUrl": "https://doi.org/10.1007/978-3-032-43624-5_15",
-              "url": "https://doi.org/10.1007/978-3-032-43624-5_15"
+              "url": "https://doi.org/10.1007/978-3-032-43624-5_15",
+              "slidesUrl": "assets/slides/tcc-paper-76.pdf"
             },
             {
               "id": "tcc-talk-84",
@@ -4566,22 +4567,10 @@
               "slidesUrl": "assets/slides/tcc-paper-105.pdf"
             },
             {
-              "id": "tcc-talk-42",
-              "title": "Certified-Everlasting Quantum NIZK Proofs",
-              "authors": "Nikhil Pappu",
-              "order": 4,
-              "start": null,
-              "end": null,
-              "abstract": "We study non-interactive zero-knowledge proofs (NIZKs) for NP satisfying: 1) statistical soundness, 2) computational zero-knowledge (ZK) and 3) certified-everlasting zero-knowledge (CE-ZK). The CE-ZK property allows a verifier of a quantum proof to revoke the proof in a way that can be checked (certified) by the prover. Conditioned on successful certification, the verifier's state can be efficiently simulated with only the statement, in a statistically indistinguishable way. Our contributions regarding these certified-everlasting NIZKs (CE-NIZKs) are as follows:\n\n- We identify a barrier to obtaining CE-NIZKs in the CRS model via generalizations of known interactive ZK proofs that satisfy CE-ZK.\n\n- We circumvent this by constructing CE-NIZK using non-black-box use of NIZK for $\\NP$ satisfying certain properties, along with OWFs. As a result, we obtain CE-NIZKs for $\\NP$ in the CRS model, based on polynomial hardness of the learning with errors (LWE) assumption.\n\n- In addition, we observe that the aforementioned barrier does not apply to the shared EPR model. We leverage this to construct CE-NIZK for $\\NP$ in this model based on any statistical binding hidden-bits generator, which is known from LWE. The only quantum computation here involves single-qubit measurements of the EPR pairs.",
-              "publicPaperUrl": "https://eprint.iacr.org/2025/2262",
-              "url": "https://eprint.iacr.org/2025/2262",
-              "slidesUrl": "assets/slides/tcc-paper-40.pdf"
-            },
-            {
               "id": "tcc-talk-61",
               "title": "Feistel Tools: Query-Recording and Reprogramming for QRPs",
               "authors": "Yu-Hsuan Huang; Andreas Hülsing; Varun Maram; Silvia Ritsch; Abishanka Saha",
-              "order": 5,
+              "order": 4,
               "start": null,
               "end": null,
               "abstract": "We present a new generic approach to extend proof techniques in the quantum random oracle model (QROM) — such as query-recording and reprogramming — to the quantum random permutation model (QRPM). Our framework involves simulating bidirectional-query random permutation oracles using Feistel constructions to port the QROM features for the underlying random round functions to the overall Feistel-simulated QRP. We then demonstrate the power of our framework by:\n– Obtaining a tighter than state-of-the-art lower bound for the query extrapolation problem — a variant of which was studied by Boneh and Zhandry (Eurocrypt 2013) in the QROM — in the bidirectional QRPM, as well as recovering a meaningful lower bound for the double-sided zero search problem (Unruh, Asiacrypt 2023).\n– Proving the adaptive zero-knowledge property of NIZKs derived from the recent duplex-sponge Fiat-Shamir transform (Chiesa and Orrù, TCC 2025) — which closely models various deployed variants of the Fiat-Shamir transformation, and is also being considered for adoption in Signal — in a post-quantum setting against non-uniform adversaries with preprocessing capabilities.\nAll in all, our work illustrates how the “Feistel toolkit” effectively bridges the QROM-QRPM gap by not only achieving the standard QROM techniques of query-recording and reprogramming techniques for QRPs, but also unlocking new state-of-the-art features such as proving non-uniform security in the QRPM.",
@@ -4593,13 +4582,25 @@
               "id": "tcc-talk-72",
               "title": "The Knowledge Complexity of Quantum Problems",
               "authors": "Giulio Malavolta",
-              "order": 6,
+              "order": 5,
               "start": null,
               "end": null,
               "abstract": "Foundational results in theoretical computer science have established that \n\\emph{everything provable, is provable in zero knowledge}. However, this assertion fundamentally assumes a classical interpretation of computation and many interesting physical statements that one can hope to prove are not characterized. \n\nIn this work, we consider decision problems, where the problem instance itself is specified by a (pure) quantum state. We discuss several motivating applications for this notion and, as our main technical result, we show that every quantum problem that is provable with an interactive protocol, is also provable in zero-knowledge. Our protocol achieves unconditional soundness and computational zero-knowledge, assuming the existence of EFI pairs, which is known to be also necessary. In addition, we show how our techniques yield a protocol for UHLMANN, a central problem in the complexity theory of unitary transformations, that for the first time achieves a meaningful notion of zero-knowledge also in the presence of a malicious verifier.",
               "publicPaperUrl": "https://doi.org/10.1007/978-3-032-43624-5_10",
               "url": "https://doi.org/10.1007/978-3-032-43624-5_10",
               "slidesUrl": "assets/slides/tcc-paper-114.pdf"
+            },
+            {
+              "id": "tcc-talk-42",
+              "title": "Certified-Everlasting Quantum NIZK Proofs",
+              "authors": "Nikhil Pappu",
+              "order": 6,
+              "start": null,
+              "end": null,
+              "abstract": "We study non-interactive zero-knowledge proofs (NIZKs) for NP satisfying: 1) statistical soundness, 2) computational zero-knowledge (ZK) and 3) certified-everlasting zero-knowledge (CE-ZK). The CE-ZK property allows a verifier of a quantum proof to revoke the proof in a way that can be checked (certified) by the prover. Conditioned on successful certification, the verifier's state can be efficiently simulated with only the statement, in a statistically indistinguishable way. Our contributions regarding these certified-everlasting NIZKs (CE-NIZKs) are as follows:\n\n- We identify a barrier to obtaining CE-NIZKs in the CRS model via generalizations of known interactive ZK proofs that satisfy CE-ZK.\n\n- We circumvent this by constructing CE-NIZK using non-black-box use of NIZK for $\\NP$ satisfying certain properties, along with OWFs. As a result, we obtain CE-NIZKs for $\\NP$ in the CRS model, based on polynomial hardness of the learning with errors (LWE) assumption.\n\n- In addition, we observe that the aforementioned barrier does not apply to the shared EPR model. We leverage this to construct CE-NIZK for $\\NP$ in this model based on any statistical binding hidden-bits generator, which is known from LWE. The only quantum computation here involves single-qubit measurements of the EPR pairs.",
+              "publicPaperUrl": "https://eprint.iacr.org/2025/2262",
+              "url": "https://eprint.iacr.org/2025/2262",
+              "slidesUrl": "assets/slides/tcc-paper-40.pdf"
             }
           ]
         },
@@ -4677,7 +4678,8 @@
               "end": null,
               "abstract": "An anonymous credential allows a user to prove that she is authorized in an anonymous and\nunlinkable fashion. A rate-limited token is an anonymous credential that can only be used a\nlimited number of times in any particular context; this means that even though we do not know\nwhich users are gaining access to a resource, there is a limit to how many resources one user\nmay consume. Such tokens are becoming an increasingly attractive way to balance privacy with\nauthorized access. Although a general architecture for how to obtain rate-limited tokens from\ndigital signatures, pseudorandom functions (PRFs), and non-interactive zero-knowledge proofs\n(NIZKs) has been known for over twenty years, efficiently instantiating it with post-quantum-\nsecure signatures and proofs has, until now, remained an open problem.\nIn this work, we present the first lattice-based construction of rate-limited tokens and tackle\nthe practical challenges associated with using lattice-based building blocks in this setting. A\ncentral difficulty lies in the absence of lattice-based PRFs that support efficient NIZK proofs of\ncorrect evaluation. We show that, in the random oracle model, a weak PRF—where adversaries\nare restricted to querying random inputs—suffices. We further present a weak PRF construction\nthat both admits efficient NIZK proofs and remains secure—even when adversaries have partial\ncontrol over the randomness—and extend this guarantee more generally to key-homomorphic\nPRFs.\nAnother contribution, which is of independent interest, is the first lattice-based construction\nof partially binding commitments, a primitive introduced by Goel et al. (Eurocrypt 2022) that\nwas previously known only under discrete-log assumptions. We give a practical construction\nthat enables succinct disjunctive proofs via a variant of the self-stacking compiler of Goel et al.\nAlong the way, we develop a new technique for batching CNF proofs of Σ-protocols, which allows one to efficiently prove that a value is the output of a PRF on one of a set of inputs. As a direct application, this yields logarithmic-size lattice-based ring signatures based on Fiat–Shamir-with-Aborts Σ-protocols (Lyubashevsky, Eurocrypt 2012).\nFinally, we observe for the first time that the anonymous counting tokens of Benhamouda, Raykova, and Seth (Asiacrypt 2023) can be obtained from anonymous rate-limited tokens. This\nyields a construction whose communication complexity is independent of the number of tokens\nthat need to be issued.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/1649",
-              "url": "https://eprint.iacr.org/2026/1649"
+              "url": "https://eprint.iacr.org/2026/1649",
+              "slidesUrl": "assets/slides/tcc-paper-98.pdf"
             },
             {
               "id": "tcc-talk-58",
@@ -4762,7 +4764,8 @@
               "end": null,
               "abstract": "In this work we present a new variant of the non-interactive key exchange (NIKE) scheme based on the learning with errors (LWE) assumption and prove its security with a security reduction that incurs a security loss that is only linear in the number of users. This improves upon all prior reductions for lattice-based NIKE schemes, which had a security loss that is quadratic in the number of users. Our tight reduction can handle the setting with super-polynomial modulus-to-noise ratio and negligible correctness error as well as the more challenging setting with polynomial modulus-to-noise ratio and inverse polynomial correctness error.\n\nWe also give a matching lower bound on the tightness for a natural class of  lattice-based NIKE schemes (that captures all existing variants of lattice-based NIKE), showing that our security loss is optimal (up to constant factors). This generalizes a lower bound by Hesse, Hofheinz and Kohl (Crypto 2018) and is the first lower bound for the tightness of lattice-based NIKE schemes. Several previous lower bounds for the tightness of NIKE exist, but none of them can be applied to lattice-based schemes.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/1845",
-              "url": "https://eprint.iacr.org/2026/1845"
+              "url": "https://eprint.iacr.org/2026/1845",
+              "slidesUrl": "assets/slides/tcc-paper-116.pdf"
             },
             {
               "id": "tcc-talk-63",
@@ -4863,7 +4866,8 @@
               "end": null,
               "abstract": "The communication complexity of computing a function in the two party setting can be much smaller than requiring one of the parties to send its input. We revisit the question of how this communication complexity must change if the function must be computed securely. Hubáček and Wichs show that any protocol for computing a function securely must communicate at least as many bits as the length of the function's output. However, all positive results in this direction require much more communication than optimal. In particular, the state of the art for general protocols requires a multiplicative overhead polynomial in the security parameter, achieving only ``rate 0'' asymptotically. We show that assuming the existence of input-succinct indistinguishability obfuscation for Turing machines, it is possible to achieve constant rate for this task. This compiler works even when the original protocol communicates single bits in each round which is the main obstacle in prior works. The compiler can be based on standard non-succinct indistinguishability obfuscation for circuits (instead of Turing machines) in the common random string or random oracle models.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/2214",
-              "url": "https://eprint.iacr.org/2026/2214"
+              "url": "https://eprint.iacr.org/2026/2214",
+              "slidesUrl": "assets/slides/tcc-paper-69.pdf"
             },
             {
               "id": "tcc-talk-75",
