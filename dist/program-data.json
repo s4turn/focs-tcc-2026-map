@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "timezone": "America/New_York",
-  "generatedAt": "2026-11-12T15:22:29-05:00",
+  "generatedAt": "2026-11-13T03:41:48-05:00",
   "sources": [
     {
       "id": "focs-public",
@@ -4643,7 +4643,8 @@
               "end": null,
               "abstract": "Feige, Lapidot, and Shamir [FOCS'90] presented a generic approach to build non-interactive zero-knowledge proofs via the notion of hidden-bits generators (HBGs). At a high-level, HBG allows a prover to statistically commit to a $k$-bit pseudorandom string in the CRS model with a succinct commitment. Later, the prover can open this pseudorandom string at an arbitrary subset $S \\subseteq [k]$ of positions by providing a proof $\\pi_S$. The hiding property requires that unopened positions remain pseudorandom. \n\nIn this work, we study the efficiency of HBG, focusing on {\\em direct} constructions that make black-box use of cryptography. We obtain the following results: \n    \\begin{itemize}\n        \\item {\\bf Succinct CRS:} We construct an HBG from learning with errors (LWE) with a {\\em succinct} CRS \n        of size $\\poly(\\secp,\\log k)$ for generating $k$ hidden bits. This achieves an exponential improvement over a recent sequence of works by Waters [STOC'24], Branco et al.~[EUROCRYPT'25], and Waters, Wee, Wu~[EUROCRYPT'25] that constructed HBG from LWE with a CRS size $k \\cdot \\poly(\\sec)$.  \n        \\item {\\bf Batch opening:} We construct an HBG from pairings with {\\em batch} opening, where the size of the proof $\\pi_S$ is $\\poly(\\sec)$ for any subset $S$. Previously, such an HBG was only known based on the Naccache-Stern public-key cryptosystem [Groth, ASIACRYPT'10].\n\n        \\item {\\bf Succinct CRS and Batch opening:} Assuming the hardness of RSA, we construct an HBG where {\\em both} the CRS and the opening proof for any subset are of size $\\poly(\\sec,\\log k)$. No black-box constructions achieving this efficiency were previously known. \n    \\end{itemize}",
               "publicPaperUrl": "https://eprint.iacr.org/2026/2212",
-              "url": "https://eprint.iacr.org/2026/2212"
+              "url": "https://eprint.iacr.org/2026/2212",
+              "slidesUrl": "assets/slides/tcc-paper-73.pdf"
             },
             {
               "id": "tcc-talk-35",
@@ -4776,7 +4777,8 @@
               "end": null,
               "abstract": "In a multi-instance problem, the adversary is given n independent problem instances and succeeds if it solves at least k of them.\n\nWe study the generic hardness of a broad class of multi-instance problems over prime-order groups, including multi-instance Computational Diffie-Hellman (CDH), Square Diffie-Hellman (SDH), Inverse Diffie-Hellman (IDH), and Linear Kernel Diffie-Hellman (LKDH). As expected, we show that, in generic groups, solving multi-instance CDH and SDH is as hard as solving k independent discrete logarithm instances. In contrast, although the single-instance versions of CDH and IDH are known to be equivalent, we establish tight generic upper and lower bounds showing that multi-instance IDH (and LKDH) can be significantly easier to solve than multi-instance CDH in certain parameter regimes. All problems, however, offer 1/2(\\log(p)+\\log(k)) bits of security.\n\nOur lower-bound techniques extend Yun's information-theoretic hyperplane query model~(EUROCRYPT 2015). At the core of our approach lies an inductive argument showing that, in order to establish a generic-group lower bound, it suffices to bound the adversary's \"zero-hyperplane-query\" advantage in the hyperplane query model. For the multi-instance problems considered in this work, we derive such bounds using techniques from algebraic geometry. More precisely, we analyze the Krull dimension of suitable algebraic varieties, either by explicitly computing Gröbner bases or by upper bounding the number of algebraically independent elements in the associated coordinate rings.",
               "publicPaperUrl": "https://eprint.iacr.org/2026/2253",
-              "url": "https://eprint.iacr.org/2026/2253"
+              "url": "https://eprint.iacr.org/2026/2253",
+              "slidesUrl": "assets/slides/tcc-paper-100.pdf"
             },
             {
               "id": "tcc-talk-38",
