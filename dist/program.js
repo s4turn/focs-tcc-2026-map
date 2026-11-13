@@ -157,7 +157,7 @@ function timeline(){
  const ticks=[];for(let m=b.start;m<=b.end;m+=30)ticks.push(`<span class="program-tick" data-minute="${m}" style="top:${(m-b.start)*PIXELS_PER_MINUTE}px">${esc(time(m).replace(' a.m.','a').replace(' p.m.','p'))}</span>`);
  return `${shortHtml}<div class="program-timeline-scroll" aria-label="Parallel tracks. Scroll horizontally on a small screen."><div class="program-timeline" style="--lane-count:${Math.max(1,list.length)};--timeline-height:${height}px"><div class="program-lane-headings"><span class="program-axis-label">ET</span>${list.map(lane=>`<div class="program-lane-heading" data-track="${lane.track}"><strong>${esc(lane.title)}</strong><span>${esc(lane.subtitle)}</span></div>`).join('')}</div><div class="program-timeline-body"><div class="program-time-axis" aria-hidden="true">${ticks.join('')}</div>${list.map(lane=>`<div class="program-lane" data-lane="${esc(lane.id)}" data-track="${lane.track}" aria-label="${esc(lane.title)}">${sessions().filter(s=>minutes(s.end)-minutes(s.start)>=15&&(laneFor(s)===lane.id||(['break','meal'].includes(s.kind)&&s.conference===lane.conference))).map(s=>sessionButton(s,b,lane)).join('')}</div>`).join('')}<div id="program-now-line" class="program-now-line" hidden><span class="program-now-label" id="program-now-label"></span></div></div></div></div>`;
 }
-let expansion=null,timelineObserver;
+let expansion=null,timelineObserver,timelineLayoutFrame=null;
 function timelinePosition(minute){
  const base=(minute-bounds().start)*PIXELS_PER_MINUTE;
  if(!expansion||minute<expansion.start)return base;
@@ -174,12 +174,13 @@ function measuredExpansion(start,end,height,rows,top){
   if(slot){slot.top=Math.min(slot.top,row.top);slot.bottom=Math.max(slot.bottom,row.bottom);}
   else groups.set(key,{...row});
  }
- const anchors=new Map([[start,0],[end,length]]);
- for(const slot of [...groups.values()].sort((a,b)=>a.start-b.start)){
-  // Session chrome belongs to the first/last interval. One minute has one
-  // position for every lane, including the session's own start and end.
-  if(slot.start>start&&slot.start<end)anchors.set(slot.start,slot.top);
-  if(slot.end>start&&slot.end<end)anchors.set(slot.end,slot.bottom);
+ const slots=[...groups.values()].sort((a,b)=>a.start-b.start);
+ // The header and actions are untimed. The first and last talks span their
+ // own rows; timelinePosition(end) then jumps past the complete session box.
+ const anchors=new Map([[start,slots[0]?.top??0],[end,slots.at(-1)?.bottom??length]]);
+ for(const slot of slots){
+  anchors.set(slot.start,slot.top);
+  anchors.set(slot.end,slot.bottom);
  }
  let previous=0;
  const points=[...anchors].sort((a,b)=>a[0]-b[0]).map(([minute,offset])=>{
@@ -206,7 +207,10 @@ function layoutTimeline(){
  timeline.style.setProperty('--timeline-height',`${timelinePosition(b.end)}px`);
  for(const card of cards){
   const start=Number(card.dataset.sessionStart),end=Number(card.dataset.sessionEnd);
-  card.style.top=`${timelinePosition(start)}px`;card.style.setProperty('--session-height',`${Math.max(44,timelinePosition(end)-timelinePosition(start)-3)}px`);
+  const top=card===open?expansion.top:timelinePosition(start);
+  // An event ending at the open session stops before its untimed header.
+  const bottom=expansion&&end===expansion.start?expansion.top:timelinePosition(end);
+  card.style.top=`${top}px`;card.style.setProperty('--session-height',`${Math.max(44,bottom-top-3)}px`);
   card.querySelector('summary').setAttribute('aria-expanded',String(card.open));
  }
  timeline.querySelectorAll('[data-minute]').forEach(tick=>{tick.style.top=`${timelinePosition(Number(tick.dataset.minute))}px`;});
@@ -222,6 +226,15 @@ function observeTimeline(){
   // Stretching changes height; observing that change must not relayout itself.
   if(Number.isFinite(next)&&Math.abs(next-width)>.5){width=next;layoutTimeline();}
  });timelineObserver.observe(timeline);
+}
+function requestTimelineLayout(){
+ if(state.view!=='program'||state.zoom!=='themes')return;
+ if(typeof requestAnimationFrame==='undefined'){layoutTimeline();return;}
+ if(timelineLayoutFrame!==null)return;
+ timelineLayoutFrame=requestAnimationFrame(()=>{
+  timelineLayoutFrame=null;
+  if(state.view==='program'&&state.zoom==='themes')layoutTimeline();
+ });
 }
 function paperTime(paper,session){
  const timing=paperTiming(paper,session);
@@ -387,6 +400,8 @@ document.addEventListener('kimmel:day',event=>{
  const next=event.detail?.day||document.body.dataset.day;if(!DATES[next]||next===state.day)return;
  state.day=next;state.session=null;state.paper=null;state.expanded=null;if(state.data)render();
 });
+document.addEventListener('kimmel:mood',requestTimelineLayout);
+document.fonts?.addEventListener('loadingdone',requestTimelineLayout);
 async function load(){
  try{
   const response=await fetch('program-data.json',{cache:'no-cache'});if(!response.ok)throw new Error(`Program request ${response.status}`);
